@@ -10,22 +10,68 @@
   <title>Motivational Ron</title>
 </head>
 <body>
-  <div class="start-page">
+
+  <div class="start-page hide">
     <h1>Welcome!</h1>
     <h2>Which would you like to do?</h2>
     <form>
-    <button type="button" class="ron-quote">Get Ron Swanson quote!</button>
-    </br>
-    <button type="button" class="my-quote">Use my own quote</button>
+      <button type="button" class="ron-quote">Get Ron Swanson quote!</button>
+      </br>
+      <button type="button" class="my-quote">Use my own quote</button>
     </form>
+  </div>
+
+  <div class="quote-generator-page hide">
+    <form>
+      <input type="text" name="ron-quote" value="There's only one thing I hate more than lying: skim milk. Which is water that's lying about being milk."><br>
+      <button type="button" class="ron-quote">Use this quote</button>
+      </br>
+      <button type="button" class="my-quote">New Ron quote</button>  
+    </form>
+  </div>
+
+    <div class="quote-filter-page hide">
+      <form>
+        <input type="text" name="ron-quote" value=""><br>
+        <button type="button" class="ron-quote">Use this quote</button>
+        </br>
+        <button type="button" class="my-quote">Yoda-ize</button>
+        </br>
+        <button type="button" class="my-quote">Pirate-ize</button>
+        </br>
+        <button type="button" class="my-quote">Shakespear-ize</button>  
+        </form>
     </div>
-    <div class="quote-generator-page"></div>
-    <div class="quote-filter-page"></div>
-    <div class="photo-page"></div>
-    <div class="project-results-page"></div>
+
+    <div class="photo-page hide">
+      <form>
+          <img src="https://picsum.photos/id/236/400/400" alt=""><br>
+          <button type="button" class="ron-quote">Use this photo</button>
+          </br>
+          <button type="button" class="my-quote">New photo</button>  
+        </form>
+    </div>
+
+    <div class="project-results-page hide">
+      <form>
+        <img src="https://picsum.photos/id/236/400/400" alt=""><br>
+        
+        <button type="button" class="my-quote">Save design</button>
+        </br>
+        <button type="button" class="my-quote">Put it on a poster</button> 
+        </br>
+        <button type="button" class="my-quote">Put in on a mug</button>
+        <br> 
+        <button type="button" class="ron-quote">Let's start over</button>
+        </br>  
+      </form>
+    </div>
+
+
     <div class="save-design-page"></div>
     <div class="make-poster-page"></div> 
     <div class="make-mug-page"></div>
+    <footer class="hide">About This App</footer>
   <script src="index.js"></script>
 </body>
 </html>
