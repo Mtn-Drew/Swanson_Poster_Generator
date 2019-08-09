@@ -15,6 +15,18 @@ function getRonQuote() {
     })
 }
 
+function getPirateTranslation() {
+  console.log('in getPirateTranslation');
+  fetch('https://api.funtranslations.com/translate/pirate')
+    .then(response => response.json())
+    .then(responseJson => 
+      displayResults(responseJson))
+    .catch(error => {
+      alert('Something went wrong. Try again later.')
+      console.log(error)
+    })
+}
+
 function getPhoto() {
   console.log('in getPhoto');
   fetch('https://picsum.photos/300/200')
@@ -82,6 +94,15 @@ function watchForm() {
     getRonQuote();
   });
 
+  $('#use-my-quote').click(event => {
+    event.preventDefault();
+    console.log('#use-my-quote is clicked');
+    $('.start-page').hide();
+    $('#display-text').show();
+    // set cursor here ******************************************
+    setUpQuoteFilterPage();
+  });
+
   $('#home-get-quote').click(event => {
     event.preventDefault();
     console.log('#home-get-quote is clicked');
@@ -98,6 +119,7 @@ function watchForm() {
   $('#use-this-quote2').click(event => {
     event.preventDefault();
     console.log('#use-this-quote2 is clicked');
+    getPhoto();
     setUpPhotoPage();
   }); 
 
@@ -105,6 +127,12 @@ function watchForm() {
     event.preventDefault();
     console.log('#new-photo is clicked');
     getPhoto();
+  }); 
+
+  $('#pirate-ize').click(event => {
+    event.preventDefault();
+    console.log('#pirate-ize is clicked');
+    getPirateTranslation();
   }); 
 }
 
