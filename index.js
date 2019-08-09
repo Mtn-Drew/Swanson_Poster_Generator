@@ -1,9 +1,7 @@
 
 function startPage() {
   //set up the home page
-
 }
-
 
 function getRonQuote() {
   console.log('in getRonQuote');
@@ -17,40 +15,29 @@ function getRonQuote() {
     })
 }
 
+function getPhoto() {
+  console.log('in getPhoto');
+  fetch('https://picsum.photos/300/200')
+    .then(response => response.blob())
+    .then(responseBlob => 
+      displayNewPhoto(responseBlob))
+    .catch(error => {
+      alert('Something went wrong. Try again later.')
+      console.log(error)
+    })
+}
+
 function displayResults(responseJson) {
   console.log(responseJson);
   //put the quote in the text box
   document.getElementById('display-text').value=responseJson[0];
 }
 
-function watchForm() {
-  console.log('in watchForm');
-  $('#new-ron-quote').click(event => {
-    event.preventDefault();
-    console.log('#new-ron-quote is clicked');
-    getRonQuote();
-  });
-
-  $('#home-get-quote').click(event => {
-    event.preventDefault();
-    console.log('#home-get-quote is clicked');
-    getRonQuote();
-    setUpQuoteGeneratorPage();
-  });
-
-  $('#use-this-quote').click(event => {
-    event.preventDefault();
-    console.log('#use-this-quote is clicked');
-    setUpQuoteFilterPage();
-  }); 
-
-  $('#use-this-quote2').click(event => {
-    event.preventDefault();
-    console.log('#use-this-quote2 is clicked');
-    setUpPhotoPage();
-  }); 
-
-
+function displayNewPhoto(responseBlob) {
+  console.log('in displayNewPhoto')
+  console.log(responseBlob);
+  var imgUrl = URL.createObjectURL(responseBlob);
+  document.getElementById('background-image').src=imgUrl
 }
 
 function setUpQuoteGeneratorPage() {
@@ -87,9 +74,41 @@ function setUpPhotoPage() {
   $('#new-photo').show();
 }
 
+function watchForm() {
+  console.log('in watchForm');
+  $('#new-ron-quote').click(event => {
+    event.preventDefault();
+    console.log('#new-ron-quote is clicked');
+    getRonQuote();
+  });
 
+  $('#home-get-quote').click(event => {
+    event.preventDefault();
+    console.log('#home-get-quote is clicked');
+    getRonQuote();
+    setUpQuoteGeneratorPage();
+  });
+
+  $('#use-this-quote').click(event => {
+    event.preventDefault();
+    console.log('#use-this-quote is clicked');
+    setUpQuoteFilterPage();
+  }); 
+
+  $('#use-this-quote2').click(event => {
+    event.preventDefault();
+    console.log('#use-this-quote2 is clicked');
+    setUpPhotoPage();
+  }); 
+
+  $('#new-photo').click(event => {
+    event.preventDefault();
+    console.log('#new-photo is clicked');
+    getPhoto();
+  }); 
+}
 
 $(function() {
   console.log('App loaded! Waiting for submit!');
   watchForm();
-});
+})
