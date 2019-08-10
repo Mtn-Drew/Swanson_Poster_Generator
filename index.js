@@ -5,6 +5,7 @@ function startPage() {
 
 function getRonQuote() {
   console.log('in getRonQuote');
+  // set textbox to fit entire text ********************************
   fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
     .then(response => response.json())
     .then(responseJson => 
@@ -15,28 +16,44 @@ function getRonQuote() {
     })
 }
 
-function getPirateTranslation() {
+function getPirateTranslation(quote) {
   console.log('in getPirateTranslation');
-  fetch('https://api.funtranslations.com/translate/pirate')
-    .then(response => response.json())
-    .then(responseJson => 
-      displayResults(responseJson))
-    .catch(error => {
-      alert('Something went wrong. Try again later.')
-      console.log(error)
-    })
+  console.log(quote);
+
+  responseJson = {
+    "success": {
+        "total": 1
+    },
+    "contents": {
+        "translated": "Cryin': acceptable at funerals and th' Grand Canyon.",
+        "text": "Crying: acceptable at funerals and the Grand Canyon.",
+        "translation": "pirate"
+    }
+}
+  // fetch(`https://api.funtranslations.com/translate/pirate.json?text=${quote}`)
+  //   .then(response => response.json())
+  //   .then(responseJson => 
+  //     displayResults(responseJson))
+  //   .catch(error => {
+  //     alert('Something went wrong. Try again later.')
+  //     console.log(error)
+  //   })
+
+  document.getElementById('display-text').value=responseJson.contents.translated;
 }
 
 function getPhoto() {
   console.log('in getPhoto');
-  fetch('https://picsum.photos/300/200')
+  fetch('https://picsum.photos/600/400')
+
+
     .then(response => response.blob())
     .then(responseBlob => 
       displayNewPhoto(responseBlob))
     .catch(error => {
       alert('Something went wrong. Try again later.')
       console.log(error)
-    })
+    });
 }
 
 function displayResults(responseJson) {
@@ -49,7 +66,8 @@ function displayNewPhoto(responseBlob) {
   console.log('in displayNewPhoto')
   console.log(responseBlob);
   var imgUrl = URL.createObjectURL(responseBlob);
-  document.getElementById('background-image').src=imgUrl
+  document.getElementById('background-image').src=imgUrl;
+  console.log('The url is '+imgUrl);
 }
 
 function setUpQuoteGeneratorPage() {
@@ -85,6 +103,21 @@ function setUpPhotoPage() {
   $('#use-this-photo').show();
   $('#new-photo').show();
 }
+
+function displayFinalResultsPage() {
+  $('#use-this-photo').hide();
+  $('#new-photo').hide();
+  $('#save-design').show();
+  $('#go-home').show();
+  
+  console.log(document.getElementById('display-text').value);
+  console.log(document.getElementById('final-quote').innerHTML);
+  document.getElementById('final-quote').innerHTML = document.getElementById('display-text').value;
+  $('#final-quote').show();
+  console.log(document.getElementById('background-image').src);
+  // document.getElementsById('display-module').style.background.="url('document.getElementById('background-image').src')";
+}
+
 
 function watchForm() {
   console.log('in watchForm');
@@ -132,7 +165,23 @@ function watchForm() {
   $('#pirate-ize').click(event => {
     event.preventDefault();
     console.log('#pirate-ize is clicked');
-    getPirateTranslation();
+    let quote = document.getElementById('display-text').value;
+    console.log(quote);
+    getPirateTranslation(quote);
+  }); 
+
+  $('#use-this-photo').click(event => {
+    event.preventDefault();
+    console.log('#use-this-photo is clicked');
+    // set up display final results
+    displayFinalResultsPage();
+  }); 
+
+  $('#go-home').click(event => {
+    event.preventDefault();
+    console.log('#go-home is clicked');
+    // set up display final results
+    location.reload();
   }); 
 }
 
