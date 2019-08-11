@@ -107,6 +107,7 @@ function setUpPhotoPage() {
 }
 
 function displayFinalResultsPage() {
+  $('#cycle-quote-background').show();
   $('#use-this-photo').hide();
   $('#new-photo').hide();
   $('#save-design').show();
@@ -119,6 +120,18 @@ function displayFinalResultsPage() {
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   $('#final-quote').show();
   console.log(document.getElementById('background-image').src);
+}
+
+function cycleQuoteBackground() {
+  // document.getElementsByClassName(module)
+
+        // $('#display-module').removeClass('lr');
+        // $('#display-module').addClass('cap');
+        
+        var element = document.getElementById("display-module");
+  element.classList.toggle("top");
+
+
 }
 
 
@@ -195,6 +208,12 @@ function watchForm() {
     event.preventDefault();
     console.log('#go-home is clicked');
     location.reload();
+  }); 
+
+  $('#cycle-quote-background').click(event => {
+    event.preventDefault();
+    console.log('#go-home is clicked');
+    cycleQuoteBackground();
   }); 
 }
 
