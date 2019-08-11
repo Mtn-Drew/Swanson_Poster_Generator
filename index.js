@@ -107,6 +107,8 @@ function setUpPhotoPage() {
   $('#background-image').show();
   $('#use-this-photo').show();
   $('#new-photo').show();
+  $('#grayscale').show();
+  $('#blur').show();
 }
 
 function displayFinalResultsPage() {
@@ -119,6 +121,8 @@ function displayFinalResultsPage() {
   $('#save-design').show();
   $('#go-home').show();
   $('#add-tag-line').show();
+  $('#grayscale').hide();
+  $('#blur').hide();
   
   console.log(document.getElementById('display-text-input').value);
   console.log(document.getElementById('display-text-p').innerHTML);
