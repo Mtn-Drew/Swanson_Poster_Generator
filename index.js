@@ -1,15 +1,9 @@
 let acceptedQuote="";
 
 
-
-function startPage() {
-  //set up the home page
-}
-
 function getRonQuote() {
   console.log('in getRonQuote');
   $('#my-quote-to-submit').hide();
-  
   fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
     .then(response => response.json())
     .then(responseJson => 
@@ -57,8 +51,6 @@ function useMyQuote() {
 function getPhoto() {
   console.log('in getPhoto');
   fetch('https://picsum.photos/600/400')
-
-
     .then(response => response.blob())
     .then(responseBlob => 
       displayNewPhoto(responseBlob))
@@ -79,7 +71,7 @@ function displayResults(responseJson) {
 function displayNewPhoto(responseBlob) {
   console.log('in displayNewPhoto')
   console.log(responseBlob);
-  var imgUrl = URL.createObjectURL(responseBlob);
+  let imgUrl = URL.createObjectURL(responseBlob);
   document.getElementById('background-image').src=imgUrl;
   console.log('The url is '+imgUrl);
 }
@@ -94,16 +86,13 @@ function setUpQuoteGeneratorPage() {
 
 function setUpQuoteFilterPage() {
   console.log('in setUpQuoteFilterPage');
-  
   $('#use-this-quote').hide();
   $('#new-ron-quote').hide();
   $('#use-this-quote2').show();
   $('#yoda-ize').show();
   $('#pirate-ize').show();
   $('#shakespear-ize').show();
-
 }
-
 
 function setUpPhotoPage() {
   console.log('in setUpPhotoPage');
@@ -112,11 +101,9 @@ function setUpPhotoPage() {
   $('#yoda-ize').hide();
   $('#pirate-ize').hide();
   $('#shakespear-ize').hide();
-
   $('#background-image').show();
   $('#use-this-photo').show();
   $('#new-photo').show();
-  
 }
 
 function displayFinalResultsPage() {
@@ -128,15 +115,17 @@ function displayFinalResultsPage() {
   console.log(document.getElementById('display-text-input').value);
   console.log(document.getElementById('display-text-p').innerHTML);
   console.log(document.getElementById('final-quote').innerHTML);
+
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   $('#final-quote').show();
   console.log(document.getElementById('background-image').src);
-  // document.getElementsById('display-module').style.background.="url('document.getElementById('background-image').src')";
 }
 
 
 function watchForm() {
+
   console.log('in watchForm');
+
   $('#new-ron-quote').click(event => {
     event.preventDefault();
     console.log('#new-ron-quote is clicked');
@@ -146,11 +135,9 @@ function watchForm() {
   $('#use-my-quote').click(event => {
     event.preventDefault();
     console.log('#use-my-quote is clicked');
-    // $('.start-page').hide();
     $('#display-text-input').show();
     $('#display-text-input').focus();
     $('#my-quote-to-submit').show();
-     
   });
 
   $('#my-quote-to-submit').click(event => {
@@ -201,14 +188,12 @@ function watchForm() {
   $('#use-this-photo').click(event => {
     event.preventDefault();
     console.log('#use-this-photo is clicked');
-    // set up display final results
     displayFinalResultsPage();
   }); 
 
   $('#go-home').click(event => {
     event.preventDefault();
     console.log('#go-home is clicked');
-    // set up display final results
     location.reload();
   }); 
 }
