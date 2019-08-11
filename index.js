@@ -1,5 +1,5 @@
 let acceptedQuote="";
-
+let imgUrl = ''
 
 function getRonQuote() {
   console.log('in getRonQuote');
@@ -74,7 +74,7 @@ function displayResults(responseJson) {
 function displayNewPhoto(responseBlob) {
   console.log('in displayNewPhoto')
   console.log(responseBlob);
-  let imgUrl = URL.createObjectURL(responseBlob);
+  imgUrl = URL.createObjectURL(responseBlob);
   document.getElementById('background-image').src=imgUrl;
   console.log('The url is '+imgUrl);
 }
@@ -139,9 +139,9 @@ function cycleQuoteBackground() {
         // $('#display-module').removeClass('lr');
         // $('#display-module').addClass('cap');
         
-        var element = document.getElementById("display-module");
-  element.classList.toggle("top");
-
+  //var element = document.getElementById("display-module");
+ // element.classList.toggle("top");
+  $('#quote-container').toggleClass('justify-end')
 }
 
 function defaultFont() {
@@ -160,10 +160,12 @@ function liberalFont() {
 }
 
 function addTagLine() {
-  $('#final-quote')
+ /* $('#final-quote')
     .append(`<br><p class="tag-line">
     -Ron Swanson</p>  `);
-    
+   */
+  $('#tag-line').text('-Ron Swanson') 
+  $('#tag-line').show()
 }
 
 
@@ -201,6 +203,26 @@ function watchForm() {
     getRonQuote();
     setUpQuoteGeneratorPage();
   });
+
+  $('#save-design').on('click', (event) => {
+    event.preventDefault()
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext('2d');
+    var imageObj = new Image();
+    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
+    imageObj.onload = function() {
+      ctx.drawImage(imageObj, 0, 0,window.innerWidth,window.innerHeight);
+      ctx.font = "40pt Calibri";
+      ctx.fillText("My TEXT!", 20, 20); // replace with quote
+    };
+    imageObj.src = imgUrl; 
+    setTimeout(() => {
+      // this code saves to an image
+      var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+      window.location.href=image;
+    }, 1000)
+  })
 
   $('#use-this-quote').click(event => {
     event.preventDefault();
