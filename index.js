@@ -8,7 +8,8 @@ function startPage() {
 
 function getRonQuote() {
   console.log('in getRonQuote');
-  // set textbox to fit entire text ********************************
+  $('#my-quote-to-submit').hide();
+  
   fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
     .then(response => response.json())
     .then(responseJson => 
@@ -42,7 +43,15 @@ function getPirateTranslation(quote) {
   //     console.log(error)
   //   })
 
-  document.getElementById('display-text').value=responseJson.contents.translated;
+  document.getElementById('display-text-p').innerHTML=responseJson.contents.translated;
+}
+
+function useMyQuote() {
+  document.getElementById('display-text-p').innerHTML = document.getElementById('display-text-input').value;
+  $('#display-text-p').show();
+  $('#display-text-input').hide();
+  setUpQuoteFilterPage();
+
 }
 
 function getPhoto() {
@@ -137,9 +146,19 @@ function watchForm() {
   $('#use-my-quote').click(event => {
     event.preventDefault();
     console.log('#use-my-quote is clicked');
-    $('.start-page').hide();
+    // $('.start-page').hide();
     $('#display-text-input').show();
-    // set cursor here ******************************************
+    $('#display-text-input').focus();
+    $('#my-quote-to-submit').show();
+     
+  });
+
+  $('#my-quote-to-submit').click(event => {
+    event.preventDefault();
+    console.log('#home-get-quote is clicked');
+    $('.start-page').hide();
+    $('#my-quote-to-submit').hide();
+    useMyQuote();
     setUpQuoteFilterPage();
   });
 
@@ -174,7 +193,7 @@ function watchForm() {
   $('#pirate-ize').click(event => {
     event.preventDefault();
     console.log('#pirate-ize is clicked');
-    let quote = document.getElementById('display-text').value;
+    let quote = document.getElementById('display-text-p').value;
     console.log(quote);
     getPirateTranslation(quote);
   }); 
