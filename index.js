@@ -64,6 +64,9 @@ function displayResults(responseJson) {
   console.log(responseJson);
   //put the quote in the text box
   document.getElementById('display-text-p').innerHTML=responseJson[0];
+  // $('#display-text-p')
+  //   .append(`<br><p style="font-align:right">
+  //   -Ron Swanson</p>  `);
   $('#display-text-p').show();
   $('#display-text-input').hide();
 }
@@ -115,6 +118,7 @@ function displayFinalResultsPage() {
   $('#new-photo').hide();
   $('#save-design').show();
   $('#go-home').show();
+  $('#add-tag-line').show();
   
   console.log(document.getElementById('display-text-input').value);
   console.log(document.getElementById('display-text-p').innerHTML);
@@ -149,6 +153,13 @@ function manlyFont() {
 function liberalFont() {
   $('#display-module').removeClass('manly-font');
   $('#display-module').addClass('liberal-font');
+}
+
+function addTagLine() {
+  $('#final-quote')
+    .append(`<br><p class="tag-line">
+    -Ron Swanson</p>  `);
+    
 }
 
 
@@ -236,20 +247,26 @@ function watchForm() {
 
   $('#default-font').click(event => {
     event.preventDefault();
-    console.log('#go-home is clicked');
+    console.log('#default-font is clicked');
     defaultFont();
   }); 
 
   $('#manly-font').click(event => {
     event.preventDefault();
-    console.log('#go-home is clicked');
+    console.log('#manly-font is clicked');
     manlyFont();
   }); 
 
   $('#liberal-font').click(event => {
     event.preventDefault();
-    console.log('#go-home is clicked');
+    console.log('#liberal-font is clicked');
     liberalFont();
+  }); 
+
+  $('#add-tag-line').click(event => {
+    event.preventDefault();
+    console.log('#add-tag-line is clicked');
+    addTagLine();
   }); 
 
 }

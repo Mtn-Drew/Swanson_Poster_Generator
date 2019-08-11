@@ -3,10 +3,6 @@ html {
   font-size: 3em;
 }
 
-.default-font {
-  font-family: 'Courier New', Courier, monospace;
-}
-
 .manly-font {
   font-family: 'Staatliches', cursive;
 }
@@ -15,6 +11,7 @@ html {
   font-family: 'Dancing Script', cursive;
 }
 
+
 .hide {
   display:none;
 }
@@ -22,7 +19,7 @@ html {
 .module {
 
   background-size: cover;
-  margin: 10px 0 0 10px;
+  margin: 10px 0 20 10px;
   position: relative;
   float: left;
   border: 1px red solid;
@@ -47,29 +44,13 @@ button {
 #display-text-input {
   border: 1px solid black;
 }
-/* 
-.b-module {
-  background-attachment: fixed;
-  overflow: hidden; 
+
+.final-quote {
+  border: solid green 1px;
+  position: relative;
 }
-.b-module > header {
+p.tag-line {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px 10px;
-  background: inherit;
-  background-attachment: fixed;
+  right: 0px;
+  bottom: 0px;
 }
-.b-module > header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: inherit;
-  background-attachment: fixed;
-  -webkit-filter: blur(12px);
-  filter: blur(12px);
-} */
