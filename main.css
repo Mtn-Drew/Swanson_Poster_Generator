@@ -1,3 +1,20 @@
+html {
+  font-family: Arial, Helvetica, sans-serif
+  font-size: 3em;
+}
+
+.default-font {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.manly-font {
+  font-family: 'Staatliches', cursive;
+}
+
+.liberal-font {
+  font-family: 'Dancing Script', cursive;
+}
+
 .hide {
   display:none;
 }

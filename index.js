@@ -108,6 +108,9 @@ function setUpPhotoPage() {
 
 function displayFinalResultsPage() {
   $('#cycle-quote-background').show();
+  $('#default-font').show();
+  $('#manly-font').show();
+  $('#liberal-font').show();
   $('#use-this-photo').hide();
   $('#new-photo').hide();
   $('#save-design').show();
@@ -131,8 +134,23 @@ function cycleQuoteBackground() {
         var element = document.getElementById("display-module");
   element.classList.toggle("top");
 
-
 }
+
+function defaultFont() {
+  $('#display-module').removeClass('manly-font');
+  $('#display-module').removeClass('liberal-font');
+}
+
+function manlyFont() {
+  $('#display-module').addClass('manly-font');
+  $('#display-module').removeClass('liberal-font');
+}
+
+function liberalFont() {
+  $('#display-module').removeClass('manly-font');
+  $('#display-module').addClass('liberal-font');
+}
+
 
 
 function watchForm() {
@@ -215,6 +233,25 @@ function watchForm() {
     console.log('#go-home is clicked');
     cycleQuoteBackground();
   }); 
+
+  $('#default-font').click(event => {
+    event.preventDefault();
+    console.log('#go-home is clicked');
+    defaultFont();
+  }); 
+
+  $('#manly-font').click(event => {
+    event.preventDefault();
+    console.log('#go-home is clicked');
+    manlyFont();
+  }); 
+
+  $('#liberal-font').click(event => {
+    event.preventDefault();
+    console.log('#go-home is clicked');
+    liberalFont();
+  }); 
+
 }
 
 $(function() {
