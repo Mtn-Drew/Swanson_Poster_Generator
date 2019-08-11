@@ -1,3 +1,6 @@
+let acceptedQuote="";
+
+
 
 function startPage() {
   //set up the home page
@@ -59,7 +62,9 @@ function getPhoto() {
 function displayResults(responseJson) {
   console.log(responseJson);
   //put the quote in the text box
-  document.getElementById('display-text').value=responseJson[0];
+  document.getElementById('display-text-p').innerHTML=responseJson[0];
+  $('#display-text-p').show();
+  $('#display-text-input').hide();
 }
 
 function displayNewPhoto(responseBlob) {
@@ -93,7 +98,7 @@ function setUpQuoteFilterPage() {
 
 function setUpPhotoPage() {
   console.log('in setUpPhotoPage');
-  $('#display-text').hide();
+  $('#display-text-p').hide();
   $('#use-this-quote2').hide();
   $('#yoda-ize').hide();
   $('#pirate-ize').hide();
@@ -102,6 +107,7 @@ function setUpPhotoPage() {
   $('#background-image').show();
   $('#use-this-photo').show();
   $('#new-photo').show();
+  
 }
 
 function displayFinalResultsPage() {
@@ -110,9 +116,10 @@ function displayFinalResultsPage() {
   $('#save-design').show();
   $('#go-home').show();
   
-  console.log(document.getElementById('display-text').value);
+  console.log(document.getElementById('display-text-input').value);
+  console.log(document.getElementById('display-text-p').innerHTML);
   console.log(document.getElementById('final-quote').innerHTML);
-  document.getElementById('final-quote').innerHTML = document.getElementById('display-text').value;
+  document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   $('#final-quote').show();
   console.log(document.getElementById('background-image').src);
   // document.getElementsById('display-module').style.background.="url('document.getElementById('background-image').src')";
@@ -131,7 +138,7 @@ function watchForm() {
     event.preventDefault();
     console.log('#use-my-quote is clicked');
     $('.start-page').hide();
-    $('#display-text').show();
+    $('#display-text-input').show();
     // set cursor here ******************************************
     setUpQuoteFilterPage();
   });
@@ -152,6 +159,8 @@ function watchForm() {
   $('#use-this-quote2').click(event => {
     event.preventDefault();
     console.log('#use-this-quote2 is clicked');
+    acceptedQuote = document.getElementById('display-text-p').innerHTML;
+    console.log('acceptedQuote is '+ acceptedQuote);
     getPhoto();
     setUpPhotoPage();
   }); 
