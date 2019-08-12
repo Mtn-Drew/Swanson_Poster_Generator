@@ -1,5 +1,10 @@
 let acceptedQuote="";
-let imgUrl = ''
+let imgUrl = '';
+let photoURL;
+let photoBaseURL;
+let photoGrayscale = false;
+let photoBlur = false;
+
 
 function getRonQuote() {
   console.log('in getRonQuote');
@@ -14,50 +19,89 @@ function getRonQuote() {
     })
 }
 
-function getPirateTranslation(quote) {
-  console.log('in getPirateTranslation');
-  console.log(quote);
+// function getPirateTranslation(quote) {
+//   console.log('in getPirateTranslation');
+//   console.log(quote);
 
-  responseJson = {
-    "success": {
-        "total": 1
-    },
-    "contents": {
-        "translated": "Cryin': acceptable at funerals and th' Grand Canyon.",
-        "text": "Crying: acceptable at funerals and the Grand Canyon.",
-        "translation": "pirate"
-    }
-}
-  // fetch(`https://api.funtranslations.com/translate/pirate.json?text=${quote}`)
-  //   .then(response => response.json())
-  //   .then(responseJson => 
-  //     displayResults(responseJson))
-  //   .catch(error => {
-  //     alert('Something went wrong. Try again later.')
-  //     console.log(error)
-  //   })
+//   responseJson = {
+//     "success": {
+//         "total": 1
+//     },
+//     "contents": {
+//         "translated": "Cryin': acceptable at funerals and th' Grand Canyon.",
+//         "text": "Crying: acceptable at funerals and the Grand Canyon.",
+//         "translation": "pirate"
+//     }
+// }
+//   // fetch(`https://api.funtranslations.com/translate/pirate.json?text=${quote}`)
+//   //   .then(response => response.json())
+//   //   .then(responseJson => 
+//   //     displayResults(responseJson))
+//   //   .catch(error => {
+//   //     alert('Something went wrong. Try again later.')
+//   //     console.log(error)
+//   //   })
 
-  document.getElementById('display-text-p').innerHTML=responseJson.contents.translated;
-}
+//   document.getElementById('display-text-p').innerHTML=responseJson.contents.translated;
+// }
 
 function useMyQuote() {
   document.getElementById('display-text-p').innerHTML = document.getElementById('display-text-input').value;
   $('#display-text-p').show();
   $('#display-text-input').hide();
-  setUpQuoteFilterPage();
+  // setUpQuoteFilterPage();
+  setUpPhotoPage();
 
 }
 
 function getPhoto() {
   console.log('in getPhoto');
+
+
+
   fetch('https://picsum.photos/600/400')
-    .then(response => response.blob())
+
+    .then(function(response) {
+    console.log('response url is '+response.url);
+    photoBaseURL = response.url; 
+    response.blob()
+
     .then(responseBlob => 
-      displayNewPhoto(responseBlob))
-    .catch(error => {
-      alert('Something went wrong. Try again later.')
-      console.log(error)
-    });
+        displayNewPhoto(responseBlob))
+
+        .catch(error => {
+                alert('Something went wrong. Try again later.')
+                console.log(error)
+              })
+
+
+    // .then(function(myBlob) {
+    //   var objectURL = URL.createObjectURL(myBlob);
+    //   myImage.src = objectURL;
+    // });
+  });
+
+
+
+
+
+//   fetch('https://picsum.photos/600/400')
+
+
+//     .then(response => {
+//       response.blob())
+//     .then(responseBlob => 
+//       displayNewPhoto(responseBlob))
+//     .catch(error => {
+//       alert('Something went wrong. Try again later.')
+//       console.log(error)
+//     }));
+
+  
+//     var pathname = window.location.pathname;
+// console.log('the path is '+pathname);
+
+
 }
 
 function displayResults(responseJson) {
@@ -87,15 +131,15 @@ function setUpQuoteGeneratorPage() {
   $('#new-ron-quote').show();
 }
 
-function setUpQuoteFilterPage() {
-  console.log('in setUpQuoteFilterPage');
-  $('#use-this-quote').hide();
-  $('#new-ron-quote').hide();
-  $('#use-this-quote2').show();
-  $('#yoda-ize').show();
-  $('#pirate-ize').show();
-  $('#shakespear-ize').show();
-}
+// function setUpQuoteFilterPage() {
+//   console.log('in setUpQuoteFilterPage');
+//   $('#use-this-quote').hide();
+//   $('#new-ron-quote').hide();
+//   $('#use-this-quote2').show();
+//   $('#yoda-ize').show();
+//   $('#pirate-ize').show();
+//   $('#shakespear-ize').show();
+// }
 
 function setUpPhotoPage() {
   console.log('in setUpPhotoPage');
@@ -109,6 +153,8 @@ function setUpPhotoPage() {
   $('#new-photo').show();
   $('#grayscale').show();
   $('#blur').show();
+  $('#use-this-quote').hide();
+  $('#new-ron-quote').hide();
 }
 
 function displayFinalResultsPage() {
@@ -168,6 +214,56 @@ function addTagLine() {
   $('#tag-line').show()
 }
 
+function toggleGrayscale() {
+  if (photoGrayscale) {
+    photoGrayscale = false;
+  } else {
+    photoGrayscale = true;
+  };
+
+  reloadPhoto();
+
+}
+
+function toggleBlur() {
+  if (photoBlur) {
+    photoBlur = false;
+  } else {
+    photoBlur = true;
+  };
+
+  reloadPhoto();
+
+}
+
+
+
+function reloadPhoto() {
+  if ((photoGrayscale) && (!photoBlur)) {
+    photoURL = photoBaseURL+'?grayscale'
+    document.getElementById('background-image').src=photoURL;
+    console.log('photoURL is '+photoURL);
+  };
+
+  if ((photoGrayscale) && (photoBlur)) {
+    photoURL = photoBaseURL+'?grayscale&blur=2';
+    document.getElementById('background-image').src=photoURL;
+    console.log('photoURL is '+photoURL);
+  };
+
+  if ((!photoGrayscale) && (!photoBlur)) {
+    photoURL = photoBaseURL
+    document.getElementById('background-image').src=photoURL;
+    console.log('photoURL is '+photoURL);
+  };
+
+  if ((!photoGrayscale) && (photoBlur)) {
+    photoURL = photoBaseURL+'?blur=2';
+    document.getElementById('background-image').src=photoURL;
+    console.log('photoURL is '+photoURL);
+  };
+
+}
 
 
 function watchForm() {
@@ -194,7 +290,7 @@ function watchForm() {
     $('.start-page').hide();
     $('#my-quote-to-submit').hide();
     useMyQuote();
-    setUpQuoteFilterPage();
+    // setUpQuoteFilterPage();
   });
 
   $('#home-get-quote').click(event => {
@@ -227,7 +323,11 @@ function watchForm() {
   $('#use-this-quote').click(event => {
     event.preventDefault();
     console.log('#use-this-quote is clicked');
-    setUpQuoteFilterPage();
+    // setUpQuoteFilterPage();
+    acceptedQuote = document.getElementById('display-text-p').innerHTML;
+    console.log('acceptedQuote is '+ acceptedQuote);
+    getPhoto();
+    setUpPhotoPage();
   }); 
 
   $('#use-this-quote2').click(event => {
@@ -294,6 +394,21 @@ function watchForm() {
     console.log('#add-tag-line is clicked');
     addTagLine();
   }); 
+
+
+  $('#grayscale').click(event=> {
+    event.preventDefault();
+    console.log('grayscale is clicked');
+    //toggle grayscale
+    toggleGrayscale();
+  })
+
+  $('#blur').click(event=> {
+    event.preventDefault();
+    console.log('blur is clicked');
+    //toggle grayscale
+    toggleBlur();
+  })
 
 }
 
