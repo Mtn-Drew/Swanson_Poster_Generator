@@ -320,6 +320,13 @@ function watchForm() {
     }, 1000)
   })
 
+
+
+
+
+
+
+
   $('#use-this-quote').click(event => {
     event.preventDefault();
     console.log('#use-this-quote is clicked');
