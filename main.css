@@ -49,6 +49,10 @@ button {
   border: 1px solid black;
 }
 
+#display-module {
+  width:100%;
+}
+
 .final-quote {
   border: solid green 1px;
   position: relative;
