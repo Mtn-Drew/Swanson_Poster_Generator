@@ -15,6 +15,9 @@ p {
   font-family: 'Dancing Script', cursive;
 }
 
+#display-text-p {
+  border: 1px solid red;
+}
 
 .hide {
   display:none;

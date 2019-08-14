@@ -4,6 +4,8 @@ let photoURL;
 let photoBaseURL;
 let photoGrayscale = false;
 let photoBlur = false;
+let quoteVar ='';
+let fontVar='';
 
 
 function getRonQuote() {
@@ -19,87 +21,30 @@ function getRonQuote() {
     })
 }
 
-// function getPirateTranslation(quote) {
-//   console.log('in getPirateTranslation');
-//   console.log(quote);
-
-//   responseJson = {
-//     "success": {
-//         "total": 1
-//     },
-//     "contents": {
-//         "translated": "Cryin': acceptable at funerals and th' Grand Canyon.",
-//         "text": "Crying: acceptable at funerals and the Grand Canyon.",
-//         "translation": "pirate"
-//     }
-// }
-//   // fetch(`https://api.funtranslations.com/translate/pirate.json?text=${quote}`)
-//   //   .then(response => response.json())
-//   //   .then(responseJson => 
-//   //     displayResults(responseJson))
-//   //   .catch(error => {
-//   //     alert('Something went wrong. Try again later.')
-//   //     console.log(error)
-//   //   })
-
-//   document.getElementById('display-text-p').innerHTML=responseJson.contents.translated;
-// }
-
 function useMyQuote() {
   document.getElementById('display-text-p').innerHTML = document.getElementById('display-text-input').value;
   $('#display-text-p').show();
   $('#display-text-input').hide();
   // setUpQuoteFilterPage();
   setUpPhotoPage();
-
 }
 
 function getPhoto() {
   console.log('in getPhoto');
-
-
-
   fetch('https://picsum.photos/600/400')
-
     .then(function(response) {
     console.log('response url is '+response.url);
     photoBaseURL = response.url; 
     response.blob()
-
     .then(responseBlob => 
         displayNewPhoto(responseBlob))
 
-        .catch(error => {
-                alert('Something went wrong. Try again later.')
-                console.log(error)
-              })
+    .catch(error => {
+      alert('Something went wrong. Try again later.')
+      console.log(error)
+    })
 
-
-    // .then(function(myBlob) {
-    //   var objectURL = URL.createObjectURL(myBlob);
-    //   myImage.src = objectURL;
-    // });
   });
-
-
-
-
-
-//   fetch('https://picsum.photos/600/400')
-
-
-//     .then(response => {
-//       response.blob())
-//     .then(responseBlob => 
-//       displayNewPhoto(responseBlob))
-//     .catch(error => {
-//       alert('Something went wrong. Try again later.')
-//       console.log(error)
-//     }));
-
-  
-//     var pathname = window.location.pathname;
-// console.log('the path is '+pathname);
 
 
 }
@@ -108,9 +53,9 @@ function displayResults(responseJson) {
   console.log(responseJson);
   //put the quote in the text box
   document.getElementById('display-text-p').innerHTML=responseJson[0];
-  // $('#display-text-p')
-  //   .append(`<br><p style="font-align:right">
-  //   -Ron Swanson</p>  `);
+  // save quote for canvas
+  quoteVar=responseJson[0];
+
   $('#display-text-p').show();
   $('#display-text-input').hide();
 }
@@ -131,15 +76,6 @@ function setUpQuoteGeneratorPage() {
   $('#new-ron-quote').show();
 }
 
-// function setUpQuoteFilterPage() {
-//   console.log('in setUpQuoteFilterPage');
-//   $('#use-this-quote').hide();
-//   $('#new-ron-quote').hide();
-//   $('#use-this-quote2').show();
-//   $('#yoda-ize').show();
-//   $('#pirate-ize').show();
-//   $('#shakespear-ize').show();
-// }
 
 function setUpPhotoPage() {
   console.log('in setUpPhotoPage');
@@ -180,36 +116,29 @@ function displayFinalResultsPage() {
 }
 
 function cycleQuoteBackground() {
-  // document.getElementsByClassName(module)
-
-        // $('#display-module').removeClass('lr');
-        // $('#display-module').addClass('cap');
-        
-  //var element = document.getElementById("display-module");
- // element.classList.toggle("top");
   $('#quote-container').toggleClass('justify-end')
 }
 
 function defaultFont() {
   $('#display-module').removeClass('manly-font');
   $('#display-module').removeClass('liberal-font');
+  fontVar='Arial';
 }
 
 function manlyFont() {
   $('#display-module').addClass('manly-font');
   $('#display-module').removeClass('liberal-font');
+  fontVar='Staatliches';
 }
 
 function liberalFont() {
   $('#display-module').removeClass('manly-font');
   $('#display-module').addClass('liberal-font');
+  fontVar = '40 Dancing Script';
 }
 
 function addTagLine() {
- /* $('#final-quote')
-    .append(`<br><p class="tag-line">
-    -Ron Swanson</p>  `);
-   */
+
   $('#tag-line').text('-Ron Swanson') 
   $('#tag-line').show()
 }
@@ -236,31 +165,37 @@ function toggleBlur() {
 
 }
 
-
-
 function reloadPhoto() {
   if ((photoGrayscale) && (!photoBlur)) {
     photoURL = photoBaseURL+'?grayscale'
     document.getElementById('background-image').src=photoURL;
     console.log('photoURL is '+photoURL);
+    // to update save photo
+    imgUrl=photoURL;
   };
 
   if ((photoGrayscale) && (photoBlur)) {
     photoURL = photoBaseURL+'?grayscale&blur=2';
     document.getElementById('background-image').src=photoURL;
     console.log('photoURL is '+photoURL);
+    // to update save photo
+    imgUrl=photoURL;
   };
 
   if ((!photoGrayscale) && (!photoBlur)) {
     photoURL = photoBaseURL
     document.getElementById('background-image').src=photoURL;
     console.log('photoURL is '+photoURL);
+    // to update save photo
+    imgUrl=photoURL;
   };
 
   if ((!photoGrayscale) && (photoBlur)) {
     photoURL = photoBaseURL+'?blur=2';
     document.getElementById('background-image').src=photoURL;
     console.log('photoURL is '+photoURL);
+    // to update save photo
+    imgUrl=photoURL;
   };
 
 }
@@ -309,15 +244,17 @@ function watchForm() {
     ctx.canvas.height = window.innerHeight;
     imageObj.onload = function() {
       ctx.drawImage(imageObj, 0, 0,window.innerWidth,window.innerHeight);
-      ctx.font = "40pt Calibri";
-      ctx.fillText("My TEXT!", 20, 20); // replace with quote
+      // will need conditionals for responsive design and font selection  *************************************************
+      ctx.font = '40px Dancing Script';
+      ctx.fillStyle = "white";
+      ctx.fillText(quoteVar, 50, 40); // replace with quote
     };
     imageObj.src = imgUrl; 
-    setTimeout(() => {
-      // this code saves to an image
-      var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
-      window.location.href=image;
-    }, 1000)
+    // setTimeout(() => {
+    //   // this code saves to an image
+    //   var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+    //   window.location.href=image;
+    // }, 1000)
   })
 
 
@@ -352,13 +289,6 @@ function watchForm() {
     getPhoto();
   }); 
 
-  $('#pirate-ize').click(event => {
-    event.preventDefault();
-    console.log('#pirate-ize is clicked');
-    let quote = document.getElementById('display-text-p').value;
-    console.log(quote);
-    getPirateTranslation(quote);
-  }); 
 
   $('#use-this-photo').click(event => {
     event.preventDefault();
