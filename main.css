@@ -61,6 +61,7 @@ button {
 .final-quote {
   border: solid green 1px;
   position: relative;
+  font-size: 3rem;
 }
 p.tag-line {
   right: 0px;

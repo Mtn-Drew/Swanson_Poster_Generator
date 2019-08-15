@@ -6,6 +6,7 @@ let photoGrayscale = false;
 let photoBlur = false;
 let quoteVar ='';
 let fontVar='';
+let fontSize = 3
 
 
 function getRonQuote() {
@@ -134,7 +135,7 @@ function manlyFont() {
 function liberalFont() {
   $('#display-module').removeClass('manly-font');
   $('#display-module').addClass('liberal-font');
-  fontVar = '40 Dancing Script';
+  fontVar = 'Dancing Script';
 }
 
 function addTagLine() {
@@ -235,19 +236,41 @@ function watchForm() {
     setUpQuoteGeneratorPage();
   });
 
+  $('#increase-font').on('click', event => {
+    event.preventDefault();
+    fontSize += 0.1
+    $('#final-quote').css('font-size', `${fontSize}rem`)
+  })
+
+  $('#decrease-font').on('click', event => {
+    event.preventDefault();
+    fontSize -= 0.1
+    $('#final-quote').css('font-size', `${fontSize}rem`)
+  })
+
   $('#save-design').on('click', (event) => {
     event.preventDefault()
+
+    let containerOffset = $('#display-module').offset().top
+    let textOffset = $('#final-quote').offset().top
+    let offsetDifference = containerOffset - textOffset
+    if (offsetDifference < 0) offsetDifference = offsetDifference * -1
+
+    offsetDifference += 50 //window.innerWidth / 20 
+
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext('2d');
     var imageObj = new Image();
-    ctx.canvas.width = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
+    ctx.canvas.width = $('#display-module').width();
+    ctx.canvas.height = $('#display-module').height();
     imageObj.onload = function() {
-      ctx.drawImage(imageObj, 0, 0,window.innerWidth,window.innerHeight);
+      ctx.drawImage(imageObj, 0, 0,$('#display-module').width(),$('#display-module').height());
       // will need conditionals for responsive design and font selection  *************************************************
-      ctx.font = '40px Dancing Script';
+      ctx.font = `${fontSize}rem ${fontVar}`;
       ctx.fillStyle = "white";
-      ctx.fillText(quoteVar, 50, 40); // replace with quote
+      // fillText(text, x, y, maxWidth)
+    //  ctx.fillText(quoteVar, 0, offsetDifference, $('#display-module').width()); // replace with quote
+      printAt(ctx, quoteVar, 20, offsetDifference, fontSize * 15, $('#display-module').width() - 20)
     };
     imageObj.src = imgUrl; 
     // setTimeout(() => {
@@ -256,6 +279,26 @@ function watchForm() {
     //   window.location.href=image;
     // }, 1000)
   })
+
+function printAt( context , text, x, y, lineHeight, fitWidth) {
+    fitWidth = fitWidth || 0;
+    
+    if (fitWidth <= 0) {
+         context.fillText( text, x, y );
+        return;
+    }
+    
+    for (let idx = 1; idx <= text.length; idx++) {
+        let str = text.substr(0, idx);
+        console.log(str, context.measureText(str).width, fitWidth);
+        if (context.measureText(str).width > fitWidth) {
+            context.fillText( text.substr(0, idx-1), x, y );
+            printAt(context, text.substr(idx-1), x, y + lineHeight, lineHeight,  fitWidth);
+            return;
+        }
+    }
+    context.fillText( text, x, y );
+}
 
 
 
