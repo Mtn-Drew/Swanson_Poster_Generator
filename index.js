@@ -7,6 +7,9 @@ let photoBlur = false;
 let quoteVar ='';
 let fontVar='';
 let fontSize = 3
+let leftMargin = 20;
+let maxTextWidth;
+let yAdjust = 0;
 
 
 function getRonQuote() {
@@ -20,6 +23,7 @@ function getRonQuote() {
       alert('Something went wrong. Try again later.')
       console.log(error)
     })
+    maxTextWidth = $('#display-module').width() - 20;
 }
 
 function useMyQuote() {
@@ -27,12 +31,13 @@ function useMyQuote() {
   $('#display-text-p').show();
   $('#display-text-input').hide();
   // setUpQuoteFilterPage();
+  maxTextWidth = $('#display-module').width() - 20;
   setUpPhotoPage();
 }
 
 function getPhoto() {
   console.log('in getPhoto');
-  fetch('https://picsum.photos/600/400')
+  fetch('https://picsum.photos/1000/800')
     .then(function(response) {
     console.log('response url is '+response.url);
     photoBaseURL = response.url; 
@@ -118,30 +123,35 @@ function displayFinalResultsPage() {
 
 function cycleQuoteBackground() {
   $('#quote-container').toggleClass('justify-end')
+  $('#save-design').click();
 }
 
 function defaultFont() {
   $('#display-module').removeClass('manly-font');
   $('#display-module').removeClass('liberal-font');
   fontVar='Arial';
+  $('#save-design').click();
 }
 
 function manlyFont() {
   $('#display-module').addClass('manly-font');
   $('#display-module').removeClass('liberal-font');
   fontVar='Staatliches';
+  $('#save-design').click();
 }
 
 function liberalFont() {
   $('#display-module').removeClass('manly-font');
   $('#display-module').addClass('liberal-font');
   fontVar = 'Dancing Script';
+  $('#save-design').click();
 }
 
 function addTagLine() {
 
   $('#tag-line').text('-Ron Swanson') 
   $('#tag-line').show()
+  $('#save-design').click();
 }
 
 function toggleGrayscale() {
@@ -152,7 +162,7 @@ function toggleGrayscale() {
   };
 
   reloadPhoto();
-
+  $('#save-design').click();
 }
 
 function toggleBlur() {
@@ -163,7 +173,7 @@ function toggleBlur() {
   };
 
   reloadPhoto();
-
+  $('#save-design').click();
 }
 
 function reloadPhoto() {
@@ -173,6 +183,7 @@ function reloadPhoto() {
     console.log('photoURL is '+photoURL);
     // to update save photo
     imgUrl=photoURL;
+    
   };
 
   if ((photoGrayscale) && (photoBlur)) {
@@ -181,6 +192,7 @@ function reloadPhoto() {
     console.log('photoURL is '+photoURL);
     // to update save photo
     imgUrl=photoURL;
+    
   };
 
   if ((!photoGrayscale) && (!photoBlur)) {
@@ -198,7 +210,7 @@ function reloadPhoto() {
     // to update save photo
     imgUrl=photoURL;
   };
-
+  $('#save-design').click();
 }
 
 
@@ -240,12 +252,63 @@ function watchForm() {
     event.preventDefault();
     fontSize += 0.1
     $('#final-quote').css('font-size', `${fontSize}rem`)
+    $('#save-design').click();
   })
 
   $('#decrease-font').on('click', event => {
     event.preventDefault();
     fontSize -= 0.1
     $('#final-quote').css('font-size', `${fontSize}rem`)
+    $('#save-design').click();
+  })
+
+  $('#text-left').on('click', event => {
+    event.preventDefault();
+    leftMargin-= 10;
+    // maxTextWidth+=10;
+    $('#save-design').click();
+  })
+
+  $('#text-right').on('click', event => {
+    event.preventDefault();
+    leftMargin+= 10;
+    // maxTextWidth-=10;
+    $('#save-design').click();
+  })
+
+  $('#reset-text-width').on('click', event => {
+    event.preventDefault();
+    maxTextWidth = $('#display-module').width() - 20;
+    console.log('reset text width- maxTextWidth is '+maxTextWidth);
+    $('#save-design').click();
+  })
+
+  $('#text-field-narrow').on('click', event => {
+    event.preventDefault();
+    
+    maxTextWidth-=10;
+    $('#save-design').click();
+  })
+
+  $('#text-field-wide').on('click', event => {
+    event.preventDefault();
+    
+    maxTextWidth+=10;
+    $('#save-design').click();
+  })
+
+  $('#text-down').on('click', event => {
+    event.preventDefault();
+    
+    yAdjust+=10;
+    $('#save-design').click();
+  })
+
+  $('#text-up').on('click', event => {
+    event.preventDefault();
+    
+    yAdjust-=10;
+    $('#save-design').click();
   })
 
   $('#save-design').on('click', (event) => {
@@ -257,6 +320,7 @@ function watchForm() {
     if (offsetDifference < 0) offsetDifference = offsetDifference * -1
 
     offsetDifference += 50 //window.innerWidth / 20 
+    offsetDifference += yAdjust;
 
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext('2d');
@@ -269,8 +333,9 @@ function watchForm() {
       ctx.font = `${fontSize}rem ${fontVar}`;
       ctx.fillStyle = "white";
       // fillText(text, x, y, maxWidth)
-    //  ctx.fillText(quoteVar, 0, offsetDifference, $('#display-module').width()); // replace with quote
-      printAt(ctx, quoteVar, 20, offsetDifference, fontSize * 15, $('#display-module').width() - 20)
+      //ctx.fillText(quoteVar, 0, offsetDifference, $('#display-module').width()); // replace with quote
+      printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth)
+      console.log('maxTextWidth is '+ maxTextWidth);
     };
     imageObj.src = imgUrl; 
     // setTimeout(() => {
@@ -347,7 +412,7 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
 
   $('#cycle-quote-background').click(event => {
     event.preventDefault();
-    console.log('#go-home is clicked');
+    console.log('#cycle-quote-background is clicked');
     cycleQuoteBackground();
   }); 
 
