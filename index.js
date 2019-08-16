@@ -37,7 +37,9 @@ function useMyQuote() {
 
 function getPhoto() {
   console.log('in getPhoto');
-  fetch('https://picsum.photos/1000/800')
+  photoGrayscale = false;
+  photoBlur = false;
+  fetch('https://picsum.photos/1600/1200')
     .then(function(response) {
     console.log('response url is '+response.url);
     photoBaseURL = response.url; 
@@ -49,7 +51,7 @@ function getPhoto() {
       alert('Something went wrong. Try again later.')
       console.log(error)
     })
-
+    
   });
 
 
@@ -72,6 +74,7 @@ function displayNewPhoto(responseBlob) {
   imgUrl = URL.createObjectURL(responseBlob);
   document.getElementById('background-image').src=imgUrl;
   console.log('The url is '+imgUrl);
+  $('#save-design').click();
 }
 
 function setUpQuoteGeneratorPage() {
@@ -157,10 +160,11 @@ function addTagLine() {
 function toggleGrayscale() {
   if (photoGrayscale) {
     photoGrayscale = false;
+    console.log('photoGrayscale is false');
   } else {
     photoGrayscale = true;
+    console.log('photoGrayscale is true');
   };
-
   reloadPhoto();
   $('#save-design').click();
 }
@@ -168,10 +172,12 @@ function toggleGrayscale() {
 function toggleBlur() {
   if (photoBlur) {
     photoBlur = false;
+    console.log('photoBlur is false');
   } else {
     photoBlur = true;
+    console.log('photoBlur is true')
   };
-
+  
   reloadPhoto();
   $('#save-design').click();
 }
@@ -355,7 +361,7 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
     
     for (let idx = 1; idx <= text.length; idx++) {
         let str = text.substr(0, idx);
-        console.log(str, context.measureText(str).width, fitWidth);
+        // console.log(str, context.measureText(str).width, fitWidth);
         if (context.measureText(str).width > fitWidth) {
             context.fillText( text.substr(0, idx-1), x, y );
             printAt(context, text.substr(idx-1), x, y + lineHeight, lineHeight,  fitWidth);
