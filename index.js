@@ -24,6 +24,7 @@ function getRonQuote() {
       console.log(error)
     })
     maxTextWidth = $('#display-module').width() - 20;
+    
 }
 
 function useMyQuote() {
@@ -66,6 +67,7 @@ function displayResults(responseJson) {
 
   $('#display-text-p').show();
   $('#display-text-input').hide();
+  $('#save-design').click();
 }
 
 function displayNewPhoto(responseBlob) {
@@ -90,16 +92,14 @@ function setUpPhotoPage() {
   console.log('in setUpPhotoPage');
   $('#display-text-p').hide();
   $('#use-this-quote2').hide();
-  $('#yoda-ize').hide();
-  $('#pirate-ize').hide();
-  $('#shakespear-ize').hide();
+
   $('#background-image').show();
   $('#use-this-photo').show();
   $('#new-photo').show();
   $('#grayscale').show();
   $('#blur').show();
   $('#use-this-quote').hide();
-  $('#new-ron-quote').hide();
+  // $('#new-ron-quote').hide();
 }
 
 function displayFinalResultsPage() {
@@ -108,12 +108,12 @@ function displayFinalResultsPage() {
   $('#manly-font').show();
   $('#liberal-font').show();
   $('#use-this-photo').hide();
-  $('#new-photo').hide();
+  // $('#new-photo').hide();
   $('#save-design').show();
   $('#go-home').show();
   $('#add-tag-line').show();
-  $('#grayscale').hide();
-  $('#blur').hide();
+  // $('#grayscale').hide();
+  // $('#blur').hide();
   
   console.log(document.getElementById('display-text-input').value);
   console.log(document.getElementById('display-text-p').innerHTML);
@@ -122,8 +122,14 @@ function displayFinalResultsPage() {
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   $('#final-quote').show();
   console.log(document.getElementById('background-image').src);
+
+
+  // new
+  $('#default-font').click();
+  $('#display-module').hide();
 }
 
+// rename this function
 function cycleQuoteBackground() {
   $('#quote-container').toggleClass('justify-end')
   $('#save-design').click();
@@ -150,6 +156,7 @@ function liberalFont() {
   $('#save-design').click();
 }
 
+// might remove this -----
 function addTagLine() {
 
   $('#tag-line').text('-Ron Swanson') 
@@ -228,6 +235,7 @@ function watchForm() {
     event.preventDefault();
     console.log('#new-ron-quote is clicked');
     getRonQuote();
+    
   });
 
   $('#use-my-quote').click(event => {
@@ -247,12 +255,32 @@ function watchForm() {
     // setUpQuoteFilterPage();
   });
 
+
+
+
   $('#home-get-quote').click(event => {
     event.preventDefault();
     console.log('#home-get-quote is clicked');
     getRonQuote();
     setUpQuoteGeneratorPage();
   });
+
+
+  // $('#home-get-quote').click(event => {
+  //   event.preventDefault();
+  //   console.log('#home-get-quote is clicked');
+  //   getRonQuote();
+  //   $('#use-this-quote').click();
+  //   $('#use-this-photo').click();
+  //   setUpQuoteGeneratorPage();
+  // });
+
+
+
+
+
+
+
 
   $('#increase-font').on('click', event => {
     event.preventDefault();
@@ -384,6 +412,7 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
     // setUpQuoteFilterPage();
     acceptedQuote = document.getElementById('display-text-p').innerHTML;
     console.log('acceptedQuote is '+ acceptedQuote);
+    $('#myCanvas').hide();
     getPhoto();
     setUpPhotoPage();
   }); 
@@ -407,6 +436,7 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
   $('#use-this-photo').click(event => {
     event.preventDefault();
     console.log('#use-this-photo is clicked');
+    $('#myCanvas').show();
     displayFinalResultsPage();
   }); 
 
