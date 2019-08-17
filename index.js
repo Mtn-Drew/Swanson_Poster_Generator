@@ -28,12 +28,16 @@ function getRonQuote() {
 }
 
 function useMyQuote() {
-  document.getElementById('display-text-p').innerHTML = document.getElementById('display-text-input').value;
+    document.getElementById('display-text-p').innerHTML = document.getElementById('display-text-input').value;
+
+  quoteVar= document.getElementById('display-text-input').value;
   $('#display-text-p').show();
   $('#display-text-input').hide();
   // setUpQuoteFilterPage();
   maxTextWidth = $('#display-module').width() - 20;
+  $('#save-design').click();
   setUpPhotoPage();
+  
 }
 
 function getPhoto() {
