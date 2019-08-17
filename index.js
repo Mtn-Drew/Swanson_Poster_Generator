@@ -6,7 +6,7 @@ let photoGrayscale = false;
 let photoBlur = false;
 let quoteVar ='';
 let fontVar='';
-let fontSize = 3
+let fontSize = 1;
 let leftMargin = 20;
 let maxTextWidth;
 let yAdjust = 0;
@@ -369,6 +369,8 @@ function watchForm() {
     imageObj.onload = function() {
       ctx.drawImage(imageObj, 0, 0,$('#display-module').width(),$('#display-module').height());
       // will need conditionals for responsive design and font selection  *************************************************
+
+      console.log('fontsize is '+fontSize);
       ctx.font = `${fontSize}rem ${fontVar}`;
       ctx.fillStyle = "white";
       // fillText(text, x, y, maxWidth)

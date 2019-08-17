@@ -48,6 +48,7 @@ p {
 
 button {
   margin: 15px 0px;
+  display:inline-block;
 }
 
 #display-text-input {
