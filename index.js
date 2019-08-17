@@ -397,18 +397,26 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
         context.fillText( text, x, y );
         return;
     }
+    
     for (let idx = 1; idx <= text.length; idx++) {
         let str = text.substr(0, idx);
         if (context.measureText(str).width > fitWidth) {  
-            let lastWhiteSpace = text.substr(0, idx-1).lastIndexOf(' ');     
-            let indexCutString = text.substr(0, lastWhiteSpace);
-            context.fillText( indexCutString, x, y );
-            let remainingString = text.substr(lastWhiteSpace).trim();
-            return printAt(context, remainingString, x, y + lineHeight, lineHeight,  fitWidth);
+          let lastWhiteSpace = text.substr(0, idx-1).lastIndexOf(' ');     
+          let indexCutString = text.substr(0, lastWhiteSpace);
+          context.fillText( indexCutString, x, y );
+          let remainingString = text.substr(lastWhiteSpace).trim();
+          return printAt(context, remainingString, x, y + lineHeight, lineHeight,  fitWidth);
         }
     }
     context.fillText( text, x, y );
 }
+
+
+
+
+
+
+
 
   $('#use-this-quote').click(event => {
     event.preventDefault();
