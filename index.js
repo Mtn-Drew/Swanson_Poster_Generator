@@ -55,7 +55,7 @@ function getPhoto() {
     
   });
 
-
+   
 }
 
 function displayResults(responseJson) {
@@ -73,6 +73,11 @@ function displayResults(responseJson) {
 function displayNewPhoto(responseBlob) {
   console.log('in displayNewPhoto')
   console.log(responseBlob);
+  console.log('size is '+responseBlob.size);
+  if (responseBlob.size===0){
+    console.log('blank pic ************************');
+    getPhoto();
+  }
   imgUrl = URL.createObjectURL(responseBlob);
   document.getElementById('background-image').src=imgUrl;
   console.log('The url is '+imgUrl);
