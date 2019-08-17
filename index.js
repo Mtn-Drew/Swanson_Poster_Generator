@@ -27,19 +27,6 @@ function getRonQuote() {
     
 }
 
-function useMyQuote() {
-    document.getElementById('display-text-p').innerHTML = document.getElementById('display-text-input').value;
-
-  quoteVar= document.getElementById('display-text-input').value;
-  $('#display-text-p').show();
-  $('#display-text-input').hide();
-  // setUpQuoteFilterPage();
-  maxTextWidth = $('#display-module').width() - 20;
-  $('#save-design').click();
-  setUpPhotoPage();
-  
-}
-
 function getPhoto() {
   console.log('in getPhoto');
   photoGrayscale = false;
@@ -51,15 +38,11 @@ function getPhoto() {
     response.blob()
     .then(responseBlob => 
         displayNewPhoto(responseBlob))
-
     .catch(error => {
       alert('Something went wrong. Try again later.')
       console.log(error)
     })
-    
   });
-
-   
 }
 
 function displayResults(responseJson) {
@@ -68,7 +51,6 @@ function displayResults(responseJson) {
   document.getElementById('display-text-p').innerHTML=responseJson[0];
   // save quote for canvas
   quoteVar=responseJson[0];
-
   $('#display-text-p').show();
   $('#display-text-input').hide();
   $('#save-design').click();
@@ -96,12 +78,10 @@ function setUpQuoteGeneratorPage() {
   $('#new-ron-quote').show();
 }
 
-
 function setUpPhotoPage() {
   console.log('in setUpPhotoPage');
   $('#display-text-p').hide();
   $('#use-this-quote2').hide();
-
   $('#background-image').show();
   $('#use-this-photo').show();
   $('#new-photo').show();
@@ -124,14 +104,11 @@ function displayFinalResultsPage() {
   // $('#grayscale').hide();
   // $('#blur').hide();
   
-  console.log(document.getElementById('display-text-input').value);
-  console.log(document.getElementById('display-text-p').innerHTML);
-  console.log(document.getElementById('final-quote').innerHTML);
+ 
 
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   $('#final-quote').show();
   console.log(document.getElementById('background-image').src);
-
 
   // new
   $('#default-font').click();
@@ -235,6 +212,9 @@ function reloadPhoto() {
   $('#save-design').click();
 }
 
+function refreshScreen() {
+  $('#save-design').click();
+}
 
 function watchForm() {
 
@@ -273,22 +253,6 @@ function watchForm() {
     getRonQuote();
     setUpQuoteGeneratorPage();
   });
-
-
-  // $('#home-get-quote').click(event => {
-  //   event.preventDefault();
-  //   console.log('#home-get-quote is clicked');
-  //   getRonQuote();
-  //   $('#use-this-quote').click();
-  //   $('#use-this-photo').click();
-  //   setUpQuoteGeneratorPage();
-  // });
-
-
-
-
-
-
 
 
   $('#increase-font').on('click', event => {
@@ -412,12 +376,6 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
 }
 
 
-
-
-
-
-
-
   $('#use-this-quote').click(event => {
     event.preventDefault();
     console.log('#use-this-quote is clicked');
@@ -503,6 +461,7 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
     toggleBlur();
   })
 
+  window.addEventListener("resize", refreshScreen);
 }
 
 $(function() {

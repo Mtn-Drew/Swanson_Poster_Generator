@@ -11,82 +11,67 @@
   <title>Motivational Ron</title>
 </head>
 <body>
-
   <div class="main-container">
+
     <canvas id="myCanvas"></canvas>
+
+    <div class="module bottom" id="display-module">
+      <img src="#" alt="" id="background-image" class="hide responsive"><br>
+      <div id="quote-container">
+        <p class="final-quote" id="final-quote"></p>
+      </div>  
+    </div>
+
     <h1 class="start-page">Welcome!</h1>
-    <h2 class="start-page">Which would you like to do?</h2>
+    <h2 class="start-page">Begin!</h2>
+
     <form>
       <button type="button" class="start-page" id="home-get-quote">Get Ron Swanson quote!</button>
-      </br>
-      <button type="button" class="start-page" id="use-my-quote">Use my own quote</button>
-      <br>
-
-      <input type="text" name="ron-quote" id="display-text-input"  placeholder="Enter your quote here..." class="hide">
-      <br>
-      <button id="my-quote-to-submit" class="hide">
-        Accept my quote
-      </button>
-      <br>
       <p id="display-text-p" class="hide"></p>
-      </br>
       <button type="button" class="hide" id="use-this-quote">Use this quote</button>
-      </br>
       <button type="button" class="hide" id="new-ron-quote">New Ron quote</button>  
-    
-      
-      </br>
-      <button type="button" class="hide" id="use-this-quote2">Use this quote</button>
-      </br>
-
-      <div class="module bottom" id="display-module">
-       
-        <img src="#" alt="" id="background-image" class="hide responsive"><br>
-        <div id="quote-container">
-          <p class="final-quote" id="final-quote"></p>
-          <p class="tag-line" id="tag-line"></p>
-        </div>
-
-      </div>
-      
-
-
       <button type="button" class="hide" id="use-this-photo">Use this photo</button>
-      <button type="button" class="hide" id="grayscale">Grayscale</button>
-      <button type="button" class="hide" id="blur">Blur</button>
-      <button type="button" class="hide" id="new-photo">New photo</button>  
-      </br>  
 
-      <button type="button" class="hide" id="cycle-quote-background">Quote position</button>
-      </br>
-      <button type="button" class="hide" id="default-font">Default Font</button>
-     
-      <button type="button" class="hide" id="manly-font">Libertarian Font</button>
+      <div class="dropdown">
+        <button type="button" class="hide drop-button" id="photo-options">Photo Options</button>
+        <div id="myDropdown" class="dropdown-content"></div>
+          <a href="#" class="hide" id="new-photo">New photo</a> 
+          <a href="#" class="hide" id="grayscale">Grayscale</a>
+          <a href="#" class="hide" id="blur">Blur</a>
+          
+
+      <button type="button" class="hide" id="quote-options">Quote Options</button>
+        <a href="#" class="hide" id="new-ron-quote">New Ron quote</a>
+        <a href="#" class="hide" id="font-white">In White</a>
+        <a href="#" class="hide" id="font-black">In Black</a>
+
       
-      <button type="button" class="hide" id="liberal-font">Hippy Font</button>
+      <button type="button" class="hide" id="font-selection">Font</button>
+        <a href="#" class="hide" id="default-font">Default Font</a>
+        <a href="#" class="hide" id="manly-font">Libertarian Font</a>
+        <a href="#" class="hide" id="liberal-font">Hippy Font</a>
       
 
-      <button type="button" class="hide" id="add-tag-line">Add Tag Line</button>
-      
+      <button type="button" class="hide" id="text-postion">Text postion</button> 
+        <a href="#" class="hide" id="text-down">text down</a>
+        <a href="#" class="hide" id="text-left">Text Left</a>
+        <a href="#" class="hide" id="text-right">Text Right</a> 
+        <a href="#" class="hide" id="text-up">text up</a> 
+        <a href="#" class="hide" id="text-down">text down</a>
+
+
+
+      <button type="button" class="hide" id="text-options">Text Options</button> 
+        <a href="#" class="hide" id="increase-font">Increase Font</a>
+        <a href="#" class="hide" id="decrease-font">Decrease Font</a>
+        <a href="#" class="hide" id="text-field-narrow">Text Field Narrower</a> 
+        <a href="#" class="hide" id="text-field-wide">Text Field Wider</a> 
+        <a href="#" class="hide" id="reset-text-width">Reset Text Width</a>
            
-      <button type="button" class="hide" id="save-design">Refresh</button>
       
-
-      <button type="button" class="hide" id="go-home">Start over</button>
-
-      <button type="button"  id="increase-font">Increase Font</button>
-
-      <button type="button"  id="decrease-font">Decrease Font</button>
-      </br> 
-      <button type="button"  id="text-left">Text Left</button><button type="button"  id="text-right">Text Right</button> 
-      <button type="button"  id="reset-text-width">Reset Text Width</button> 
-
-      <button type="button"  id="text-field-narrow">text field narrower</button> 
-      <button type="button"  id="text-field-wide">text field wider</button> 
-
-      <button type="button"  id="text-up">text up</button> 
-      <button type="button"  id="text-down">text down</button> 
-
+      <button type="button" class="hide" id="other-option">Other</button>
+        <a href="#" class="hide" id="save-design">Refresh</a>
+        <a href="#" class="hide" id="go-home">Start over</a>
 
     </form>
   </div>
