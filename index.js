@@ -77,7 +77,7 @@ function displayResults(responseJson) {
 
 function refreshCanvas() {
 
-  console.log('in saveDesign');
+  console.log('in refreshCanvas');
 
   let containerOffset = $('#display-module').offset().top
   let textOffset = $('#final-quote').offset().top
@@ -108,7 +108,8 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
   //if text will fit on one line, print to canvas
   if (fitWidth <= 0) {
       context.fillText( text, x, y );
-      return;
+      return refreshCanvas();
+      // return;
   }
   //if text is too long for a single line, break it at the last space and rerun function
   for (let idx = 1; idx <= text.length; idx++) {
@@ -476,7 +477,7 @@ function watchForm() {
   })
 
 
-  
+
   window.addEventListener("resize", refreshCanvas);
 }
 
