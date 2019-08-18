@@ -24,7 +24,6 @@ function getRonQuote() {
       console.log(error)
     })
     maxTextWidth = $('#display-module').width() - 20;
-    
 }
 
 function getPhoto() {
@@ -46,13 +45,15 @@ function getPhoto() {
 }
 
 function displayResults(responseJson) {
-  console.log(responseJson);
+  console.log('display results --'+responseJson);
   //put the quote in the text box
   document.getElementById('display-text-p').innerHTML=responseJson[0];
   // save quote for canvas
   quoteVar=responseJson[0];
-  $('#display-text-p').show();
+  $('#display-text-p').hide();
   $('#display-text-input').hide();
+  $('#display-text').show();
+  $('#use-this-quote').click();
   $('#save-design').click();
 }
 
@@ -66,17 +67,21 @@ function displayNewPhoto(responseBlob) {
   }
   imgUrl = URL.createObjectURL(responseBlob);
   document.getElementById('background-image').src=imgUrl;
+  $('#new-ron-quote').hide();
+  $('#home-get-quote').hide();
+  $('.start-page').hide();
+  $('#use-this-photo').click();
   console.log('The url is '+imgUrl);
   $('#save-design').click();
 }
 
-function setUpQuoteGeneratorPage() {
-  console.log('in setUpQuoteGeneratorPage');
-  $('.start-page').hide();
-  $('#display-text').show();
-  $('#use-this-quote').show();
-  $('#new-ron-quote').show();
-}
+// function setUpQuoteGeneratorPage() {
+//   console.log('in setUpQuoteGeneratorPage');
+//   $('.start-page').hide();
+//   $('#display-text').show();
+//   $('#use-this-quote').show();
+//   $('#new-ron-quote').show();
+// }
 
 function setUpPhotoPage() {
   console.log('in setUpPhotoPage');
@@ -113,6 +118,7 @@ function displayFinalResultsPage() {
   // new
   $('#default-font').click();
   $('#display-module').hide();
+  
 }
 
 // rename this function
@@ -142,13 +148,6 @@ function liberalFont() {
   $('#save-design').click();
 }
 
-// might remove this -----
-function addTagLine() {
-
-  $('#tag-line').text('-Ron Swanson') 
-  $('#tag-line').show()
-  $('#save-design').click();
-}
 
 function toggleGrayscale() {
   if (photoGrayscale) {
@@ -170,7 +169,6 @@ function toggleBlur() {
     photoBlur = true;
     console.log('photoBlur is true')
   };
-  
   reloadPhoto();
   $('#save-design').click();
 }
@@ -182,7 +180,6 @@ function reloadPhoto() {
     console.log('photoURL is '+photoURL);
     // to update save photo
     imgUrl=photoURL;
-    
   };
 
   if ((photoGrayscale) && (photoBlur)) {
@@ -191,7 +188,6 @@ function reloadPhoto() {
     console.log('photoURL is '+photoURL);
     // to update save photo
     imgUrl=photoURL;
-    
   };
 
   if ((!photoGrayscale) && (!photoBlur)) {
@@ -224,34 +220,16 @@ function watchForm() {
     event.preventDefault();
     console.log('#new-ron-quote is clicked');
     getRonQuote();
-    
+    $('#use-this-quote').click();
   });
 
-  $('#use-my-quote').click(event => {
-    event.preventDefault();
-    console.log('#use-my-quote is clicked');
-    $('#display-text-input').show();
-    $('#display-text-input').focus();
-    $('#my-quote-to-submit').show();
-  });
-
-  $('#my-quote-to-submit').click(event => {
-    event.preventDefault();
-    console.log('#home-get-quote is clicked');
-    $('.start-page').hide();
-    $('#my-quote-to-submit').hide();
-    useMyQuote();
-    // setUpQuoteFilterPage();
-  });
-
-
-
+  
 
   $('#home-get-quote').click(event => {
     event.preventDefault();
     console.log('#home-get-quote is clicked');
     getRonQuote();
-    setUpQuoteGeneratorPage();
+    // setUpQuoteGeneratorPage();
   });
 
 
@@ -288,6 +266,7 @@ function watchForm() {
     maxTextWidth = $('#display-module').width() - 20;
     console.log('reset text width- maxTextWidth is '+maxTextWidth);
     $('#save-design').click();
+    
   })
 
   $('#text-field-narrow').on('click', event => {
@@ -336,22 +315,14 @@ function watchForm() {
     ctx.canvas.height = $('#display-module').height();
     imageObj.onload = function() {
       ctx.drawImage(imageObj, 0, 0,$('#display-module').width(),$('#display-module').height());
-      // will need conditionals for responsive design and font selection  *************************************************
-
       console.log('fontsize is '+fontSize);
       ctx.font = `${fontSize}rem ${fontVar}`;
       ctx.fillStyle = "white";
-      // fillText(text, x, y, maxWidth)
-      //ctx.fillText(quoteVar, 0, offsetDifference, $('#display-module').width()); // replace with quote
       printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth)
       console.log('maxTextWidth is '+ maxTextWidth);
     };
     imageObj.src = imgUrl; 
-    // setTimeout(() => {
-    //   // this code saves to an image
-    //   var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
-    //   window.location.href=image;
-    // }, 1000)
+       
   })
 
 function printAt( context , text, x, y, lineHeight, fitWidth) {
@@ -373,6 +344,7 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
         }
     }
     context.fillText( text, x, y );
+    
 }
 
 
@@ -426,6 +398,7 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
     event.preventDefault();
     console.log('#default-font is clicked');
     defaultFont();
+    
   }); 
 
   $('#manly-font').click(event => {

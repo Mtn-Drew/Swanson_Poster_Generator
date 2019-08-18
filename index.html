@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +11,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <title>Motivational Ron</title>
 </head>
+
 <body>
   <div class="main-container">
 
     <canvas id="myCanvas"></canvas>
 
     <div class="module bottom" id="display-module">
-      <img src="#" alt="" id="background-image" class="hide responsive"><br>
+      <img src="#" alt="" id="background-image" class="hide responsive">
       <div id="quote-container">
         <p class="final-quote" id="final-quote"></p>
       </div>  
@@ -31,49 +33,108 @@
       <button type="button" class="hide" id="use-this-quote">Use this quote</button>
       <button type="button" class="hide" id="new-ron-quote">New Ron quote</button>  
       <button type="button" class="hide" id="use-this-photo">Use this photo</button>
-
-      <div class="dropdown">
-        <button type="button" class="hide drop-button" id="photo-options">Photo Options</button>
-        <div id="myDropdown" class="dropdown-content"></div>
-          <a href="#" class="hide" id="new-photo">New photo</a> 
-          <a href="#" class="hide" id="grayscale">Grayscale</a>
-          <a href="#" class="hide" id="blur">Blur</a>
-          
-
-      <button type="button" class="hide" id="quote-options">Quote Options</button>
-        <a href="#" class="hide" id="new-ron-quote">New Ron quote</a>
-        <a href="#" class="hide" id="font-white">In White</a>
-        <a href="#" class="hide" id="font-black">In Black</a>
-
-      
-      <button type="button" class="hide" id="font-selection">Font</button>
-        <a href="#" class="hide" id="default-font">Default Font</a>
-        <a href="#" class="hide" id="manly-font">Libertarian Font</a>
-        <a href="#" class="hide" id="liberal-font">Hippy Font</a>
-      
-
-      <button type="button" class="hide" id="text-postion">Text postion</button> 
-        <a href="#" class="hide" id="text-down">text down</a>
-        <a href="#" class="hide" id="text-left">Text Left</a>
-        <a href="#" class="hide" id="text-right">Text Right</a> 
-        <a href="#" class="hide" id="text-up">text up</a> 
-        <a href="#" class="hide" id="text-down">text down</a>
-
-
-
-      <button type="button" class="hide" id="text-options">Text Options</button> 
-        <a href="#" class="hide" id="increase-font">Increase Font</a>
-        <a href="#" class="hide" id="decrease-font">Decrease Font</a>
-        <a href="#" class="hide" id="text-field-narrow">Text Field Narrower</a> 
-        <a href="#" class="hide" id="text-field-wide">Text Field Wider</a> 
-        <a href="#" class="hide" id="reset-text-width">Reset Text Width</a>
-           
-      
-      <button type="button" class="hide" id="other-option">Other</button>
-        <a href="#" class="hide" id="save-design">Refresh</a>
-        <a href="#" class="hide" id="go-home">Start over</a>
-
     </form>
+
+
+    <div class="nav">
+        <input type="checkbox" id="menu"/>
+        <label for="menu" id="nav-icon">Menu</label>
+      <div class="multi-level">
+
+        <div class="item">
+          <input type="checkbox" id="A"/>
+          <img src="images/Arrow.png" class="arrow"><label for="A">Photo Options</label>
+
+          <ul>
+            <li><a href="#" class="hide" id="new-photo">New photo</a></li>
+            <li><a href="#" class="hide" id="grayscale">Grayscale</a></li>
+            <li>
+              <div class="sub-item">
+                <input type="checkbox" id="G"/>
+                <img src="images/Arrow.png" class="arrow"><label for="G">Blur</label>
+                <ul>
+                  <li><a href="#" class="hide" id="blur-light">Light Blur</a></li>
+                  <li><a href="#" class="hide" id="blur-heavy">Heavy Blur</a></li>
+                  <li><a href="#" class="hide" id="blur-none">No Blur</a></li>
+                </ul>
+              </div></li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <input type="checkbox" id="B"/>
+          <img src="images/Arrow.png" class="arrow"><label for="B">Quote Options</label>
+    
+          <ul>
+            <li><a href="#" class="hide" id="change-ron-quote">New Ron quote</a></li>
+            <li><a href="#" class="hide" id="font-white">In White</a></li>
+            <li><a href="#" class="hide" id="font-black">In Black</a></li>
+          </ul>
+        </div>
+        
+        <div class="item">
+          <input type="checkbox" id="C"/>
+          <img src="images/Arrow.png" class="arrow"><label for="C">Font Options</label>
+    
+          <ul>
+              <li><a href="#" class="hide" id="default-font">Default Font</a></li>
+              <li><a href="#" class="hide" id="manly-font">Libertarian Font</a></li>
+              <li><a href="#" class="hide" id="liberal-font">Hippy Font</a></li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <input type="checkbox" id="D"/>
+          <img src="images/Arrow.png" class="arrow"><label for="D">Text Postion</label>
+     
+          <ul>
+            <li><a href="#" class="hide" id="text-left">Text Left</a></li>
+            <li><a href="#" class="hide" id="text-right">Text Right</a></li> 
+            <li>
+              <div class="sub-item">
+                <input type="checkbox" id="H"/>
+                <img src="images/Arrow.png" class="arrow"><label for="H">Text Down</label>
+                <ul>
+                  <li><a href="#" class="hide" id="down-small">Down Small</a></li>
+                  <li><a href="#" class="hide" id="down-heavy">Down Large</a></li>
+                </ul>
+              </div></li>
+             <li>
+              <div class="sub-item">
+                  <input type="checkbox" id="I"/>
+                  <img src="images/Arrow.png" class="arrow"><label for="I">Text Up</label>
+                  <ul>
+                    <li><a href="#" class="hide" id="up-small">Up Small</a></li>
+                    <li><a href="#" class="hide" id="up-heavy">Up Large</a></li>
+                  </ul>
+                </div></li>
+          </ul>
+        </div>
+
+
+        <div class="item">
+            <input type="checkbox" id="E"/>
+            <img src="images/Arrow.png" class="arrow"><label for="E">Text Options</label>
+      
+            <ul>
+              <li><a href="#" class="hide" id="increase-font">Increase Font</a></li>
+              <li><a href="#" class="hide" id="decrease-font">Decrease Font</a></li>
+              <li><a href="#" class="hide" id="text-field-narrow">Text Field Narrower</a></li>
+              <li><a href="#" class="hide" id="text-field-wide">Text Field Wider</a></li> 
+              <li><a href="#" class="hide" id="reset-text-width">Reset Text Width</a></li>
+            </ul>
+        </div>    
+                
+        <div class="item">
+            <input type="checkbox" id="F"/>
+            <img src="images/Arrow.png" class="arrow"><label for="F">Other</label>    
+      
+            <ul>
+              <li><a href="#" class="hide" id="save-design">Refresh</a></li>
+              <li><a href="#" class="hide" id="go-home">Start Over</a></li>
+            </ul>
+        </div>
+    
   </div>
 
 
