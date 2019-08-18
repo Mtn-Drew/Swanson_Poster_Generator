@@ -45,7 +45,7 @@ function getPhoto() {
 }
 
 function displayResults(responseJson) {
-  console.log('display results --'+responseJson);
+  console.log(' in displayResults --'+responseJson);
   //put the quote in the text box
   document.getElementById('display-text-p').innerHTML=responseJson[0];
   // save quote for canvas
@@ -73,6 +73,7 @@ function displayNewPhoto(responseBlob) {
   $('#use-this-photo').click();
   console.log('The url is '+imgUrl);
   $('#save-design').click();
+  $('.nav').show();
 }
 
 // function setUpQuoteGeneratorPage() {
@@ -97,6 +98,7 @@ function setUpPhotoPage() {
 }
 
 function displayFinalResultsPage() {
+  console.log('in displayFinalResultsPage');
   $('#cycle-quote-background').show();
   $('#default-font').show();
   $('#manly-font').show();
@@ -123,11 +125,13 @@ function displayFinalResultsPage() {
 
 // rename this function
 function cycleQuoteBackground() {
+  console.log('in cycleQuoteBackground');
   $('#quote-container').toggleClass('justify-end')
   $('#save-design').click();
 }
 
 function defaultFont() {
+  console.log('in defaultFont');
   $('#display-module').removeClass('manly-font');
   $('#display-module').removeClass('liberal-font');
   fontVar='Arial';
@@ -135,6 +139,7 @@ function defaultFont() {
 }
 
 function manlyFont() {
+  console.log('in manlyFont');
   $('#display-module').addClass('manly-font');
   $('#display-module').removeClass('liberal-font');
   fontVar='Staatliches';
@@ -142,6 +147,7 @@ function manlyFont() {
 }
 
 function liberalFont() {
+  console.log('in liberalFont');
   $('#display-module').removeClass('manly-font');
   $('#display-module').addClass('liberal-font');
   fontVar = 'Dancing Script';
@@ -150,6 +156,7 @@ function liberalFont() {
 
 
 function toggleGrayscale() {
+  console.log('in toggleGrayscale');
   if (photoGrayscale) {
     photoGrayscale = false;
     console.log('photoGrayscale is false');
@@ -161,7 +168,8 @@ function toggleGrayscale() {
   $('#save-design').click();
 }
 
-function toggleBlur() {
+function toggleBlur(idx) {
+  console.log('in toggleBlur');
   if (photoBlur) {
     photoBlur = false;
     console.log('photoBlur is false');
@@ -169,11 +177,12 @@ function toggleBlur() {
     photoBlur = true;
     console.log('photoBlur is true')
   };
-  reloadPhoto();
+  reloadPhoto(idx);
   $('#save-design').click();
 }
 
-function reloadPhoto() {
+function reloadPhoto(idx) {
+  console.log('in reloadPhoto');
   if ((photoGrayscale) && (!photoBlur)) {
     photoURL = photoBaseURL+'?grayscale'
     document.getElementById('background-image').src=photoURL;
@@ -183,7 +192,7 @@ function reloadPhoto() {
   };
 
   if ((photoGrayscale) && (photoBlur)) {
-    photoURL = photoBaseURL+'?grayscale&blur=2';
+    photoURL = photoBaseURL+'?grayscale&blur='+idx;
     document.getElementById('background-image').src=photoURL;
     console.log('photoURL is '+photoURL);
     // to update save photo
@@ -199,7 +208,7 @@ function reloadPhoto() {
   };
 
   if ((!photoGrayscale) && (photoBlur)) {
-    photoURL = photoBaseURL+'?blur=2';
+    photoURL = photoBaseURL+'?blur='+idx;
     document.getElementById('background-image').src=photoURL;
     console.log('photoURL is '+photoURL);
     // to update save photo
@@ -283,22 +292,35 @@ function watchForm() {
     $('#save-design').click();
   })
 
-  $('#text-down').on('click', event => {
+  $('#down-small').on('click', event => {
     event.preventDefault();
-    
-    yAdjust+=10;
+     yAdjust+=10;
     $('#save-design').click();
   })
 
-  $('#text-up').on('click', event => {
+  $('#down-large').on('click', event => {
+    event.preventDefault();
+     yAdjust+=30;
+    $('#save-design').click();
+  })
+
+  $('#up-small').on('click', event => {
     event.preventDefault();
     
     yAdjust-=10;
     $('#save-design').click();
   })
 
+  $('#up-large').on('click', event => {
+    event.preventDefault();
+    
+    yAdjust-=30;
+    $('#save-design').click();
+  })
+
   $('#save-design').on('click', (event) => {
     event.preventDefault()
+    console.log('in save-design');
 
     let containerOffset = $('#display-module').offset().top
     let textOffset = $('#final-quote').offset().top
@@ -427,12 +449,157 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
     toggleGrayscale();
   })
 
-  $('#blur').click(event=> {
+  $('#blur-light').click(event=> {
     event.preventDefault();
-    console.log('blur is clicked');
+    console.log('blur-light is clicked');
     //toggle grayscale
-    toggleBlur();
+    toggleBlur(3);
   })
+  
+  $('#blur-heavy').click(event=> {
+    event.preventDefault();
+    console.log('blur-heavy is clicked');
+    //toggle grayscale
+    toggleBlur(6);
+  })
+
+  $('#nav-icon').click(event=> {
+    // event.preventDefault();
+    console.log('nav-cion is clicked');
+    // toggle hide
+    // let menuBar = document.querySelector('.multi-level');
+    // console.log('.multi-level display is set to '+menuBar.style.display);
+    // if (menuBar.style.display !== 'block') {
+    //   menuBar.style.display = 'block';
+    //   } else {
+    //     menuBar.style.display = 'none';
+    //   }
+
+    $('.multi-level').toggle();
+  })
+
+  $('#A').click(event=> {
+    // toggle hide
+
+    // $('#blur').toggle();
+
+    $('#photo-options-ul').toggle();
+
+    
+    $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#B').click(event=> {
+    // toggle hide
+
+    // $('#blur').toggle();
+
+    $('#quote-options-ul').toggle();
+
+    $('#photo-options-bar').toggle();
+    // $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#C').click(event=> {
+    // toggle hide
+
+    // $('#blur').toggle();
+
+    $('#font-options-ul').toggle();
+
+    $('#photo-options-bar').toggle();
+    $('#quote-options-bar').toggle();
+    // $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#D').click(event=> {
+    // toggle hide
+
+    // $('#blur').toggle();
+
+    $('#text-position-ul').toggle();
+
+    $('#photo-options-bar').toggle();
+    $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    // $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#E').click(event=> {
+    // toggle hide
+
+    // $('#blur').toggle();
+
+    $('#text-options-ul').toggle();
+
+    $('#photo-options-bar').toggle();
+    $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    // $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#F').click(event=> {
+    // toggle hide
+
+    // $('#blur').toggle();
+
+    $('#other-ul').toggle();
+
+    $('#photo-options-bar').toggle();
+    $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+    // $('#other-bar').toggle();
+  })
+
+  $('#G').click(event=> {
+    $('#blur-ul').toggle();
+
+    $('#new-photo').toggle();
+    $('#grayscale').toggle();
+    
+  })
+
+  $('#H').click(event=> {
+
+    $('#text-down-ul').toggle();
+
+    $('#text-up').toggle();
+    $('#text-right').toggle();
+    $('#text-left').toggle();
+
+  })
+
+  $('#I').click(event=> {
+
+    $('#text-up-ul').toggle();
+
+    $('#text-down').toggle();
+    $('#text-right').toggle();
+    $('#text-left').toggle();
+
+  })
+    
+
+
+  // $('#I').click(event=> {
+
 
   window.addEventListener("resize", refreshScreen);
 }
