@@ -21,6 +21,14 @@ p {
   font-family: 'Dancing Script', cursive;
 }
 
+.black-font {
+  color: black;
+}
+
+.white-font {
+  color:white;
+}
+
 #display-text-p {
   border: 1px solid red;
 }

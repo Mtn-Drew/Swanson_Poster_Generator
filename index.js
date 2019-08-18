@@ -10,6 +10,7 @@ let fontSize = 1;
 let leftMargin = 20;
 let maxTextWidth;
 let yAdjust = 0;
+let canvasTextColor="white";
 
 
 function getRonQuote() {
@@ -19,6 +20,25 @@ function getRonQuote() {
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
+    .catch(error => {
+      alert('Something went wrong. Try again later.')
+      console.log(error)
+    })
+    maxTextWidth = $('#display-module').width() - 20;
+}
+
+function newRonQuote() {
+  console.log('in newRonQuote');
+  // $('#my-quote-to-submit').hide();
+  fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
+    .then(response => response.json())
+    .then(responseJson => {
+      document.getElementById('display-text-p').innerHTML=responseJson[0];
+      // save quote for canvas
+      quoteVar=responseJson[0];
+      $('#save-design').click();
+    })
+      
     .catch(error => {
       alert('Something went wrong. Try again later.')
       console.log(error)
@@ -232,6 +252,11 @@ function watchForm() {
     $('#use-this-quote').click();
   });
 
+  $('#change-ron-quote').click(event => {
+    newRonQuote();
+    acceptedQuote = document.getElementById('display-text-p').innerHTML;
+    console.log('acceptedQuote is '+ acceptedQuote);
+  })
   
 
   $('#home-get-quote').click(event => {
@@ -339,7 +364,7 @@ function watchForm() {
       ctx.drawImage(imageObj, 0, 0,$('#display-module').width(),$('#display-module').height());
       console.log('fontsize is '+fontSize);
       ctx.font = `${fontSize}rem ${fontVar}`;
-      ctx.fillStyle = "white";
+      ctx.fillStyle = canvasTextColor;
       printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth)
       console.log('maxTextWidth is '+ maxTextWidth);
     };
@@ -595,11 +620,17 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
     $('#text-left').toggle();
 
   })
+
+  $('#font-white').click(event=> {
+    canvasTextColor="white";
+    $('#save-design').click();
+  })
+
+  $('#font-black').click(event=> {
+    canvasTextColor="black";
+    $('#save-design').click();
+  })
     
-
-
-  // $('#I').click(event=> {
-
 
   window.addEventListener("resize", refreshScreen);
 }
