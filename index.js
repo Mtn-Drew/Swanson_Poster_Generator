@@ -349,6 +349,13 @@ function watchForm() {
     location.reload();
   }); 
 
+  $('#default-font').click(event => {
+
+    console.log('#manly-font is clicked');
+    
+    defaultFont();
+  })
+
   $('#manly-font').click(event => {
 
     console.log('#manly-font is clicked');
@@ -437,7 +444,7 @@ function watchForm() {
     $('#other-bar').toggle();
   })
 
-  $('#F').click(event=> {
+  $('#cb-other').click(event=> {
     $('#other-ul').toggle();
     $('#photo-options-bar').toggle();
     $('#quote-options-bar').toggle();

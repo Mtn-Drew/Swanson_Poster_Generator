@@ -173,3 +173,11 @@ label {
   font-weight: 100;
   border: 1px solid black;
 }
+
+
+
+@media (max-width:720px) {
+  #photo-options-bar {
+    display: inline;
+  }
+}
