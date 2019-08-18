@@ -99,7 +99,7 @@ p.tag-line {
   justify-content: flex-end;
 }
 
-.multi-level, .item ul, .nav input[type="checkbox"] {
+.multi-level, .item ul, .menu-bar input[type="checkbox"] {
   display: none;
 }
 
@@ -133,7 +133,7 @@ label {
   z-index: 3;
   position: relative;
 }
-.nav {
+.menu-bar {
   width: 100%;
   background-color: blueviolet;
   overflow-x: hidden;
@@ -148,7 +148,7 @@ label {
   background-color: #F44336;
 }
 
-.nav ul, .nav li, label {
+.menu-bar ul, .menu-bar li, label {
   line-height: 40px;
   margin: 0;
   /* padding: 0 2em; */
@@ -163,7 +163,7 @@ label {
   /* padding: 0 0.25em; */
   /* text-align: end; */
 }
-.nav li a {
+.menu-bar li a {
   line-height: 30px;
   margin: 0;
   padding: 0 4em;
