@@ -90,6 +90,7 @@ function refreshCanvas() {
   let imageObj = new Image();
   ctx.canvas.width = $('#display-module').width();
   ctx.canvas.height = $('#display-module').height();
+  console.log('display-module height is '+ctx.canvas.height);
   imageObj.onload = function() {
     ctx.drawImage(imageObj, 0, 0,$('#display-module').width(),$('#display-module').height());
     ctx.font = `${fontSize}rem ${fontVar}`;
@@ -352,7 +353,7 @@ function watchForm() {
   $('#default-font').click(event => {
 
     console.log('#manly-font is clicked');
-    
+
     defaultFont();
   })
 
