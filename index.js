@@ -26,6 +26,20 @@ function getRonQuote() {
       console.log(error)
     })
     maxTextWidth = $('#display-module').width() - 20;
+    // initialize menu js
+    $("#cb-photo-options").prop("checked", false);
+    $("#cb-quote-options").prop("checked", false);
+    $("#cb-font-options").prop("checked", false);
+    $("#cb-text-position").prop("checked", false);
+    $("#cb-text-options").prop("checked", false);
+    $("#cb-blur").prop("checked", false);
+    $("#cb-text-down").prop("checked", false);
+    $("#cb-text-up").prop("checked", false);
+    $("#font-white").prop("checked", false);
+    $("#font-black").prop("checked", false);
+    $("#cb-other").prop("checked", false);
+    $(".multi-level").prop("checked", false);
+    
 }
 
 function newRonQuote() {
@@ -392,10 +406,10 @@ function watchForm() {
     toggleBlur(6);
   })
 
-  //Menu bar --------------------
+  //Menu bar -------------------------------------------//
   $('#nav-icon').click(event=> {
   
-    console.log('nav-cion is clicked');
+    console.log('nav-icon is clicked');
   
     $('.multi-level').toggle();
   })
@@ -483,7 +497,7 @@ function watchForm() {
     canvasTextColor="black";
     refreshCanvas();
   })
-
+/* Menu-------------------------------------*/
 
 
   window.addEventListener("resize", refreshCanvas);
