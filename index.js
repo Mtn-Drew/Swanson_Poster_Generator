@@ -26,37 +26,17 @@ function getRonQuote() {
       console.log(error)
     })
     maxTextWidth = $('#display-module').width() - 20;
-    // initialize menu js
-    $("#cb-photo-options").prop("checked", false);
-    $("#cb-quote-options").prop("checked", false);
-    $("#cb-font-options").prop("checked", false);
-    $("#cb-text-position").prop("checked", false);
-    $("#cb-text-options").prop("checked", false);
-    $("#cb-blur").prop("checked", false);
-    $("#cb-text-down").prop("checked", false);
-    $("#cb-text-up").prop("checked", false);
-    $("#font-white").prop("checked", false);
-    $("#font-black").prop("checked", false);
-    $("#cb-other").prop("checked", false);
-    $(".multi-level").prop("checked", false);
-    
+     
 }
 
-function newRonQuote() {
+function displayResults(responseJson) {
 
-  console.log('in newRonQuote');
-  
-  fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
-    .then(response => response.json())
-    .then(responseJson => {
-      quoteVar=responseJson[0];
-      refreshCanvas();
-    })      
-    .catch(error => {
-      alert('Something went wrong. Try again later.')
-      console.log(error)
-    })
-  maxTextWidth = $('#display-module').width() - 20;
+  console.log(' in displayResults --'+responseJson);
+
+  quoteVar=responseJson[0];
+  getPhoto();
+  $('#background-image').show();
+  refreshCanvas();
 }
 
 function getPhoto() {
@@ -79,20 +59,62 @@ function getPhoto() {
   });
 }
 
-function displayResults(responseJson) {
+function displayNewPhoto(responseBlob) {
 
-  console.log(' in displayResults --'+responseJson);
+  console.log('in displayNewPhoto')
 
-  quoteVar=responseJson[0];
-  getPhoto();
-  $('#background-image').show();
+  //if returned image is blank, call for new image
+  if (responseBlob.size===0){ 
+    getPhoto();
+  }
+  imgUrl = URL.createObjectURL(responseBlob);
+  document.getElementById('background-image').src=imgUrl;
+  $('.start-page').hide();
+  $('#myCanvas').show();
+  displayFinalResultsPage();
   refreshCanvas();
+  
+  $('.menu-bar').show();
+  
 }
+
+function displayFinalResultsPage() {
+
+  console.log('in displayFinalResultsPage');
+
+  document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
+  defaultFont();
+  $('#display-module').hide();
+  }
+
+
+
+function newRonQuote() {
+
+  console.log('in newRonQuote');
+  
+  fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
+    .then(response => response.json())
+    .then(responseJson => {
+      quoteVar=responseJson[0];
+      refreshCanvas();
+    })      
+    .catch(error => {
+      alert('Something went wrong. Try again later.')
+      console.log(error)
+    })
+  maxTextWidth = $('#display-module').width() - 20;
+}
+
+
+
+
 
 function refreshCanvas() {
 
   console.log('in refreshCanvas');
 
+  
   let containerOffset = $('#display-module').offset().top
   let textOffset = $('#final-quote').offset().top
   let offsetDifference = containerOffset - textOffset
@@ -111,10 +133,11 @@ function refreshCanvas() {
     ctx.fillStyle = canvasTextColor;
     printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth)
   };
+  
   imageObj.src = imgUrl; 
 }
 
-function printAt( context , text, x, y, lineHeight, fitWidth) {
+function printAt(context , text, x, y, lineHeight, fitWidth) {
 
   console.log('in printAt');
 
@@ -124,7 +147,6 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
   if (fitWidth <= 0) {
       context.fillText( text, x, y );
       return refreshCanvas();
-      // return;
   }
   //if text is too long for a single line, break it at the last space and rerun function
   for (let idx = 1; idx <= text.length; idx++) {
@@ -140,22 +162,7 @@ function printAt( context , text, x, y, lineHeight, fitWidth) {
   context.fillText( text, x, y );
 }
 
-function displayNewPhoto(responseBlob) {
 
-  console.log('in displayNewPhoto')
-
-  //if returned image is blank, call for new image
-  if (responseBlob.size===0){ 
-    getPhoto();
-  }
-  imgUrl = URL.createObjectURL(responseBlob);
-  document.getElementById('background-image').src=imgUrl;
-  $('.start-page').hide();
-  $('#myCanvas').show();
-  displayFinalResultsPage();
-  refreshCanvas();
-  $('.menu-bar').show();
-}
 
 function displayFinalResultsPage() {
 
@@ -406,88 +413,6 @@ function watchForm() {
     toggleBlur(6);
   })
 
-  //Menu bar -------------------------------------------//
-  $('#nav-icon').click(event=> {
-  
-    console.log('nav-icon is clicked');
-  
-    $('.multi-level').toggle();
-  })
-
-  $('#cb-photo-options').click(event=> {
-    $('#photo-options-ul').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('#cb-quote-options').click(event=> {
-    $('#quote-options-ul').toggle();
-    $('#photo-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('#cb-font-options').click(event=> {
-    $('#font-options-ul').toggle();
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('#cb-text-position').click(event=> {
-    $('#text-position-ul').toggle();
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('#cb-text-options').click(event=> {
-    $('#text-options-ul').toggle();
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('#cb-other').click(event=> {
-    $('#other-ul').toggle();
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-  })
-
-  $('#cb-blur').click(event=> {
-    $('#blur-ul').toggle();
-    $('#new-photo').toggle();
-    $('#grayscale').toggle();
-  })
-
-  $('#cb-text-down').click(event=> {
-    $('#text-down-ul').toggle();
-    $('#text-up').toggle();
-    $('#text-right').toggle();
-    $('#text-left').toggle();
-  })
-
-  $('#cb-text-up').click(event=> {
-    $('#text-up-ul').toggle();
-    $('#text-down').toggle();
-    $('#text-right').toggle();
-    $('#text-left').toggle();
-  })
-
   $('#font-white').click(event=> {
     canvasTextColor="white";
     refreshCanvas();
@@ -497,10 +422,95 @@ function watchForm() {
     canvasTextColor="black";
     refreshCanvas();
   })
+
+
+  //Menu bar -------------------------------------------//
+
+  $('#cb-photo-options').click(event=> {
+
+  
+    $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#cb-quote-options').click(event=> {
+  
+    $('#photo-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#cb-font-options').click(event=> {
+  
+    $('#photo-options-bar').toggle();
+    $('#quote-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#cb-text-position').click(event=> {
+  
+    $('#photo-options-bar').toggle();
+    $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-options-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#cb-text-options').click(event=> {
+  
+    $('#photo-options-bar').toggle();
+    $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#other-bar').toggle();
+  })
+
+  $('#cb-other').click(event=> {
+  
+    $('#photo-options-bar').toggle();
+    $('#quote-options-bar').toggle();
+    $('#font-options-bar').toggle();
+    $('#text-position-bar').toggle();
+    $('#text-options-bar').toggle();
+  })
+
+  $('#cb-blur').click(event=> {
+  
+    $('#new-photo').toggle();
+    $('#grayscale').toggle();
+  })
+
+  $('#cb-text-down').click(event=> {
+  
+    $('#text-up').toggle();
+    $('#text-right').toggle();
+    $('#text-left').toggle();
+  })
+
+  $('#cb-text-up').click(event=> {
+  
+    $('#text-down').toggle();
+    $('#text-right').toggle();
+    $('#text-left').toggle();
+  })
+
+
 /* Menu-------------------------------------*/
 
 
-  window.addEventListener("resize", refreshCanvas);
+  window.addEventListener("resize", refreshCanvas1);
+}
+
+function refreshCanvas1() {
+  fontSize= $('#display-module').width()/300;
+  refreshCanvas();
 }
 
 $(function() {

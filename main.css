@@ -51,10 +51,10 @@ p {
   border: 1px red solid;
 }
 
-.bottom p {
+/* .bottom p {
   color: white;
   margin: 0;
-}
+} */
 
 .top p {
   top: 20px;
@@ -177,88 +177,26 @@ label {
   border: 1px solid black;
 }
 
-/* .arrow {
-  display:none;
-} */
 
 @media (min-width:720px) {
-  
-  
-  .multi-level, .item ul, .menu-bar input[type="checkbox"] {
-    display: none;
-  }
-  
-  #menu:checked ~ .multi-level, .item input:checked ~ ul {
-    display: block;
-  }
-  
-   .arrow {
-    width: 12px;
-    height: 12px;
-    vertical-align: middle;
-    float: left;
-    z-index: 0;
-    margin: 17px 1em 0 2em;
-  }
-  
-  
-  .item input + .arrow {
-    transform: rotate(-90deg);
-    transition: 0.1s;
-  }
-  .item input:checked + .arrow {
-    transform: rotate(0deg);
-    transition: 0.1s;
-  }
-  
-  label:hover {
-    cursor: pointer;
-  }
-  label {
-    width: 100%;
-    display: block;
-    z-index: 3;
-    position: relative;
-  }
-  
-  .menu-bar {
-   
-    background-color: blueviolet;
-    overflow-x: hidden;
+
+  /* #small-bar {
+    display:none;
+  } */
     
-  }
-  
-  #nav-icon {
-    font-size: 28px;
-    line-height: 50px;
-    padding-left: 1em;
-  
-    background-color: #F44336;
-  } 
-  
-  
-  .menu-bar ul, .menu-bar li, label {
-    line-height: 40px;
-    margin: 0;
-    
-    list-style: none;
-    text-decoration: none;
-    
-    font-weight: 100;
-    width: 100%;
-    border: 1px solid black;
-  }
-  
-  
-  .menu-bar li a {
-    line-height: 30px;
-    margin: 0;
-    padding: 0 4em;
-    list-style: none;
-    text-decoration: none;
-    /* color: #90A4AE; */
-    font-weight: 100;
-    border: 1px solid black;
-  }
-  
-} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
