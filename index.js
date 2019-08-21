@@ -426,80 +426,95 @@ function watchForm() {
 
   //Menu bar -------------------------------------------//
 
-  $('#cb-photo-options').click(event=> {
-
-  
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
+  $('nav div').click(function() {
+    $('ul').slideToggle();
+    $('ul ul').css('display','none');
   })
 
-  $('#cb-quote-options').click(event=> {
-  
-    $('#photo-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
+  $('ul li').click(function() {
+    // $('ul ul').slideUp();
+    // $(this).find('ul').slideToggle();
+    // $(this).siblings().css('background-color', 'green');
+    $(this).find('ul').toggle();
+    $(this).siblings().toggle();
+    $(this).css('display', 'block');
   })
 
-  $('#cb-font-options').click(event=> {
-  
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
 
-  $('#cb-text-position').click(event=> {
-  
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
+  // $('#cb-photo-options').click(event=> {
 
-  $('#cb-text-options').click(event=> {
   
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#other-bar').toggle();
-  })
+  //   $('#quote-options-bar').toggle();
+  //   $('#font-options-bar').toggle();
+  //   $('#text-position-bar').toggle();
+  //   $('#text-options-bar').toggle();
+  //   $('#other-bar').toggle();
+  // })
 
-  $('#cb-other').click(event=> {
+  // $('#cb-quote-options').click(event=> {
   
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-  })
+  //   $('#photo-options-bar').toggle();
+  //   $('#font-options-bar').toggle();
+  //   $('#text-position-bar').toggle();
+  //   $('#text-options-bar').toggle();
+  //   $('#other-bar').toggle();
+  // })
 
-  $('#cb-blur').click(event=> {
+  // $('#cb-font-options').click(event=> {
   
-    $('#new-photo').toggle();
-    $('#grayscale').toggle();
-  })
+  //   $('#photo-options-bar').toggle();
+  //   $('#quote-options-bar').toggle();
+  //   $('#text-position-bar').toggle();
+  //   $('#text-options-bar').toggle();
+  //   $('#other-bar').toggle();
+  // })
 
-  $('#cb-text-down').click(event=> {
+  // $('#cb-text-position').click(event=> {
   
-    $('#text-up').toggle();
-    $('#text-right').toggle();
-    $('#text-left').toggle();
-  })
+  //   $('#photo-options-bar').toggle();
+  //   $('#quote-options-bar').toggle();
+  //   $('#font-options-bar').toggle();
+  //   $('#text-options-bar').toggle();
+  //   $('#other-bar').toggle();
+  // })
 
-  $('#cb-text-up').click(event=> {
+  // $('#cb-text-options').click(event=> {
   
-    $('#text-down').toggle();
-    $('#text-right').toggle();
-    $('#text-left').toggle();
-  })
+  //   $('#photo-options-bar').toggle();
+  //   $('#quote-options-bar').toggle();
+  //   $('#font-options-bar').toggle();
+  //   $('#text-position-bar').toggle();
+  //   $('#other-bar').toggle();
+  // })
+
+  // $('#cb-other').click(event=> {
+  
+  //   $('#photo-options-bar').toggle();
+  //   $('#quote-options-bar').toggle();
+  //   $('#font-options-bar').toggle();
+  //   $('#text-position-bar').toggle();
+  //   $('#text-options-bar').toggle();
+  // })
+
+  // $('#cb-blur').click(event=> {
+  
+  //   $('#new-photo').toggle();
+  //   $('#grayscale').toggle();
+  // })
+
+  // $('#cb-text-down').click(event=> {
+  
+  //   $('#text-up').toggle();
+  //   $('#text-right').toggle();
+  //   $('#text-left').toggle();
+  // })
+
+  // $('#cb-text-up').click(event=> {
+  
+  //   $('#text-down').toggle();
+  //   $('#text-right').toggle();
+  //   $('#text-left').toggle();
+  // })
 
 
 /* Menu-------------------------------------*/

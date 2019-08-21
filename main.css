@@ -7,11 +7,14 @@ html {
   box-sizing: border-box;
 }
 
-p {
-  padding:10px;
-  
+body {
+  margin:0;
+  padding:0;
 }
 
+p {
+  padding:10px;
+}
 
 .manly-font {
   font-family: 'Staatliches', cursive;
@@ -78,6 +81,7 @@ button {
   position: relative;
   font-size: 3rem;
 }
+
 p.tag-line {
   right: 0px;
   bottom: 0px;
@@ -85,6 +89,7 @@ p.tag-line {
   width: 100%;
   text-align: end;
 }
+
 #quote-container {
   position: absolute; 
   height: 100%;
@@ -101,7 +106,7 @@ p.tag-line {
 
 
 /* Menu ------------------------------------------- */
-.multi-level, .item ul, .menu-bar input[type="checkbox"] {
+/* .multi-level, .item ul, .menu-bar input[type="checkbox"] {
   display: none;
 }
 
@@ -175,28 +180,84 @@ label {
   text-decoration: none;
   font-weight: 100;
   border: 1px solid black;
+} */
+
+
+
+/* New Menu ------------------------------------------| */
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background: #e3e3e3;
+  position: relative;
+}
+
+ul li {
+  display: inline-block;
+}
+
+ul li a {
+  color: #292929;
+  text-decoration: none;
+  padding: 15px;
+  display: block;
+  
+ }
+
+ul li:hover {
+  background:red;
+}
+
+ul ul {
+  position: absolute;
+  min-width: 200px;
+  background: blue;
+  display: none;
+}
+
+ul ul li {
+  display:block;
+  background: #e3e3e3;
+  }
+
+ul li:hover ul {
+  display:block;
+}
+
+nav div {
+  background: lightgray;
+  color: #292929;
+  font-size: 24px;
+  padding: 0.6em;
+  cursor:pointer;
+  display:none;
 }
 
 
-@media (min-width:720px) {
 
-  /* #small-bar {
-    display:none;
-  } */
+
+@media (max-width:720px) {
+
+  nav div {
+    display:block;
+  }
     
+  ul {
+    display: none;
+    position: static;
+    background: #e3e3e3;
+  }
 
+  ul li {
+    display: block;
+  
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
+  ul ul {
+    position:static;
+    background: #e3e3e3;
+  }
 
 }
