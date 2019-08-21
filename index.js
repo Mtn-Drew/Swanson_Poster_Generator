@@ -36,6 +36,7 @@ function displayResults(responseJson) {
   quoteVar=responseJson[0];
   getPhoto();
   $('#background-image').show();
+  $('nav').show;
   refreshCanvas();
 }
 
