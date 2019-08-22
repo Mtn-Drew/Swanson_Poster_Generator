@@ -11,7 +11,9 @@ p {
   padding:10px;
   
 }
-
+.main-container {
+  padding-top: 55px;
+}
 
 .manly-font {
   font-family: 'Staatliches', cursive;
@@ -139,10 +141,13 @@ label {
 }
 
 .menu-bar {
- 
   background-color: blueviolet;
   overflow-x: hidden;
-  
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  left: 0;
+  right: 0;
 }
 
 #nav-icon {
@@ -157,10 +162,8 @@ label {
 .menu-bar ul, .menu-bar li, label {
   line-height: 40px;
   margin: 0;
-  
   list-style: none;
   text-decoration: none;
-  
   font-weight: 100;
   width: 100%;
   border: 1px solid black;
@@ -177,17 +180,20 @@ label {
   border: 1px solid black;
 }
 
-
+@media (max-width:720px) {
+  #large-bar {
+    display: none !important;
+  }
+  #small-bar {
+    display: flex !important;
+    flex-flow: column;
+  }
+}
 @media (min-width:720px) {
-
-
-
-
-
-
-
-
-
-
-
+  #small-bar {
+    display: none !important;
+  }
+  #large-bar {
+    display: flex !important;
+  }
 }

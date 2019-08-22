@@ -74,8 +74,8 @@ function displayNewPhoto(responseBlob) {
   displayFinalResultsPage();
   refreshCanvas();
   
-  $('.menu-bar').show();
-  
+  //$('.menu-bar').show();
+  $('.main-container').append(barHtml)
 }
 
 function displayFinalResultsPage() {
@@ -426,9 +426,7 @@ function watchForm() {
 
   //Menu bar -------------------------------------------//
 
-  $('#cb-photo-options').click(event=> {
-
-  
+  $('.main-container').on('click', '#cb-photo-options', event=> {
     $('#quote-options-bar').toggle();
     $('#font-options-bar').toggle();
     $('#text-position-bar').toggle();
@@ -436,8 +434,7 @@ function watchForm() {
     $('#other-bar').toggle();
   })
 
-  $('#cb-quote-options').click(event=> {
-  
+  $('.main-container').on('click', '#cb-quote-options', event=> {
     $('#photo-options-bar').toggle();
     $('#font-options-bar').toggle();
     $('#text-position-bar').toggle();
@@ -501,7 +498,7 @@ function watchForm() {
     $('#text-left').toggle();
   })
 
-
+  
 /* Menu-------------------------------------*/
 
 
@@ -517,3 +514,112 @@ $(function() {
   console.log('App loaded! Waiting for submit!');
   watchForm();
 })
+
+
+const barHtml = `
+<div id="large-bar" class="menu-bar hide">
+  <p> LAAAARTTGGGEEE </p>
+</div>
+
+<div id="small-bar" class="menu-bar hide">
+
+    <input type="checkbox" id="menu"/>
+    <label for="menu" id="nav-icon">&#9776; Menu</label>
+
+  <div class="multi-level">
+
+    <div class="item" id="photo-options-bar">
+      <input type="checkbox" id="cb-photo-options"/>
+      <img src="images/Arrow.png" class="arrow small-menu"><label for="cb-photo-options">Photo Options</label>
+
+      <ul id="photo-options-ul">
+        <li><a href="#"  id="new-photo">New photo</a></li>
+        <li><a href="#"  id="grayscale">Grayscale</a></li>
+        <li>
+            <div class="sub-item" id="blur">
+              <input type="checkbox" id="cb-blur"/>
+              <img src="images/Arrow.png" class="arrow"><label for="cb-blur">Blur</label>
+
+              <ul id="blur-ul">
+                <li><a href="#"  id="blur-light">Light Blur</a></li>
+                <li><a href="#"  id="blur-heavy">Heavy Blur</a></li>
+              </ul>
+            </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="item" id="quote-options-bar">
+      <input type="checkbox" id="cb-quote-options"/>
+      <img src="images/Arrow.png" class="arrow small-menu"><label for="cb-quote-options">Quote Options</label>
+
+      <ul id="quote-options-ul">
+        <li><a href="#"  id="change-ron-quote">New Ron quote</a></li>
+        <li><a href="#"  id="font-white">In White</a></li>
+        <li><a href="#"  id="font-black">In Black</a></li>
+      </ul>
+    </div>
+    
+    <div class="item" id="font-options-bar">
+      <input type="checkbox" id="cb-font-options"/>
+      <img src="images/Arrow.png" class="arrow small-menu"><label for="cb-font-options">Font Options</label>
+
+      <ul id="font-options-ul">
+        <li><a href="#"  id="default-font">Default Font</a></li>
+        <li><a href="#"  id="manly-font">Libertarian Font</a></li>
+        <li><a href="#"  id="liberal-font">Hippy Font</a></li>
+      </ul>
+    </div>
+
+    <div class="item" id="text-position-bar">
+      <input type="checkbox" id="cb-text-position"/>
+      <img src="images/Arrow.png" class="arrow small-menu"><label for="cb-text-position">Text Postion</label>
+ 
+      <ul id="text-position-ul">
+        <li><a href="#"  id="text-left">Text Left</a></li>
+        <li><a href="#"  id="text-right">Text Right</a></li> 
+        <li>
+          <div class="sub-item" id="text-down">
+            <input type="checkbox" id="cb-text-down"/>
+            <img src="images/Arrow.png" class="arrow"><label for="cb-text-down">Text Down</label>
+            <ul id="text-down-ul">
+              <li><a href="#"  id="down-small">Down Small</a></li>
+              <li><a href="#"  id="down-large">Down Large</a></li>
+            </ul>
+          </div></li>
+         <li>
+          <div class="sub-item" id="text-up">
+              <input type="checkbox" id="cb-text-up"/>
+              <img src="images/Arrow.png" class="arrow"><label for="cb-text-up">Text Up</label>
+              <ul id="text-up-ul">
+                <li><a href="#"  id="up-small">Up Small</a></li>
+                <li><a href="#"  id="up-large">Up Large</a></li>
+              </ul>
+            </div></li>
+      </ul>
+    </div>
+
+    <div class="item" id="text-options-bar">
+      <input type="checkbox" id="cb-text-options"/>
+      <img src="images/Arrow.png" class="arrow small-menu"><label for="cb-text-options">Text Options</label>
+
+      <ul id="text-options-ul">
+        <li><a href="#"  id="increase-font">Increase Font</a></li>
+        <li><a href="#"  id="decrease-font">Decrease Font</a></li>
+        <li><a href="#"  id="text-field-narrow">Text Field Narrower</a></li>
+        <li><a href="#"  id="text-field-wide">Text Field Wider</a></li> 
+        <li><a href="#"  id="reset-text-width">Reset Text Width</a></li>
+      </ul>
+    </div>    
+            
+    <div class="item" id="other-bar">
+      <input type="checkbox" id="cb-other"/>
+      <img src="images/Arrow.png" class="arrow small-menu"><label for="cb-other">Other</label>    
+
+      <ul id="other-ul">
+        <li><a href="#"  id="save-design">Refresh</a></li>
+        <li><a href="#"  id="go-home">Start Over</a></li>
+      </ul>
+    </div>
+  </div>
+</div>`
