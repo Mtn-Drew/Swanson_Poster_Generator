@@ -185,7 +185,7 @@ function defaultFont() {
   console.log('in defaultFont');
   $('#display-module').removeClass('manly-font');
   $('#display-module').removeClass('liberal-font');
-  fontVar='Arial';
+  fontVar='Special Elite';
   refreshCanvas();
 }
 
