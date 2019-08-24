@@ -7,8 +7,24 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  background-image: url('images/42925.jpg');
+  background-size:cover;
+}
+
+canvas {
+  display: flex;
+  justify-content: center;
+  margin:auto;
+}
+
 p {
   padding:10px;
+  color: white;
+ }
+
+ h1, h2 {
+   color:white;
  }
 
 .manly-font {
@@ -83,6 +99,10 @@ p.tag-line {
 
 .justify-end {
   justify-content: flex-end;
+}
+
+.item {
+  background-color: black;
 }
 
 
