@@ -26,7 +26,7 @@ function getRonQuote() {
       console.log(error)
     })
     maxTextWidth = $('#display-module').width() - 20;
-     
+    // window.addEventListener("resize", refreshCanvas1); 
 }
 
 function displayResults(responseJson) {
@@ -45,7 +45,7 @@ function getPhoto() {
 
   photoGrayscale = false;
   photoBlur = false;
-  fetch('https://picsum.photos/1600/1200')
+  fetch('https://picsum.photos/1200/1200')
     .then(function(response) {
       photoBaseURL = response.url; 
       response.blob()
@@ -72,10 +72,10 @@ function displayNewPhoto(responseBlob) {
   $('.start-page').hide();
   $('#myCanvas').show();
   displayFinalResultsPage();
-  refreshCanvas();
   
+    
   $('.menu-bar').show();
-  
+  refreshCanvas();
 }
 
 function displayFinalResultsPage() {
@@ -127,6 +127,8 @@ function refreshCanvas() {
   ctx.canvas.width = $('#display-module').width();
   ctx.canvas.height = $('#display-module').height();
   console.log('display-module height is '+ctx.canvas.height);
+// limit total size of poster
+  
   imageObj.onload = function() {
     ctx.drawImage(imageObj, 0, 0,$('#display-module').width(),$('#display-module').height());
     ctx.font = `${fontSize}rem ${fontVar}`;
@@ -275,78 +277,78 @@ function watchForm() {
   });
 
   
-  $('#change-ron-quote').click(event => {
+  $('.change-ron-quote').click(event => {
     newRonQuote();
     acceptedQuote = document.getElementById('display-text-p').innerHTML;
     console.log('acceptedQuote is '+ acceptedQuote);
   })
   
-  $('#increase-font').on('click', event => {
+  $('.increase-font').on('click', event => {
     fontSize += 0.1
     $('#final-quote').css('font-size', `${fontSize}rem`)
     refreshCanvas();
   })
 
-  $('#decrease-font').on('click', event => {
+  $('.decrease-font').on('click', event => {
     fontSize -= 0.1
     $('#final-quote').css('font-size', `${fontSize}rem`)
     refreshCanvas();
   })
 
-  $('#text-left').on('click', event => {
+  $('.text-left').on('click', event => {
     leftMargin-= 10;
     refreshCanvas();
   })
 
-  $('#text-right').on('click', event => {
+  $('.text-right').on('click', event => {
     leftMargin+= 10;
     refreshCanvas();
   })
 
-  $('#reset-text-width').on('click', event => {
+  $('.reset-text-width').on('click', event => {
     maxTextWidth = $('#display-module').width() - 20;
     console.log('reset text width- maxTextWidth is '+maxTextWidth);
     refreshCanvas();
   })
 
-  $('#text-field-narrow').on('click', event => {
+  $('.text-field-narrow').on('click', event => {
     maxTextWidth-=10;
     refreshCanvas();
   })
 
-  $('#text-field-wide').on('click', event => {
+  $('.text-field-wide').on('click', event => {
     maxTextWidth+=10;
     refreshCanvas();
   })
 
-  $('#down-small').on('click', event => {
+  $('.down-small').on('click', event => {
     yAdjust+=10;
     refreshCanvas();
   })
 
-  $('#down-large').on('click', event => {
+  $('.down-large').on('click', event => {
      yAdjust+=30;
      refreshCanvas();
   })
 
-  $('#up-small').on('click', event => {
+  $('.up-small').on('click', event => {
     yAdjust-=10;
     refreshCanvas();
   })
 
-  $('#up-large').on('click', event => {
+  $('.up-large').on('click', event => {
     yAdjust-=30;
     refreshCanvas();
   })
 
-  $('#save-design').on('click', (event) => {
+  $('.save-design').on('click', (event) => {
 
     console.log('#save-design is clicked');
 
     refreshCanvas();
   })
 
-  $('#use-this-quote').click(event => {
+  $('.use-this-quote').click(event => {
 
     console.log('#use-this-quote is clicked');
 
@@ -356,7 +358,7 @@ function watchForm() {
   }); 
 
   
-  $('#new-photo').click(event => {
+  $('.new-photo').click(event => {
 
     console.log('#new-photo is clicked');
 
@@ -364,61 +366,61 @@ function watchForm() {
   }); 
 
 
-  $('#go-home').click(event => {
+  $('.go-home').click(event => {
 
     console.log('#go-home is clicked');
 
     location.reload();
   }); 
 
-  $('#default-font').click(event => {
+  $('.default-font').click(event => {
 
     console.log('#manly-font is clicked');
 
     defaultFont();
   })
 
-  $('#manly-font').click(event => {
+  $('.manly-font').click(event => {
 
     console.log('#manly-font is clicked');
 
     manlyFont();
   }); 
 
-  $('#liberal-font').click(event => {
+  $('.liberal-font').click(event => {
 
     console.log('#liberal-font is clicked');
 
     liberalFont();
   }); 
 
-  $('#grayscale').click(event=> {
+  $('.grayscale').click(event=> {
 
     console.log('grayscale is clicked');
 
     toggleGrayscale();
   })
 
-  $('#blur-light').click(event=> {
+  $('.blur-light').click(event=> {
 
     console.log('blur-light is clicked');
 
     toggleBlur(3);
   })
   
-  $('#blur-heavy').click(event=> {
+  $('.blur-heavy').click(event=> {
 
     console.log('blur-heavy is clicked');
 
     toggleBlur(6);
   })
 
-  $('#font-white').click(event=> {
+  $('.font-white').click(event=> {
     canvasTextColor="white";
     refreshCanvas();
   })
 
-  $('#font-black').click(event=> {
+  $('.font-black').click(event=> {
     canvasTextColor="black";
     refreshCanvas();
   })
@@ -506,7 +508,8 @@ function watchForm() {
 
 
   window.addEventListener("resize", refreshCanvas1);
-}
+  
+  }
 
 function refreshCanvas1() {
   fontSize= $('#display-module').width()/300;
