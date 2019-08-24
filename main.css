@@ -60,6 +60,7 @@ button {
 
 #display-module {
   width:100%;
+  max-width: 1000px;
 }
 
 .final-quote {
@@ -153,21 +154,25 @@ label {
   border: 1px solid black;
 }
 
-@media (max-width:720px) {
+@media (max-width:724px) {
   #large-bar {
     display: none
   }
   #small-bar {
-    display: flex 
+    display: flex; 
     flex-flow: column;
   }
 }
-@media (min-width:720px) {
+@media (min-width:724px) {
   #small-bar {
-    display: none !important;
+    display: none;
   }
   #large-bar {
     display: flex;
+    width:100%;
+    max-width: 1000px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
   }
 
   #nav-icon {
@@ -226,3 +231,4 @@ label {
   }
   
 }
+

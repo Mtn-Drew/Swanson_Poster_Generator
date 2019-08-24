@@ -137,6 +137,7 @@ function refreshCanvas() {
   };
   
   imageObj.src = imgUrl; 
+  // getElementById('large-bar').width=getElementById('display-module').width;
 }
 
 function printAt(context , text, x, y, lineHeight, fitWidth) {
