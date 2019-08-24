@@ -436,6 +436,10 @@ function watchForm() {
 
 
   //Small Menu bar -------------------------------------------//
+  $('.main-container').on('click', '#nav-icon', event => {
+    $('.item').toggle();
+  })
+
 
   $('.main-container').on('click', '#cb-photo-options', event=> {
 
@@ -492,7 +496,9 @@ function watchForm() {
     $('#text-options-bar').toggle();
   })
 
-
+  $('.main-container').on('click', '.save-pic', event => {
+    save2();
+  })
 /* Menu-------------------------------------*/
 
 
@@ -503,6 +509,17 @@ function watchForm() {
 function refreshCanvas1() {
   fontSize= $('#display-module').width()/300;
   refreshCanvas();
+}
+
+function save2() {
+  window.open(myCanvas.toDataURL('image/png'));
+  var gh = myCanvas.toDataURL('png');
+
+  var a  = document.createElement('a');
+  a.href = gh;
+  a.download = 'image.png';
+
+  a.click()
 }
 
 $(function() {
@@ -581,9 +598,10 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
             
   <div class="item" id="other-bar">
     <input type="checkbox" id="cb-other"/>
-    <label for="cb-other">Other</label>    
+    <label for="cb-other">Save</label>    
 
       <ul id="other-ul">
+        <li><a href="#" class="save-pic">Save Image</a></li>
         <li><a href="#"  id="save-design" class="save-design">Refresh</a></li>
         <li><a href="#"  id="go-home" class="go-home">Start Over</a></li>
       </ul>
@@ -646,9 +664,10 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
             <a href="#"  id="l-reset-text-width" class="reset-text-width">Reset Text Width</a>
           </div></li>
      
-      <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Other</a>
+      <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Save</a>
   
             <div id="l-other-ul" class="dropdown-content">
+            <a href="#" class="save-pic">Save Image</a>
             <a href="#"  id="l-save-design" class="save-design">Refresh</a>
             <a href="#"  id="l-go-home" class="go-home">Start Over</a>
             </div></li>
