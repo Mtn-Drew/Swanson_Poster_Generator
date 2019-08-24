@@ -11,6 +11,7 @@ let leftMargin = 20;
 let maxTextWidth;
 let yAdjust = 0;
 let canvasTextColor="white";
+let firstRun = true;
 
 
 function getRonQuote() {
@@ -75,7 +76,10 @@ function displayNewPhoto(responseBlob) {
   
     
   // $('.menu-bar').show();
-  $('.main-container').append(barHTML);
+  if (firstRun) { 
+    $('.main-container').append(barHTML);
+  };
+  firstRun=false;
   refreshCanvas();
 }
 
@@ -279,71 +283,71 @@ function watchForm() {
   });
 
   
-  $('.change-ron-quote').click(event => {
+  $('.main-container').on('click', '.change-ron-quote', event => {
     newRonQuote();
     acceptedQuote = document.getElementById('display-text-p').innerHTML;
     console.log('acceptedQuote is '+ acceptedQuote);
   })
   
-  $('.increase-font').on('click', event => {
+  $('.main-container').on('click', '.increase-font', event => {
     fontSize += 0.1
     $('#final-quote').css('font-size', `${fontSize}rem`)
     refreshCanvas();
   })
 
-  $('.decrease-font').on('click', event => {
+  $('.main-container').on('click', '.decrease-font', event => {
     fontSize -= 0.1
     $('#final-quote').css('font-size', `${fontSize}rem`)
     refreshCanvas();
   })
 
-  $('.text-left').on('click', event => {
+  $('.main-container').on('click', '.text-left', event => {
     leftMargin-= 10;
     refreshCanvas();
   })
 
-  $('.text-right').on('click', event => {
+  $('.main-container').on('click', '.text-right', event => {
     leftMargin+= 10;
     refreshCanvas();
   })
 
-  $('.reset-text-width').on('click', event => {
+  $('.main-container').on('click', '.reset-text-width', event => {
     maxTextWidth = $('#display-module').width() - 20;
     console.log('reset text width- maxTextWidth is '+maxTextWidth);
     refreshCanvas();
   })
 
-  $('.text-field-narrow').on('click', event => {
+  $('.main-container').on('click', '.text-field-narrow', event => {
     maxTextWidth-=10;
     refreshCanvas();
   })
 
-  $('.text-field-wide').on('click', event => {
+  $('.main-container').on('click', '.text-field-wide', event => {
     maxTextWidth+=10;
     refreshCanvas();
   })
 
-  $('.down-small').on('click', event => {
+  $('.main-container').on('click', '.down-small', event => {
     yAdjust+=10;
     refreshCanvas();
   })
 
-  $('.down-large').on('click', event => {
-     yAdjust+=30;
+  $('.main-container').on('click', '.down-large', event => {
+     yAdjust+=50;
      refreshCanvas();
   })
 
-  $('.up-small').on('click', event => {
+  $('.main-container').on('click', '.up-small', event => {
     yAdjust-=10;
     refreshCanvas();
   })
 
-  $('.up-large').on('click', event => {
-    yAdjust-=30;
+  $('.main-container').on('click', '.up-large', event => {
+    yAdjust-=50;
     refreshCanvas();
   })
 
-  $('.save-design').on('click', (event) => {
+  $('.main-container').on('click', '.save-design', event => {
 
     console.log('#save-design is clicked');
 
@@ -360,77 +364,80 @@ function watchForm() {
   }); 
 
   
-  $('.new-photo').click(event => {
-
+  // $('.new-photo').click(event => {
+  $('.main-container').on("click",".new-photo", event => {
     console.log('#new-photo is clicked');
-
     getPhoto();
-  }); 
+  });
+  //   console.log('#new-photo is clicked');
+
+  //   getPhoto();
+  // }); 
 
 
-  $('.go-home').click(event => {
+  $('.main-container').on('click', '.go-home', event => {
 
     console.log('#go-home is clicked');
 
     location.reload();
   }); 
 
-  $('.default-font').click(event => {
+  $('.main-container').on('click', '.default-font', event => {
 
     console.log('#manly-font is clicked');
 
     defaultFont();
   })
 
-  $('.manly-font').click(event => {
+  $('.main-container').on('click', '.manly-font', event => {
 
     console.log('#manly-font is clicked');
 
     manlyFont();
   }); 
 
-  $('.liberal-font').click(event => {
+  $('.main-container').on('click', '.liberal-font', event => {
 
     console.log('#liberal-font is clicked');
 
     liberalFont();
   }); 
 
-  $('.grayscale').click(event=> {
+  $('.main-container').on('click', '.grayscale', event=> {
 
     console.log('grayscale is clicked');
 
     toggleGrayscale();
   })
 
-  $('.blur-light').click(event=> {
+  $('.main-container').on('click', '.blur-light', event=> {
 
     console.log('blur-light is clicked');
 
     toggleBlur(3);
   })
   
-  $('.blur-heavy').click(event=> {
+  $('.main-container').on('click', '.blur-heavy', event=> {
 
     console.log('blur-heavy is clicked');
 
     toggleBlur(6);
   })
 
-  $('.font-white').click(event=> {
+  $('.main-container').on('click', '.font-white', event=> {
     canvasTextColor="white";
     refreshCanvas();
   })
 
-  $('.font-black').click(event=> {
+  $('.main-container').on('click', '.font-black', event=> {
     canvasTextColor="black";
     refreshCanvas();
   })
 
 
-  //Menu bar -------------------------------------------//
+  //Small Menu bar -------------------------------------------//
 
-  $('#cb-photo-options').click(event=> {
+  $('.main-container').on('click', '#cb-photo-options', event=> {
 
   
     $('#quote-options-bar').toggle();
@@ -440,7 +447,7 @@ function watchForm() {
     $('#other-bar').toggle();
   })
 
-  $('#cb-quote-options').click(event=> {
+  $('.main-container').on('click', '#cb-quote-options', event=> {
   
     $('#photo-options-bar').toggle();
     $('#font-options-bar').toggle();
@@ -449,7 +456,7 @@ function watchForm() {
     $('#other-bar').toggle();
   })
 
-  $('#cb-font-options').click(event=> {
+  $('.main-container').on('click', '#cb-font-options', event=> {
   
     $('#photo-options-bar').toggle();
     $('#quote-options-bar').toggle();
@@ -458,7 +465,7 @@ function watchForm() {
     $('#other-bar').toggle();
   })
 
-  $('#cb-text-position').click(event=> {
+  $('.main-container').on('click', '#cb-text-position', event=> {
   
     $('#photo-options-bar').toggle();
     $('#quote-options-bar').toggle();
@@ -467,7 +474,7 @@ function watchForm() {
     $('#other-bar').toggle();
   })
 
-  $('#cb-text-options').click(event=> {
+  $('.main-container').on('click', '#cb-text-options', event=> {
   
     $('#photo-options-bar').toggle();
     $('#quote-options-bar').toggle();
@@ -476,33 +483,13 @@ function watchForm() {
     $('#other-bar').toggle();
   })
 
-  $('#cb-other').click(event=> {
+  $('.main-container').on('click', '#cb-other', event=> {
   
     $('#photo-options-bar').toggle();
     $('#quote-options-bar').toggle();
     $('#font-options-bar').toggle();
     $('#text-position-bar').toggle();
     $('#text-options-bar').toggle();
-  })
-
-  $('#cb-blur').click(event=> {
-  
-    $('#new-photo').toggle();
-    $('#grayscale').toggle();
-  })
-
-  $('#cb-text-down').click(event=> {
-  
-    $('#text-up').toggle();
-    $('#text-right').toggle();
-    $('#text-left').toggle();
-  })
-
-  $('#cb-text-up').click(event=> {
-  
-    $('#text-down').toggle();
-    $('#text-right').toggle();
-    $('#text-left').toggle();
   })
 
 
