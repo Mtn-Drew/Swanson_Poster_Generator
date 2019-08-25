@@ -6,7 +6,7 @@ let photoGrayscale = false;
 let photoBlur = false;
 let quoteVar ='';
 let fontVar='';
-let fontSize = 1;
+let fontSize = 2;
 let leftMargin = 20;
 let maxTextWidth;
 let yAdjust = 0;
@@ -19,6 +19,18 @@ const errorMessages = [
   "Something didn't work.  I suspect Tammy One.  Or Tammy Two.  Try again.",
   "Your taxes dollars at work, ladies and gentlemen.  It broke.  Try again.",
   "That didn't work.  Try again.  Please and thank you."];
+
+  // carousel
+const carouselSlide = document.querySelector('.carousel-slide');
+const carouselImages = document.querySelectorAll('.carousel-slide img');
+
+const prevButton = document.querySelector('#prev-button');
+const nextButton = document.querySelector('#next-button');
+
+let imgCounter =1;
+const size = carouselImages[0].clientWidth;
+
+carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
 
 function getRonQuote() {
 
@@ -465,19 +477,6 @@ function save2() {
 $(function() {
   watchForm();
 })
-
-// carousel
-const carouselSlide = document.querySelector('.carousel-slide');
-const carouselImages = document.querySelectorAll('.carousel-slide img');
-
-const prevButton = document.querySelector('#prev-button');
-const nextButton = document.querySelector('#next-button');
-
-let imgCounter =1;
-const size = carouselImages[0].clientWidth;
-
-carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
-
 
 const barHTML = `<!-- Small Menu ------------------------------------------- -->
 <div id="small-bar" class="menu-bar hide">
