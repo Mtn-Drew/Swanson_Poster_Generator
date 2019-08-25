@@ -230,21 +230,6 @@ function reloadPhoto(idx) {
   refreshCanvas();
 }
 
-const carouselSlide = document.querySelector('.carousel-slide');
-const carouselImages = document.querySelectorAll('.carousel-slide img');
-
-const prevButton = document.querySelector('#prev-button');
-const nextButton = document.querySelector('#next-button');
-
-let imgCounter =1;
-const size = carouselImages[0].clientWidth;
-
-carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
-
-
-
-
-
 
 function watchForm() {
 
@@ -481,6 +466,17 @@ $(function() {
   watchForm();
 })
 
+// carousel
+const carouselSlide = document.querySelector('.carousel-slide');
+const carouselImages = document.querySelectorAll('.carousel-slide img');
+
+const prevButton = document.querySelector('#prev-button');
+const nextButton = document.querySelector('#next-button');
+
+let imgCounter =1;
+const size = carouselImages[0].clientWidth;
+
+carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
 
 
 const barHTML = `<!-- Small Menu ------------------------------------------- -->
