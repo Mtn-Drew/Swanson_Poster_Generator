@@ -16,6 +16,7 @@ canvas {
   display: flex;
   justify-content: center;
   margin:auto;
+  /* margin-top: 5rem; */
 }
 
 p {
@@ -238,9 +239,13 @@ li.dropdown {
     max-width: 1000px;
     flex-wrap: nowrap;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+
   }
 
-  
+  canvas {
+  margin-top: 5rem;
   
 }
 

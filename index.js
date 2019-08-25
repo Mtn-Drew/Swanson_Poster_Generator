@@ -512,7 +512,7 @@ function refreshCanvas1() {
 }
 
 function save2() {
-  window.open(myCanvas.toDataURL('image/png'));
+  // window.open(myCanvas.toDataURL('image/png'));
   var gh = myCanvas.toDataURL('png');
 
   var a  = document.createElement('a');
