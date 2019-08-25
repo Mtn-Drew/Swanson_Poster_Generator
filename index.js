@@ -556,7 +556,6 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
 
       <ul id="other-ul">
         <li class="small-menu-drop"><a href="#" class="save-pic">Save Image</a></li>
-        <li class="small-menu-drop"><a href="#"  id="save-design" class="save-design">Refresh</a></li>
         <li class="small-menu-drop"><a href="#"  id="go-home" class="go-home">Start Over</a></li>
       </ul>
 
