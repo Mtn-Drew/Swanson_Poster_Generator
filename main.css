@@ -5,7 +5,7 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+  }
 
 body {
   background-image: url('images/42925.jpg');
@@ -103,6 +103,48 @@ p.tag-line {
   background-color: #333;
 }
 
+.carousel-container {
+  display:block;
+  width:600px;
+  
+  margin:auto;
+  border: 3px solid red;
+  overflow: hidden;
+  position: relative;
+  background-size: contain;
+}
+
+.carousel-slide {
+  display:flex;
+  width: 100%;
+}
+
+#prev-button {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  left: 5%;
+  font-size: 5rem;
+  color: white;
+  opacity: 0.7;
+  
+}
+
+#next-button {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  right: 5%;
+  font-size: 5rem;
+  color: white;
+  opacity: 0.7;
+  
+}
+
+.carousel-container img {
+  width: 100%;
+}
+
 
 /* Menu ------------------------------------------- */
  .item ul, .menu-bar input[type="checkbox"] {
@@ -190,6 +232,7 @@ li a, .dropbtn {
 
 li a:hover, .dropdown:hover .dropbtn, .item:hover {
   background-color: red;
+  text-transform: uppercase;
 }
 
 li.dropdown {
@@ -232,6 +275,10 @@ li.dropdown {
   #small-bar {
     display: flex; 
     flex-flow: column;
+  }
+
+  .carousel-container {
+    max-width:90%;
   }
 }
 

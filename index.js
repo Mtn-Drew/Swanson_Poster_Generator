@@ -12,7 +12,13 @@ let maxTextWidth;
 let yAdjust = 0;
 let canvasTextColor="white";
 let firstRun = true;
-
+const errorMessages = [
+  "The government invented the internet.  That's why it doesn't work.  Try again.", 
+  "It didn't work.  You should have used a camera and a typewriter like God intended.  Try again.",
+  "Something didn't work.  Try again.  Or don't.  I don't care.",
+  "Something didn't work.  I suspect Tammy One.  Or Tammy Two.  Try again.",
+  "Your taxes dollars at work, ladies and gentlemen.  It broke.  Try again.",
+  "That didn't work.  Try again.  Please and thank you."];
 
 function getRonQuote() {
 
@@ -21,8 +27,8 @@ function getRonQuote() {
     .then(responseJson => 
       displayResults(responseJson))
     .catch(error => {
-      alert('Something went wrong. Try again later.')
-      console.log(error)
+      alert(errorMessages[Math.floor(Math.random()*5)]);
+      console.log(error);
     })
   maxTextWidth = $('#display-module').width() - 20;
 }
@@ -36,7 +42,7 @@ function newRonQuote() {
       refreshCanvas();
     })      
     .catch(error => {
-      alert('Something went wrong. Try again later.')
+      alert(errorMessages[Math.floor(Math.random()*5)]);
       console.log(error)
     })
   maxTextWidth = $('#display-module').width() - 20;
@@ -62,7 +68,7 @@ function getPhoto() {
         displayNewPhoto(responseBlob))
     .then (refreshCanvas())
     .catch(error => {
-      alert('Something went wrong. Try again later.')
+      alert(errorMessages[Math.floor(Math.random()*5)])
       console.log(error);
     })
   });
@@ -80,6 +86,7 @@ function displayNewPhoto(responseBlob) {
   $('#myCanvas').show();
   displayFinalResultsPage();
   if (firstRun) { 
+    $('.carousel-container').hide();
     $('.main-container').append(barHTML);
     firstRun=false;
   };
@@ -91,7 +98,7 @@ function displayFinalResultsPage() {
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   defaultFont();
   $('#display-module').hide();
-  }
+    }
 
 
 function refreshCanvas() {
@@ -222,6 +229,20 @@ function reloadPhoto(idx) {
   };
   refreshCanvas();
 }
+
+const carouselSlide = document.querySelector('.carousel-slide');
+const carouselImages = document.querySelectorAll('.carousel-slide img');
+
+const prevButton = document.querySelector('#prev-button');
+const nextButton = document.querySelector('#next-button');
+
+let imgCounter =1;
+const size = carouselImages[0].clientWidth;
+
+carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+
+
+
 
 
 
@@ -406,10 +427,40 @@ function watchForm() {
 
 /* Menu-------------------------------------*/
 
+}
 
-  window.addEventListener("resize", refreshCanvas1);
+  window.addEventListener("resize", () => {
+    refreshCanvas1();
+    // on resize, the carousel will need reset by reloading page
+    if (firstRun) {location.reload();}
+  });
+
+  carouselSlide.addEventListener('transitionend', () => {
+    if (carouselImages[imgCounter].id === 'last-clone') {
+      carouselSlide.style.transition = "none";
+      imgCounter = carouselImages.length - 2;
+      carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+    }
+    if (carouselImages[imgCounter].id === 'first-clone') {
+      carouselSlide.style.transition = "none";
+      imgCounter = carouselImages.length - imgCounter;
+      carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+    }
+  })
   
-  }
+  nextButton.addEventListener('click', event => {
+    if (imgCounter >= carouselImages.length -1) return;
+    carouselSlide.style.transition = "transform 0.4s ease-in-out";
+    imgCounter++;
+    carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+  })
+
+  prevButton.addEventListener('click', event => {
+    if (imgCounter <= 0) return;
+    carouselSlide.style.transition = "transform 0.4s ease-in-out";
+    imgCounter--;
+    carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+  })
 
 function refreshCanvas1() {
   fontSize= $('#display-module').width()/300;
@@ -440,7 +491,7 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
 
   <div class="item" id="photo-options-bar">
     <input type="checkbox" id="cb-photo-options"/>
-    <label for="cb-photo-options">Photo Options</label>
+    <label for="cb-photo-options">Picture</label>
 
       <ul id="photo-options-ul">
         <li class="small-menu-drop"><a href="#"  id="new-photo" class="new-photo">New photo</a></li>
@@ -452,7 +503,7 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
 
   <div class="item" id="quote-options-bar">
     <input type="checkbox" id="cb-quote-options"/>
-    <label for="cb-quote-options">Quote Options</label>
+    <label for="cb-quote-options">Words</label>
 
       <ul id="quote-options-ul">
         <li class="small-menu-drop"><a href="#"  id="change-ron-quote" class="change-ron-quote">New Ron quote</a></li>
@@ -463,39 +514,39 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
     
   <div class="item" id="font-options-bar">
     <input type="checkbox" id="cb-font-options"/>
-    <label for="cb-font-options">Font Options</label>
+    <label for="cb-font-options">Style</label>
 
       <ul id="font-options-ul">
-        <li class="small-menu-drop"><a href="#"  id="default-font" class="default-font">Default Font</a></li>
-        <li class="small-menu-drop"><a href="#"  id="manly-font" class="manly-font">Libertarian Font</a></li>
-        <li class="small-menu-drop"><a href="#"  id="liberal-font" class="liberal-font">Hippy Font</a></li>
+        <li class="small-menu-drop"><a href="#"  id="default-font" class="default-font">Typewriter</a></li>
+        <li class="small-menu-drop"><a href="#"  id="manly-font" class="manly-font">Libertarian</a></li>
+        <li class="small-menu-drop"><a href="#"  id="liberal-font" class="liberal-font">Hippy</a></li>
       </ul>
   </div>
 
   <div class="item" id="text-position-bar">
     <input type="checkbox" id="cb-text-position"/>
-    <label for="cb-text-position">Text Postion</label>
+    <label for="cb-text-position">Placement</label>
  
       <ul id="text-position-ul">
-        <li class="small-menu-drop"><a href="#"  id="text-left" class="text-left">Text Left</a></li>
-        <li class="small-menu-drop"><a href="#"  id="text-right" class="text-right">Text Right</a></li> 
-        <li class="small-menu-drop"><a href="#"  id="down-small" class="down-small">Down Small</a></li>
-        <li class="small-menu-drop"><a href="#"  id="down-large" class="down-large">Down Large</a></li>
-        <li class="small-menu-drop"><a href="#"  id="up-small" class="up-small">Up Small</a></li>
-        <li class="small-menu-drop"><a href="#"  id="up-large" class="up-large">Up Large</a></li>
+        <li class="small-menu-drop"><a href="#"  id="text-left" class="text-left">Left</a></li>
+        <li class="small-menu-drop"><a href="#"  id="text-right" class="text-right">Right</a></li> 
+        <li class="small-menu-drop"><a href="#"  id="down-small" class="down-small">Down</a></li>
+        <li class="small-menu-drop"><a href="#"  id="down-large" class="down-large">Down More</a></li>
+        <li class="small-menu-drop"><a href="#"  id="up-small" class="up-small">Up</a></li>
+        <li class="small-menu-drop"><a href="#"  id="up-large" class="up-large">Up More</a></li>
       </ul>
   </div>
 
   <div class="item" id="text-options-bar">
     <input type="checkbox" id="cb-text-options"/>
-    <label for="cb-text-options">Text Options</label>
+    <label for="cb-text-options">Word Options</label>
 
       <ul id="text-options-ul">
-        <li class="small-menu-drop"><a href="#"  id="increase-font" class="increase-font">Increase Font</a></li>
-        <li class="small-menu-drop"><a href="#"  id="decrease-font" class="decrease-font">Decrease Font</a></li>
-        <li class="small-menu-drop"><a href="#"  id="text-field-narrow" class="text-field-narrow">Text Field Narrower</a></li>
-        <li class="small-menu-drop"><a href="#"  id="text-field-wide" class="text-field-wide">Text Field Wider</a></li> 
-        <li class="small-menu-drop"><a href="#"  id="reset-text-width" class="reset-text-width">Reset Text Width</a></li>
+        <li class="small-menu-drop"><a href="#"  id="increase-font" class="increase-font">Bigger</a></li>
+        <li class="small-menu-drop"><a href="#"  id="decrease-font" class="decrease-font">Smaller</a></li>
+        <li class="small-menu-drop"><a href="#"  id="text-field-narrow" class="text-field-narrow">Narrower</a></li>
+        <li class="small-menu-drop"><a href="#"  id="text-field-wide" class="text-field-wide">Wider</a></li> 
+        <li class="small-menu-drop"><a href="#"  id="reset-text-width" class="reset-text-width">Reset</a></li>
       </ul>
   </div>    
             
@@ -519,7 +570,7 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
 
   <ul>
     <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Photo Options</a>
+      <a href="javascript:void(0)" class="dropbtn">Picture</a>
 
           <div id="l-photo-options-ul" class="dropdown-content">
             <a href="#"  id="l-new-photo" class="new-photo">New photo</a>
@@ -530,48 +581,48 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
   
   
     <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Quote Options</a>
+      <a href="javascript:void(0)" class="dropbtn">Words</a>
 
         <div id="l-quote-options-ul" class="dropdown-content">
-          <a href="#"  id="l-change-ron-quote" class="change-ron-quote">New Ron quote</a>
+          <a href="#"  id="l-change-ron-quote" class="change-ron-quote">New Ron Quote</a>
           <a href="#"  id="l-font-white" class="font-white">In White</a>
           <a href="#"  id="l-font-black" class="font-black">In Black</a>
         </div></li>
   
-      <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Font Options</a>
+      <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Style</a>
   
           <div id="l-font-options-ul" class="dropdown-content">
-            <a href="#"  id="l-default-font" class="default-font">Default Font</a>
-            <a href="#"  id="l-manly-font" class="manly-font">Libertarian Font</a>
-            <a href="#"  id="l-liberal-font" class="liberal-font">Hippy Font</a>
+            <a href="#"  id="l-default-font" class="default-font">Typewritter</a>
+            <a href="#"  id="l-manly-font" class="manly-font">Libertarian</a>
+            <a href="#"  id="l-liberal-font" class="liberal-font">Hippy</a>
           </div></li>
  
-      <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Text Position</a>
+      <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Placement</a>
      
           <div id="l-text-position-ul" class="dropdown-content">
-            <a href="#"  id="l-text-left" class="text-left">Text Left</a>
-            <a href="#"  id="l-text-right" class="text-right">Text Right</a>
-            <a href="#"  id="l-down-small" class="down-small">Down Small</a>
-            <a href="#"  id="l-down-large" class="down-large">Down Large</a>
-            <a href="#"  id="l-up-small" class="up-small">Up Small</a>
-            <a href="#"  id="l-up-large" class="up-large">Up Large</a>
+            <a href="#"  id="l-text-left" class="text-left">Left</a>
+            <a href="#"  id="l-text-right" class="text-right">Right</a>
+            <a href="#"  id="l-down-small" class="down-small">Down</a>
+            <a href="#"  id="l-down-large" class="down-large">Down More</a>
+            <a href="#"  id="l-up-small" class="up-small">Up</a>
+            <a href="#"  id="l-up-large" class="up-large">Up More</a>
           </div></li>
  
-      <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Text Options</a>
+      <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Word Options</a>
     
           <div id="l-text-options-ul" class="dropdown-content">
-            <a href="#"  id="l-increase-font" class="increase-font">Increase Font</a>
-            <a href="#"  id="l-decrease-font" class="decrease-font">Decrease Font</a>
-            <a href="#"  id="l-text-field-narrow" class="text-field-narrow">Text Field Narrower</a>
-            <a href="#"  id="l-text-field-wide" class="text-field-wide">Text Field Wider</a> 
-            <a href="#"  id="l-reset-text-width" class="reset-text-width">Reset Text Width</a>
+            <a href="#"  id="l-increase-font" class="increase-font">Bigger</a>
+            <a href="#"  id="l-decrease-font" class="decrease-font">Smaller</a>
+            <a href="#"  id="l-text-field-narrow" class="text-field-narrow">Narrower</a>
+            <a href="#"  id="l-text-field-wide" class="text-field-wide">Wider</a> 
+            <a href="#"  id="l-reset-text-width" class="reset-text-width">Reset</a>
           </div></li>
      
       <li class="dropdown"><a href="javascript:void(0)" class="dropbtn">Save</a>
   
             <div id="l-other-ul" class="dropdown-content">
             <a href="#" class="save-pic">Save Image</a>
-            <a href="#"  id="l-save-design" class="save-design">Refresh</a>
+
             <a href="#"  id="l-go-home" class="go-home">Start Over</a>
             </div></li>
 
