@@ -24,21 +24,17 @@ p {
   font-size: 2rem;
  }
 
- h1, h2, h3 {
+h1, h2, h3 {
    color:white;
    padding: 1rem;
    margin:0;
  }
 
- h1 {
+h1, h2 {
    font-size:3rem;
  }
 
- h2 {
-   font-size:3rem;
- }
-
- h3 {
+h3 {
    padding-bottom: 3rem;
    font-size:2rem;
  }
@@ -141,7 +137,6 @@ p.tag-line {
   font-size: 5rem;
   color: white;
   opacity: 0.7;
-  
 }
 
 #next-button {
@@ -152,7 +147,6 @@ p.tag-line {
   font-size: 5rem;
   color: white;
   opacity: 0.7;
-  
 }
 
 .carousel-container img {
@@ -332,6 +326,5 @@ li.dropdown {
 
   canvas {
   margin-top: 5rem;
- 
-}
+  }
 

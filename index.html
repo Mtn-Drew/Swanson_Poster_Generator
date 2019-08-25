@@ -1,79 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link href="main.css" rel="stylesheet" type="text/css"/>
-  <link href="normalize.css" rel="stylesheet" type="text/css"/>
-  <script src="https://kit.fontawesome.com/3173ff9d6e.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Special+Elite|Staatliches&display=swap" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <title>Motivational Ron</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="main.css" rel="stylesheet" type="text/css"/>
+    <link href="normalize.css" rel="stylesheet" type="text/css"/>
+    <script src="https://kit.fontawesome.com/3173ff9d6e.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Special+Elite|Staatliches&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Motivational Ron</title>
+  </head>
 
-<body>
-  <div class="main-container">
+  <body>
+
+    <div class="main-container">
+
       <div id="ron-image" class="start-page"><img src="images/ron4.jpg" alt="Ron Swanson"></div>
 
-    <canvas id="myCanvas" class="hide"></canvas>
+      <canvas id="myCanvas" class="hide"></canvas>
 
-    <div class="module bottom" id="display-module">
-      <img src="#" alt="" id="background-image" class="hide responsive">
-      <div id="quote-container">
-        <p class="final-quote" id="final-quote"></p>
-      </div>  
-    </div>
-
-    <h2 class="start-page">Hello.</h1>
-    <h1 class="start-page">Welcome to the Ron Swanson poster generator.</h2>
-    <h3 class="start-page">Here you will find the wise and immutable words of Ron Swanson, placed together with a random picture to create a 'motivational' poster that you can save.  Make it into a t-shirt.  Or a coffe mug.  I don't care.  Just stop talking to me.  Please and thank you.</h3>
-    <!-- <div id="ron-image"><img src="images/ron4.jpg" alt="Ron Swanson"></div> -->
-
-
-
-    
-
-
-    <div class="carousel-container">
-        <i class="fas fa-arrow-alt-circle-left" id="prev-button"></i>
-        <i class="fas fa-arrow-alt-circle-right" id="next-button"></i>
-        
-      <div class="carousel-slide">
-          <div id="dummy"></div>
-        <img src="images/image5.png" alt="Ron Swanson Quote" id="last-clone">
-        <img src="images/image1.png" alt="Ron Swanson Quote">
-        <img src="images/image2.png" alt="Ron Swanson Quote">
-        <img src="images/image3.png" alt="Ron Swanson Quote">
-        <img src="images/image4.png" alt="Ron Swanson Quote">
-        <img src="images/image5.png" alt="Ron Swanson Quote">
-        <img src="images/image1.png" alt="Ron Swanson Quote" id="first-clone">
+      <div class="module bottom" id="display-module">
+        <img src="#" alt="" id="background-image" class="hide responsive">
+        <div id="quote-container">
+          <p class="final-quote" id="final-quote"></p>
+        </div>  
       </div>
-    </div>
 
+      <h2 class="start-page">Hello.</h1>
+      <h1 class="start-page">Welcome to the Ron Swanson poster generator.</h2>
+      <h3 class="start-page">Here you will find the wise and immutable words of Ron Swanson, placed together with a random picture to create a 'motivational' poster that you can save.  Make it into a t-shirt.  Or a coffe mug.  I don't care.  Just stop talking to me.  Please and thank you.</h3>
 
+      <div class="carousel-container">
+          <i class="fas fa-arrow-alt-circle-left" id="prev-button"></i>
+          <i class="fas fa-arrow-alt-circle-right" id="next-button"></i>
+          
+        <div class="carousel-slide">
+          <img src="images/image5.png" alt="Ron Swanson Quote" id="last-clone">
+          <img src="images/image1.png" alt="Ron Swanson Quote">
+          <img src="images/image2.png" alt="Ron Swanson Quote">
+          <img src="images/image3.png" alt="Ron Swanson Quote">
+          <img src="images/image4.png" alt="Ron Swanson Quote">
+          <img src="images/image5.png" alt="Ron Swanson Quote">
+          <img src="images/image1.png" alt="Ron Swanson Quote" id="first-clone">
+        </div>
+      </div>
 
+      <p class="start-page">Click the button below to create your own motiavational poster with a random photo and Ron Swanson quote.  You can then tweak your poster with the settings in the menu below.</p>
+      <p class="start-page">Why?  Because this is America.</p>
 
-
-
-
-
-    <p class="start-page">Click the button below to create your own motiavational poster with a random photo and Ron Swanson quote.  You can then tweak your poster with the settings in the menu below.</p>
-    <p class="start-page">Why?  Because this is America.</p>
-
-    <form>
-      <button type="button" class="start-page" id="home-get-quote">Make your own Ron quote poster!</button>
-      <p id="display-text-p" class="hide"></p>
-      <button type="button" class="hide" id="use-this-quote">Use this quote</button>
-      <button type="button" class="hide" id="new-ron-quote">New Ron quote</button>  
-    </form>
-
-    
-    <footer class="hide">About This App
-      <p><a href="https://www.freepik.com/free-photos-vectors/background">Background photo created by rawpixel.com - www.freepik.com</a></p>
-    </footer>
-    <script src="index.js"></script>
-</body>
+      <form>
+        <button type="button" class="start-page" id="home-get-quote">Make your own Ron quote poster!</button>
+        <p id="display-text-p" class="hide"></p>
+        <button type="button" class="hide" id="use-this-quote">Use this quote</button>
+        <button type="button" class="hide" id="new-ron-quote">New Ron quote</button>  
+      </form>
+      
+      <script src="index.js"></script>
+    </div> 
+  </body>
 </html>

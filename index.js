@@ -20,20 +20,16 @@ const errorMessages = [
   "Your taxes dollars at work, ladies and gentlemen.  It broke.  Try again.",
   "That didn't work.  Try again.  Please and thank you."];
 
-  // carousel
+// carousel
 const carouselSlide = document.querySelector('.carousel-slide');
 const carouselImages = document.querySelectorAll('.carousel-slide img');
-
 const prevButton = document.querySelector('#prev-button');
 const nextButton = document.querySelector('#next-button');
-
 let imgCounter =1;
 const size = carouselImages[0].clientWidth;
-
 carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
 
 function getRonQuote() {
-
   fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
     .then(response => response.json())
     .then(responseJson => 
@@ -46,7 +42,6 @@ function getRonQuote() {
 }
 
 function newRonQuote() {
-  
   fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
     .then(response => response.json())
     .then(responseJson => {
@@ -61,7 +56,6 @@ function newRonQuote() {
 }
 
 function displayResults(responseJson) {
-
   quoteVar=responseJson[0];
   getPhoto();
   $('#background-image').show();
@@ -69,7 +63,6 @@ function displayResults(responseJson) {
 }
 
 function getPhoto() {
-
   photoGrayscale = false;
   photoBlur = false;
   fetch('https://picsum.photos/1200/1200')
@@ -87,7 +80,6 @@ function getPhoto() {
 }
 
 function displayNewPhoto(responseBlob) {
-
   //if returned image is blank, call for new image
   if (responseBlob.size===0){ 
     getPhoto();
@@ -110,11 +102,9 @@ function displayFinalResultsPage() {
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   defaultFont();
   $('#display-module').hide();
-    }
-
+}
 
 function refreshCanvas() {
-
   let containerOffset = $('#display-module').offset().top
   let textOffset = $('#final-quote').offset().top
   let offsetDifference = containerOffset - textOffset
@@ -126,20 +116,16 @@ function refreshCanvas() {
   let imageObj = new Image();
   ctx.canvas.width = $('#display-module').width();
   ctx.canvas.height = $('#display-module').height();
-// limit total size of poster
-  
   imageObj.onload = function() {
     ctx.drawImage(imageObj, 0, 0,$('#display-module').width(),$('#display-module').height());
     ctx.font = `${fontSize}rem ${fontVar}`;
     ctx.fillStyle = canvasTextColor;
     printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth)
   };
-  
   imageObj.src = imgUrl; 
  }
 
 function printAt(context , text, x, y, lineHeight, fitWidth) {
-
   //if fitWidth is falsey, set to 0
   fitWidth = fitWidth || 0;
   //if text will fit on one line, print to canvas
@@ -161,14 +147,11 @@ function printAt(context , text, x, y, lineHeight, fitWidth) {
   context.fillText( text, x, y );
 }
 
-
-
 function displayFinalResultsPage() {
-
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   defaultFont();
   $('#display-module').hide();
-  }
+}
 
 function defaultFont() {
   $('#display-module').removeClass('manly-font');
@@ -244,12 +227,10 @@ function reloadPhoto(idx) {
 
 
 function watchForm() {
-
   $('#home-get-quote').click(event => {
     event.preventDefault();
     getRonQuote();
   });
-
   
   $('.main-container').on('click', '.change-ron-quote', event => {
     newRonQuote();
@@ -422,7 +403,7 @@ function watchForm() {
     $('#text-options-bar').slideToggle();
   })
 
-/* Menu-------------------------------------*/
+/* End Menu-------------------------------------*/
 
 }
 
@@ -465,13 +446,11 @@ function refreshCanvas1() {
 }
 
 function save2() {
-  let gh = myCanvas.toDataURL('png');
-
-  let a  = document.createElement('a');
-  a.href = gh;
-  a.download = 'image.png';
-
-  a.click()
+  let canvasURL = myCanvas.toDataURL('png');
+  let imageElement  = document.createElement('a');
+  imageElement.href = canvasURL;
+  imageElement.download = 'image.png';
+  imageElement.click()
 }
 
 $(function() {
