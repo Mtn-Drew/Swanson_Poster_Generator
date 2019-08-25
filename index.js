@@ -16,8 +16,6 @@ let firstRun = true;
 
 function getRonQuote() {
 
-  console.log('in getRonQuote');
-
   fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
     .then(response => response.json())
     .then(responseJson => 
@@ -26,13 +24,25 @@ function getRonQuote() {
       alert('Something went wrong. Try again later.')
       console.log(error)
     })
-    maxTextWidth = $('#display-module').width() - 20;
-    // window.addEventListener("resize", refreshCanvas1); 
+  maxTextWidth = $('#display-module').width() - 20;
+}
+
+function newRonQuote() {
+  
+  fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
+    .then(response => response.json())
+    .then(responseJson => {
+      quoteVar=responseJson[0];
+      refreshCanvas();
+    })      
+    .catch(error => {
+      alert('Something went wrong. Try again later.')
+      console.log(error)
+    })
+  maxTextWidth = $('#display-module').width() - 20;
 }
 
 function displayResults(responseJson) {
-
-  console.log(' in displayResults --'+responseJson);
 
   quoteVar=responseJson[0];
   getPhoto();
@@ -41,8 +51,6 @@ function displayResults(responseJson) {
 }
 
 function getPhoto() {
-
-  console.log('in getPhoto');
 
   photoGrayscale = false;
   photoBlur = false;
@@ -62,8 +70,6 @@ function getPhoto() {
 
 function displayNewPhoto(responseBlob) {
 
-  console.log('in displayNewPhoto')
-
   //if returned image is blank, call for new image
   if (responseBlob.size===0){ 
     getPhoto();
@@ -73,19 +79,14 @@ function displayNewPhoto(responseBlob) {
   $('.start-page').hide();
   $('#myCanvas').show();
   displayFinalResultsPage();
-  
-    
-  // $('.menu-bar').show();
   if (firstRun) { 
     $('.main-container').append(barHTML);
+    firstRun=false;
   };
-  firstRun=false;
   refreshCanvas();
 }
 
 function displayFinalResultsPage() {
-
-  console.log('in displayFinalResultsPage');
 
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   defaultFont();
@@ -93,33 +94,8 @@ function displayFinalResultsPage() {
   }
 
 
-
-function newRonQuote() {
-
-  console.log('in newRonQuote');
-  
-  fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
-    .then(response => response.json())
-    .then(responseJson => {
-      quoteVar=responseJson[0];
-      refreshCanvas();
-    })      
-    .catch(error => {
-      alert('Something went wrong. Try again later.')
-      console.log(error)
-    })
-  maxTextWidth = $('#display-module').width() - 20;
-}
-
-
-
-
-
 function refreshCanvas() {
 
-  console.log('in refreshCanvas');
-
-  
   let containerOffset = $('#display-module').offset().top
   let textOffset = $('#final-quote').offset().top
   let offsetDifference = containerOffset - textOffset
@@ -131,7 +107,6 @@ function refreshCanvas() {
   let imageObj = new Image();
   ctx.canvas.width = $('#display-module').width();
   ctx.canvas.height = $('#display-module').height();
-  console.log('display-module height is '+ctx.canvas.height);
 // limit total size of poster
   
   imageObj.onload = function() {
@@ -142,12 +117,9 @@ function refreshCanvas() {
   };
   
   imageObj.src = imgUrl; 
-  // getElementById('large-bar').width=getElementById('display-module').width;
-}
+ }
 
 function printAt(context , text, x, y, lineHeight, fitWidth) {
-
-  console.log('in printAt');
 
   //if fitWidth is falsey, set to 0
   fitWidth = fitWidth || 0;
@@ -174,15 +146,12 @@ function printAt(context , text, x, y, lineHeight, fitWidth) {
 
 function displayFinalResultsPage() {
 
-  console.log('in displayFinalResultsPage');
-
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   defaultFont();
   $('#display-module').hide();
   }
 
 function defaultFont() {
-  console.log('in defaultFont');
   $('#display-module').removeClass('manly-font');
   $('#display-module').removeClass('liberal-font');
   fontVar='Special Elite';
@@ -190,7 +159,6 @@ function defaultFont() {
 }
 
 function manlyFont() {
-  console.log('in manlyFont');
   $('#display-module').addClass('manly-font');
   $('#display-module').removeClass('liberal-font');
   fontVar='Staatliches';
@@ -198,7 +166,6 @@ function manlyFont() {
 }
 
 function liberalFont() {
-  console.log('in liberalFont');
   $('#display-module').removeClass('manly-font');
   $('#display-module').addClass('liberal-font');
   fontVar = 'Dancing Script';
@@ -206,45 +173,36 @@ function liberalFont() {
 }
 
 function toggleGrayscale() {
-  console.log('in toggleGrayscale');
   if (photoGrayscale) {
     photoGrayscale = false;
-    console.log('photoGrayscale is false');
   } else {
     photoGrayscale = true;
-    console.log('photoGrayscale is true');
   };
   reloadPhoto();
   refreshCanvas();
 }
 
 function toggleBlur(idx) {
-  console.log('in toggleBlur');
   if (photoBlur) {
     photoBlur = false;
-    console.log('photoBlur is false');
   } else {
     photoBlur = true;
-    console.log('photoBlur is true')
   };
   reloadPhoto(idx);
   refreshCanvas();
 }
 
 function reloadPhoto(idx) {
-  console.log('in reloadPhoto');
   if ((photoGrayscale) && (!photoBlur)) {
     fullUrl = photoBaseURL+'?grayscale'
     document.getElementById('background-image').src=fullUrl;
-    console.log('fullUrl is '+fullUrl);
-    // to update save photo
+     // to update save photo
     imgUrl=fullUrl;
   };
 
   if ((photoGrayscale) && (photoBlur)) {
     fullUrl = photoBaseURL+'?grayscale&blur='+idx;
     document.getElementById('background-image').src=fullUrl;
-    console.log('fullUrl is '+fullUrl);
     // to update save photo
     imgUrl=fullUrl;
   };
@@ -252,16 +210,14 @@ function reloadPhoto(idx) {
   if ((!photoGrayscale) && (!photoBlur)) {
     fullUrl = photoBaseURL
     document.getElementById('background-image').src=fullUrl;
-    console.log('fullUrl is '+fullUrl);
-    // to update save photo
+      // to update save photo
     imgUrl=fullUrl;
   };
 
   if ((!photoGrayscale) && (photoBlur)) {
     fullUrl = photoBaseURL+'?blur='+idx;
     document.getElementById('background-image').src=fullUrl;
-    console.log('fullUrl is '+fullUrl);
-    // to update save photo
+     // to update save photo
     imgUrl=fullUrl;
   };
   refreshCanvas();
@@ -269,16 +225,10 @@ function reloadPhoto(idx) {
 
 
 
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-
 function watchForm() {
-
-  console.log('in watchForm');
 
   $('#home-get-quote').click(event => {
     event.preventDefault();
-    console.log('#home-get-quote is clicked');
     getRonQuote();
   });
 
@@ -286,7 +236,6 @@ function watchForm() {
   $('.main-container').on('click', '.change-ron-quote', event => {
     newRonQuote();
     acceptedQuote = document.getElementById('display-text-p').innerHTML;
-    console.log('acceptedQuote is '+ acceptedQuote);
   })
   
   $('.main-container').on('click', '.increase-font', event => {
@@ -313,7 +262,6 @@ function watchForm() {
 
   $('.main-container').on('click', '.reset-text-width', event => {
     maxTextWidth = $('#display-module').width() - 20;
-    console.log('reset text width- maxTextWidth is '+maxTextWidth);
     refreshCanvas();
   })
 
@@ -348,79 +296,44 @@ function watchForm() {
   })
 
   $('.main-container').on('click', '.save-design', event => {
-
-    console.log('#save-design is clicked');
-
     refreshCanvas();
   })
 
   $('.use-this-quote').click(event => {
-
-    console.log('#use-this-quote is clicked');
-
     event.preventDefault();
     getPhoto();
     $('#background-image').show();
   }); 
 
-  
-  // $('.new-photo').click(event => {
   $('.main-container').on("click",".new-photo", event => {
-    console.log('#new-photo is clicked');
     getPhoto();
   });
-  //   console.log('#new-photo is clicked');
-
-  //   getPhoto();
-  // }); 
-
 
   $('.main-container').on('click', '.go-home', event => {
-
-    console.log('#go-home is clicked');
-
     location.reload();
   }); 
 
   $('.main-container').on('click', '.default-font', event => {
-
-    console.log('#manly-font is clicked');
-
     defaultFont();
   })
 
   $('.main-container').on('click', '.manly-font', event => {
-
-    console.log('#manly-font is clicked');
-
     manlyFont();
   }); 
 
   $('.main-container').on('click', '.liberal-font', event => {
-
-    console.log('#liberal-font is clicked');
-
     liberalFont();
   }); 
 
   $('.main-container').on('click', '.grayscale', event=> {
-
-    console.log('grayscale is clicked');
-
     toggleGrayscale();
   })
 
   $('.main-container').on('click', '.blur-light', event=> {
-
-    console.log('blur-light is clicked');
-
     toggleBlur(3);
   })
   
   $('.main-container').on('click', '.blur-heavy', event=> {
-
-    console.log('blur-heavy is clicked');
-
     toggleBlur(6);
   })
 
@@ -434,71 +347,63 @@ function watchForm() {
     refreshCanvas();
   })
 
-
-  //Small Menu bar -------------------------------------------//
-  $('.main-container').on('click', '#nav-icon', event => {
-    $('.item').toggle();
-  })
-
-
-  $('.main-container').on('click', '#cb-photo-options', event=> {
-
-  
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('.main-container').on('click', '#cb-quote-options', event=> {
-  
-    $('#photo-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('.main-container').on('click', '#cb-font-options', event=> {
-  
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('.main-container').on('click', '#cb-text-position', event=> {
-  
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-options-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('.main-container').on('click', '#cb-text-options', event=> {
-  
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#other-bar').toggle();
-  })
-
-  $('.main-container').on('click', '#cb-other', event=> {
-  
-    $('#photo-options-bar').toggle();
-    $('#quote-options-bar').toggle();
-    $('#font-options-bar').toggle();
-    $('#text-position-bar').toggle();
-    $('#text-options-bar').toggle();
-  })
-
   $('.main-container').on('click', '.save-pic', event => {
     save2();
   })
+
+  //Small Menu bar -------------------------------------------//
+  $('.main-container').on('click', '#nav-icon', event => {
+    $('.item').slideToggle();
+  })
+
+  $('.main-container').on('click', '#cb-photo-options', event=> {
+    $('#quote-options-bar').slideToggle();
+    $('#font-options-bar').slideToggle();
+    $('#text-position-bar').slideToggle();
+    $('#text-options-bar').slideToggle();
+    $('#other-bar').slideToggle();
+  })
+
+  $('.main-container').on('click', '#cb-quote-options', event=> {
+    $('#photo-options-bar').slideToggle();
+    $('#font-options-bar').slideToggle();
+    $('#text-position-bar').slideToggle();
+    $('#text-options-bar').slideToggle();
+    $('#other-bar').slideToggle();
+  })
+
+  $('.main-container').on('click', '#cb-font-options', event=> {
+    $('#photo-options-bar').slideToggle();
+    $('#quote-options-bar').slideToggle();
+    $('#text-position-bar').slideToggle();
+    $('#text-options-bar').slideToggle();
+    $('#other-bar').slideToggle();
+  })
+
+  $('.main-container').on('click', '#cb-text-position', event=> {
+    $('#photo-options-bar').slideToggle();
+    $('#quote-options-bar').slideToggle();
+    $('#font-options-bar').slideToggle();
+    $('#text-options-bar').slideToggle();
+    $('#other-bar').slideToggle();
+  })
+
+  $('.main-container').on('click', '#cb-text-options', event=> {
+    $('#photo-options-bar').slideToggle();
+    $('#quote-options-bar').slideToggle();
+    $('#font-options-bar').slideToggle();
+    $('#text-position-bar').slideToggle();
+    $('#other-bar').slideToggle();
+  })
+
+  $('.main-container').on('click', '#cb-other', event=> {
+    $('#photo-options-bar').slideToggle();
+    $('#quote-options-bar').slideToggle();
+    $('#font-options-bar').slideToggle();
+    $('#text-position-bar').slideToggle();
+    $('#text-options-bar').slideToggle();
+  })
+
 /* Menu-------------------------------------*/
 
 
@@ -512,10 +417,9 @@ function refreshCanvas1() {
 }
 
 function save2() {
-  // window.open(myCanvas.toDataURL('image/png'));
-  var gh = myCanvas.toDataURL('png');
+  let gh = myCanvas.toDataURL('png');
 
-  var a  = document.createElement('a');
+  let a  = document.createElement('a');
   a.href = gh;
   a.download = 'image.png';
 
@@ -523,7 +427,6 @@ function save2() {
 }
 
 $(function() {
-  console.log('App loaded! Waiting for submit!');
   watchForm();
 })
 
@@ -540,10 +443,10 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
     <label for="cb-photo-options">Photo Options</label>
 
       <ul id="photo-options-ul">
-        <li><a href="#"  id="new-photo" class="new-photo">New photo</a></li>
-        <li><a href="#"  id="grayscale" class="grayscale">Grayscale</a></li>
-        <li><a href="#"  id="blur-light" class="blur-light">Light Blur</a></li>
-        <li><a href="#"  id="blur-heavy" class="blur-heavy">Heavy Blur</a></li>
+        <li class="small-menu-drop"><a href="#"  id="new-photo" class="new-photo">New photo</a></li>
+        <li class="small-menu-drop"><a href="#"  id="grayscale" class="grayscale">Grayscale</a></li>
+        <li class="small-menu-drop"><a href="#"  id="blur-light" class="blur-light">Light Blur</a></li>
+        <li class="small-menu-drop"><a href="#"  id="blur-heavy" class="blur-heavy">Heavy Blur</a></li>
       </ul>
   </div>
 
@@ -552,9 +455,9 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
     <label for="cb-quote-options">Quote Options</label>
 
       <ul id="quote-options-ul">
-        <li><a href="#"  id="change-ron-quote" class="change-ron-quote">New Ron quote</a></li>
-        <li><a href="#"  id="font-white" class="font-white">In White</a></li>
-        <li><a href="#"  id="font-black" class="font-black">In Black</a></li>
+        <li class="small-menu-drop"><a href="#"  id="change-ron-quote" class="change-ron-quote">New Ron quote</a></li>
+        <li class="small-menu-drop"><a href="#"  id="font-white" class="font-white">In White</a></li>
+        <li class="small-menu-drop"><a href="#"  id="font-black" class="font-black">In Black</a></li>
       </ul>
   </div>
     
@@ -563,9 +466,9 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
     <label for="cb-font-options">Font Options</label>
 
       <ul id="font-options-ul">
-        <li><a href="#"  id="default-font" class="default-font">Default Font</a></li>
-        <li><a href="#"  id="manly-font" class="manly-font">Libertarian Font</a></li>
-        <li><a href="#"  id="liberal-font" class="liberal-font">Hippy Font</a></li>
+        <li class="small-menu-drop"><a href="#"  id="default-font" class="default-font">Default Font</a></li>
+        <li class="small-menu-drop"><a href="#"  id="manly-font" class="manly-font">Libertarian Font</a></li>
+        <li class="small-menu-drop"><a href="#"  id="liberal-font" class="liberal-font">Hippy Font</a></li>
       </ul>
   </div>
 
@@ -574,12 +477,12 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
     <label for="cb-text-position">Text Postion</label>
  
       <ul id="text-position-ul">
-        <li><a href="#"  id="text-left" class="text-left">Text Left</a></li>
-        <li><a href="#"  id="text-right" class="text-right">Text Right</a></li> 
-        <li><a href="#"  id="down-small" class="down-small">Down Small</a></li>
-        <li><a href="#"  id="down-large" class="down-large">Down Large</a></li>
-        <li><a href="#"  id="up-small" class="up-small">Up Small</a></li>
-        <li><a href="#"  id="up-large" class="up-large">Up Large</a></li>
+        <li class="small-menu-drop"><a href="#"  id="text-left" class="text-left">Text Left</a></li>
+        <li class="small-menu-drop"><a href="#"  id="text-right" class="text-right">Text Right</a></li> 
+        <li class="small-menu-drop"><a href="#"  id="down-small" class="down-small">Down Small</a></li>
+        <li class="small-menu-drop"><a href="#"  id="down-large" class="down-large">Down Large</a></li>
+        <li class="small-menu-drop"><a href="#"  id="up-small" class="up-small">Up Small</a></li>
+        <li class="small-menu-drop"><a href="#"  id="up-large" class="up-large">Up Large</a></li>
       </ul>
   </div>
 
@@ -588,11 +491,11 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
     <label for="cb-text-options">Text Options</label>
 
       <ul id="text-options-ul">
-        <li><a href="#"  id="increase-font" class="increase-font">Increase Font</a></li>
-        <li><a href="#"  id="decrease-font" class="decrease-font">Decrease Font</a></li>
-        <li><a href="#"  id="text-field-narrow" class="text-field-narrow">Text Field Narrower</a></li>
-        <li><a href="#"  id="text-field-wide" class="text-field-wide">Text Field Wider</a></li> 
-        <li><a href="#"  id="reset-text-width" class="reset-text-width">Reset Text Width</a></li>
+        <li class="small-menu-drop"><a href="#"  id="increase-font" class="increase-font">Increase Font</a></li>
+        <li class="small-menu-drop"><a href="#"  id="decrease-font" class="decrease-font">Decrease Font</a></li>
+        <li class="small-menu-drop"><a href="#"  id="text-field-narrow" class="text-field-narrow">Text Field Narrower</a></li>
+        <li class="small-menu-drop"><a href="#"  id="text-field-wide" class="text-field-wide">Text Field Wider</a></li> 
+        <li class="small-menu-drop"><a href="#"  id="reset-text-width" class="reset-text-width">Reset Text Width</a></li>
       </ul>
   </div>    
             
@@ -601,9 +504,9 @@ const barHTML = `<!-- Small Menu ------------------------------------------- -->
     <label for="cb-other">Save</label>    
 
       <ul id="other-ul">
-        <li><a href="#" class="save-pic">Save Image</a></li>
-        <li><a href="#"  id="save-design" class="save-design">Refresh</a></li>
-        <li><a href="#"  id="go-home" class="go-home">Start Over</a></li>
+        <li class="small-menu-drop"><a href="#" class="save-pic">Save Image</a></li>
+        <li class="small-menu-drop"><a href="#"  id="save-design" class="save-design">Refresh</a></li>
+        <li class="small-menu-drop"><a href="#"  id="go-home" class="go-home">Start Over</a></li>
       </ul>
 
   </div>

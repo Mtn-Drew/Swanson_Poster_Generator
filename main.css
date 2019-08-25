@@ -16,7 +16,6 @@ canvas {
   display: flex;
   justify-content: center;
   margin:auto;
-  /* margin-top: 5rem; */
 }
 
 p {
@@ -54,12 +53,10 @@ p {
 }
 
 .module {
-
   background-size: cover;
   margin: 10px 0 20 10px;
   position: relative;
   float: left;
-  
 }
 
 .top p {
@@ -103,7 +100,7 @@ p.tag-line {
 }
 
 .item {
-  background-color: black;
+  background-color: #333;
 }
 
 
@@ -131,10 +128,12 @@ label {
   display: block;
   z-index: 3;
   position: relative;
+  padding-left:30px;
+  text-transform: uppercase;
 }
 
 .menu-bar {
-  color: rgb(139, 27, 27);
+  color: white;
   overflow-x: hidden;
   position: absolute;
   width: 100vw;
@@ -146,7 +145,7 @@ label {
   font-size: 28px;
   line-height: 50px;
   padding-left: 1em;
-  background-color: black;
+  background-color: #333;
 } 
 
 
@@ -189,7 +188,7 @@ li a, .dropbtn {
   text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
+li a:hover, .dropdown:hover .dropbtn, .item:hover {
   background-color: red;
 }
 
@@ -200,7 +199,7 @@ li.dropdown {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: rgba(255,255,255,.8);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -213,8 +212,14 @@ li.dropdown {
   display: block;
   text-align: left;
 }
+.small-menu-drop a{
+  background-color: rgba(255,255,255,.8);
+  color:black;
+  border:1px solid black;
+  display:block;
+}
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown-content a:hover, .small-menu-drop a:hover {background-color: #d85d5d;}
 
 .dropdown:hover .dropdown-content {
   display: block;
@@ -229,6 +234,7 @@ li.dropdown {
     flex-flow: column;
   }
 }
+
 @media (min-width:724px) {
   #small-bar {
     display: none !important;
@@ -241,11 +247,10 @@ li.dropdown {
     justify-content: space-between;
     position: fixed;
     top: 0;
-
   }
 
   canvas {
   margin-top: 5rem;
-  
+ 
 }
 
