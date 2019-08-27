@@ -290,7 +290,10 @@ li.dropdown {
   display:block;
 }
 
-.dropdown-content a:hover, .small-menu-drop a:hover {background-color: #d85d5d;}
+.dropdown-content a:hover, .small-menu-drop a:hover {
+  background-color: #d85d5d;
+  text-transform: uppercase;
+}
 
 .dropdown:hover .dropdown-content {
   display: block;

@@ -230,6 +230,7 @@ function watchForm() {
   $('#home-get-quote').click(event => {
     event.preventDefault();
     getRonQuote();
+    document.getElementById('font-black').click();
   });
   
   $('.main-container').on('click', '.change-ron-quote', event => {
