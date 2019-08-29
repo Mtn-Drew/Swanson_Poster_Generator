@@ -27,6 +27,7 @@ const prevButton = document.querySelector('#prev-button');
 const nextButton = document.querySelector('#next-button');
 let imgCounter =1;
 const size = carouselImages[0].clientWidth;
+
 carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
 
 function getRonQuote() {
@@ -59,7 +60,7 @@ function displayResults(responseJson) {
   quoteVar=responseJson[0];
   getPhoto();
   $('#background-image').show();
-  refreshCanvas();
+  // refreshCanvas();
 }
 
 function getPhoto() {
@@ -71,7 +72,7 @@ function getPhoto() {
       response.blob()
     .then(responseBlob => 
         displayNewPhoto(responseBlob))
-    .then (refreshCanvas())
+    // .then (refreshCanvas())
     .catch(error => {
       alert(errorMessages[Math.floor(Math.random()*5)])
       console.log(error);
@@ -94,7 +95,7 @@ function displayNewPhoto(responseBlob) {
     $('.main-container').append(barHTML);
     firstRun=false;
   };
-  refreshCanvas();
+  // refreshCanvas();
 }
 
 function displayFinalResultsPage() {
@@ -111,13 +112,17 @@ function refreshCanvas() {
   if (offsetDifference < 0) offsetDifference = offsetDifference * -1
   offsetDifference += 50 
   offsetDifference += yAdjust;
+  
   let canvas = document.getElementById("myCanvas");
   let ctx = canvas.getContext('2d');
   let imageObj = new Image();
   ctx.canvas.width = $('#display-module').width();
-  ctx.canvas.height = $('#display-module').height();
+  // ctx.canvas.height= $('#display-module').height();
+  // unexpected behavior in firefox and edge make height too small, this corrects that
+   ctx.canvas.height = ctx.canvas.width; 
+
   imageObj.onload = function() {
-    ctx.drawImage(imageObj, 0, 0,$('#display-module').width(),$('#display-module').height());
+    ctx.drawImage(imageObj, 0, 0,ctx.canvas.width ,ctx.canvas.height);
     ctx.font = `${fontSize}rem ${fontVar}`;
     ctx.fillStyle = canvasTextColor;
     printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth)
@@ -230,7 +235,7 @@ function watchForm() {
   $('#home-get-quote').click(event => {
     event.preventDefault();
     getRonQuote();
-    document.getElementById('font-black').click();
+    // refreshCanvas();
   });
   
   $('.main-container').on('click', '.change-ron-quote', event => {
@@ -450,7 +455,7 @@ function save2() {
   let canvasURL = myCanvas.toDataURL('png');
   let imageElement  = document.createElement('a');
   imageElement.href = canvasURL;
-  imageElement.download = 'image.png';
+  imageElement.download = 'Ron_quote_poster.png';
   imageElement.click()
 }
 
