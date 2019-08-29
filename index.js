@@ -26,7 +26,7 @@ const carouselImages = document.querySelectorAll('.carousel-slide img');
 const prevButton = document.querySelector('#prev-button');
 const nextButton = document.querySelector('#next-button');
 let imgCounter =1;
-const size = carouselImages[0].clientWidth;
+const size = 600;
 
 carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
 
@@ -454,9 +454,11 @@ function refreshCanvas1() {
 function save2() {
   let canvasURL = myCanvas.toDataURL('png');
   let imageElement  = document.createElement('a');
+  document.body.appendChild(imageElement);
   imageElement.href = canvasURL;
   imageElement.download = 'Ron_quote_poster.png';
   imageElement.click()
+  document.body.removeChild(imageElement)
 }
 
 $(function() {
