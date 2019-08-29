@@ -26,7 +26,7 @@ const carouselImages = document.querySelectorAll('.carousel-slide img');
 const prevButton = document.querySelector('#prev-button');
 const nextButton = document.querySelector('#next-button');
 let imgCounter =1;
-const size = 600;
+let size = carouselImages[0].clientWidth;
 
 carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
 
@@ -128,7 +128,8 @@ function refreshCanvas() {
     printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth)
   };
   imageObj.src = imgUrl; 
- }
+  if (firstRun) {firefoxCarousel()};
+}
 
 function printAt(context , text, x, y, lineHeight, fitWidth) {
   //if fitWidth is falsey, set to 0
@@ -150,6 +151,24 @@ function printAt(context , text, x, y, lineHeight, fitWidth) {
       }
   }
   context.fillText( text, x, y );
+}
+
+function firefoxCarousel() {
+    //To make carousel work in Firefox when screen size will fit; remove carousel when screen size is too small (Firefox only)
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1 )  {  
+      console.log('screen size is '+ $(window).width());
+      if ($(window).width() < 620) { 
+      $('.carousel-container').hide();
+    }else{
+      size=600;
+      document.getElementById('carousel-slide').style.width="600px";
+      document.getElementById('carousel-slide').style.height="605px";
+      document.getElementById('carousel-container').style.width="600px";
+      $('#next-button').click();
+      $('#prev-button').click();
+      $('.carousel-container').show();
+      }
+   }
 }
 
 function displayFinalResultsPage() {
@@ -232,6 +251,7 @@ function reloadPhoto(idx) {
 
 
 function watchForm() {
+  
   $('#home-get-quote').click(event => {
     event.preventDefault();
     getRonQuote();
@@ -412,6 +432,14 @@ function watchForm() {
 /* End Menu-------------------------------------*/
 
 }
+
+// $('body').addEventListener("load", firefoxCarousel);
+  window.addEventListener("load", () => {
+  firefoxCarousel();
+  console.log('loaded body');
+});
+
+
 
   window.addEventListener("resize", () => {
     refreshCanvas1();

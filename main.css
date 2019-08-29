@@ -126,9 +126,8 @@ p.tag-line {
 
 .carousel-slide {
   display:flex;
-  width: 600px;
-  height: 605px;
-}
+  width: 100%;
+ }
 
 #prev-button {
   position: absolute;
@@ -151,7 +150,7 @@ p.tag-line {
 }
 
 .carousel-container img {
-  width: 600px;
+  width: 100%;
 }
 
 #ron-image {
