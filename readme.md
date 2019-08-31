@@ -3,11 +3,11 @@
 ***Ron Swanson***
 
 # [_The Ron Swanson Motivational Poster Generator_](https://ron-swanson-motivational-poster-generator.netlify.com/#)
+# [_Live link_](https://ron-swanson-motivational-poster-generator.netlify.com/#)
 
 > A front side web application that combines random quotes from America's favorite curmedgeon with a random picture to create a special inspirational picture you can save.
 
 > Ron Swanson is a fictional character from the American TV series [_Parks and Rec_.](https://www.nbc.com/parks-and-recreation)
-
 
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be4739e9-2c31-45fa-9916-d098808295d9/deploy-status)](https://app.netlify.com/sites/ron-swanson-motivational-poster-generator/deploys) 
@@ -20,6 +20,10 @@ Two third party API's are used to generate the content
 - Additional calls to Lorem Picsum can be made to apply a grayscale or blur effect
 
 ![Recordit GIF](http://recordit.co/KdvESMWW0M.gif)
+
+- After styling and customization are complete, the image can be saved to the device.
+
+![Recordit GIF](https://recordit.co/0r7jVbPyeS.gif)
 
 > Technology Used
 
