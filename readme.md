@@ -4,7 +4,7 @@
 
 # [_The Ron Swanson Motivational Poster Generator_](https://ron-swanson-motivational-poster-generator.netlify.com/#)
 
-> A front side web application to combine random quotes from America's favorite curmedgeon with a random picture to create a special inspirational picture you can save.
+> A front side web application that combines random quotes from America's favorite curmedgeon with a random picture to create a special inspirational picture you can save.
 
 > Ron Swanson is a fictional character from the American TV series [_Parks and Rec_.](https://www.nbc.com/parks-and-recreation)
 
@@ -12,171 +12,88 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be4739e9-2c31-45fa-9916-d098808295d9/deploy-status)](https://app.netlify.com/sites/ron-swanson-motivational-poster-generator/deploys) 
 
-***INSERT ANOTHER GRAPHIC HERE***
+***How it works***
 
-[![INSERT YOUR GRAPHIC HERE](http://i.imgur.com/dt8AUb6.png)]()
+Two third party API's are used to generate the content
+- First, https://ron-swanson-quotes.herokuapp.com/v2/quotes is used to get a random Ron Swanson quote.
+- Then Lorem Picsum is used to generate a random photo
+- Additional calls to Lorem Picsum can be made to apply a grayscale or blur effect
 
-- Most people will glance at your `README`, *maybe* star it, and leave
-- Ergo, people should understand instantly what your project is about based on your repo
+![Recordit GIF](http://recordit.co/KdvESMWW0M.gif)
 
-> Tips
+> Technology Used
 
-- HAVE WHITE SPACE
-- MAKE IT PRETTY
-- GIFS ARE REALLY COOL
-
-> GIF Tools
-
-- Use <a href="http://recordit.co/" target="_blank">**Recordit**</a> to create quicks screencasts of your desktop and export them as `GIF`s.
-- For terminal sessions, there's <a href="https://github.com/chjj/ttystudio" target="_blank">**ttystudio**</a> which also supports exporting `GIF`s.
-
-**Recordit**
-
-![Recordit GIF](http://g.recordit.co/iLN6A0vSD8.gif)
-
-**ttystudio**
-
-![ttystudio GIF](https://raw.githubusercontent.com/chjj/ttystudio/master/img/example.gif)
-
----
-
-## Table of Contents (Optional)
-
-> If you're `README` has a lot of info, section headers might be nice.
-
-- [Installation](#installation)
-- [Features](#features)
-- [Contributing](#contributing)
-- [Team](#team)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
+- HTML, CSS, Javascript, JQuery
+- HTML5 Canvas is used to enable saving to computer as an image file
 
 
----
+> Features
 
-## Example (Optional)
-
-```javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
+- HTML5 Canvas - In order to make the final image available to save using only front end tools, this app used HTML5 canvas to 'paint' the picture and quote
+```
+function refreshCanvas() {
+  let containerOffset = $('#display-module').offset().top
+  let textOffset = $('#final-quote').offset().top
+  let offsetDifference = containerOffset - textOffset
+  if (offsetDifference < 0) offsetDifference = offsetDifference * -1
+  offsetDifference += 50 
+  offsetDifference += yAdjust;
+  let canvas = document.getElementById("myCanvas");
+  let ctx = canvas.getContext('2d');
+  let imageObj = new Image();
+  ctx.canvas.width = $('#display-module').width();
+  // unexpected behavior in firefox and edge make height too small, this corrects that
+  ctx.canvas.height = ctx.canvas.width; 
+  imageObj.onload = function() {
+    ctx.drawImage(imageObj, 0, 0,ctx.canvas.width ,ctx.canvas.height);
+    ctx.font = `${fontSize}rem ${fontVar}`;
+    ctx.fillStyle = canvasTextColor;
+    printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth);
+  };
+  imageObj.src = imgUrl; 
+  if (firstRun) {firefoxCarousel()};
+}
+```
+![Canvas](https://i.imgur.com/s8E1mcL.png)   
+- Recursion - In order to keep the quote from running off the canvas, a recursive function is used to paint a line of quote, and drop to a new line when it runs off the canvas   
+```
+function printAt(context , text, x, y, lineHeight, fitWidth) {
+  //if fitWidth is falsey, set to 0
+  fitWidth = fitWidth || 0;
+  //if text will fit on one line, print to canvas
+  if (fitWidth <= 0) {
+      context.fillText( text, x, y );
+      return refreshCanvas();
   }
-};
+  //if text is too long for a single line, break it at the last space and rerun function
+  for (let idx = 1; idx <= text.length; idx++) {
+      let str = text.substr(0, idx);
+      if (context.measureText(str).width > fitWidth) {  
+        let lastWhiteSpace = text.substr(0, idx-1).lastIndexOf(' ');     
+        let indexCutString = text.substr(0, lastWhiteSpace);
+        context.fillText( indexCutString, x, y );
+        let remainingString = text.substr(lastWhiteSpace).trim();
+        return printAt(context, remainingString, x, y + lineHeight, lineHeight,  fitWidth);
+      }
+  }
+  context.fillText( text, x, y );
+}
 ```
 
+![Recursion](https://i.imgur.com/zPTPclm.png)   
+
 ---
 
-## Installation
+## API Reference
+- https://github.com/jamesseanwright/ron-swanson-quotes
+- https://picsum.photos/
 
-- All the `code` required to get started
-- Images of what it should look like
+---
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/fvcproductions/SOMEREPO`
+- Clone this repo to your local machine using `https://github.com/Mtn-Drew/ron-quote.git`
 
-### Setup
 
-- If you want more syntax highlighting, format your code like this:
-
-> update and install this package first
-
-```shell
-$ brew update
-$ brew install fvcproductions
 ```
-
-> now install npm and bower packages
-
-```shell
-$ npm install
-$ bower install
-```
-
-- For all the possible languages that support syntax highlithing on GitHub (which is basically all of them), refer <a href="https://github.com/github/linguist/blob/master/lib/linguist/languages.yml" target="_blank">here</a>.
-
----
-
-## Features
-## Usage (Optional)
-## Documentation (Optional)
-## Tests (Optional)
-
-- Going into more detail on code and technologies used
-- I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample `README`.
-
----
-
-## Contributing
-
-> To get started...
-
-### Step 1
-
-- **Option 1**
-    - 🍴 Fork this repo!
-
-- **Option 2**
-    - 👯 Clone this repo to your local machine using `https://github.com/joanaz/HireDot2.git`
-
-### Step 2
-
-- **HACK AWAY!** 🔨🔨🔨
-
-### Step 3
-
-- 🔃 Create a new pull request using <a href="https://github.com/joanaz/HireDot2/compare/" target="_blank">`https://github.com/joanaz/HireDot2/compare/`</a>.
-
----
-
-## Team
-
-> Or Contributors/People
-
-| <a href="http://fvcproductions.com" target="_blank">**FVCproductions**</a> | <a href="http://fvcproductions.com" target="_blank">**FVCproductions**</a> | <a href="http://fvcproductions.com" target="_blank">**FVCproductions**</a> |
-| :---: |:---:| :---:|
-| [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com)    | [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com) | [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com)  |
-| <a href="http://github.com/fvcproductions" target="_blank">`github.com/fvcproductions`</a> | <a href="http://github.com/fvcproductions" target="_blank">`github.com/fvcproductions`</a> | <a href="http://github.com/fvcproductions" target="_blank">`github.com/fvcproductions`</a> |
-
-- You can just grab their GitHub profile image URL
-- You should probably resize their picture using `?s=200` at the end of the image URL.
-
----
-
-## FAQ
-
-- **How do I do *specifically* so and so?**
-    - No problem! Just do this.
-
----
-
-## Support
-
-Reach out to me at one of the following places!
-
-- Website at <a href="http://fvcproductions.com" target="_blank">`fvcproductions.com`</a>
-- Twitter at <a href="http://twitter.com/fvcproductions" target="_blank">`@fvcproductions`</a>
-- Insert more social links here.
-
----
-
-## Donations (Optional)
-
-- You could include a <a href="https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png" target="_blank">Gratipay</a> link as well.
-
-[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/fvcproductions/)
-
-
----
-
-## License
-
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
-
-- **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2015 © <a href="http://fvcproductions.com" target="_blank">FVCproductions</a>.
 

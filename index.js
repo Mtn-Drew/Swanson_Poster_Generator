@@ -114,14 +114,12 @@ function refreshCanvas() {
   if (offsetDifference < 0) offsetDifference = offsetDifference * -1
   offsetDifference += 50 
   offsetDifference += yAdjust;
-  
   let canvas = document.getElementById("myCanvas");
   let ctx = canvas.getContext('2d');
   let imageObj = new Image();
   ctx.canvas.width = $('#display-module').width();
   // unexpected behavior in firefox and edge make height too small, this corrects that
-   ctx.canvas.height = ctx.canvas.width; 
-
+  ctx.canvas.height = ctx.canvas.width; 
   imageObj.onload = function() {
     ctx.drawImage(imageObj, 0, 0,ctx.canvas.width ,ctx.canvas.height);
     ctx.font = `${fontSize}rem ${fontVar}`;
