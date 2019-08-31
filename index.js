@@ -247,7 +247,7 @@ function reloadPhoto(idx) {
      // to update save photo
     imgUrl=fullUrl;
   };
-  refreshCanvas();
+   refreshCanvas();
 }
 
 
