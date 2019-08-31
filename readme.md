@@ -96,7 +96,7 @@ function printAt(context , text, x, y, lineHeight, fitWidth) {
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/Mtn-Drew/ron-quote.git`
+- Clone this repo to your local machine using `https://github.com/Mtn-Drew/Swanson_Poster_Generator.git`
 
 
 ```
