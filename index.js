@@ -66,7 +66,6 @@ function displayResults(responseJson) {
   quoteVar=responseJson[0];
   getPhoto();
   $('#background-image').show();
-  // refreshCanvas();
 }
 
 function getPhoto() {
@@ -78,7 +77,6 @@ function getPhoto() {
       response.blob()
     .then(responseBlob => 
         displayNewPhoto(responseBlob))
-    // .then (refreshCanvas())
     .catch(error => {
       alert(errorMessages[Math.floor(Math.random()*5)])
       console.log(error);
@@ -101,11 +99,9 @@ function displayNewPhoto(responseBlob) {
     $('.main-container').append(barHTML);
     firstRun=false;
   };
-  // refreshCanvas();
 }
 
 function displayFinalResultsPage() {
-
   document.getElementById('final-quote').innerHTML = document.getElementById('display-text-p').innerHTML;
   defaultFont();
   $('#display-module').hide();
@@ -123,7 +119,6 @@ function refreshCanvas() {
   let ctx = canvas.getContext('2d');
   let imageObj = new Image();
   ctx.canvas.width = $('#display-module').width();
-  // ctx.canvas.height= $('#display-module').height();
   // unexpected behavior in firefox and edge make height too small, this corrects that
    ctx.canvas.height = ctx.canvas.width; 
 
@@ -131,7 +126,7 @@ function refreshCanvas() {
     ctx.drawImage(imageObj, 0, 0,ctx.canvas.width ,ctx.canvas.height);
     ctx.font = `${fontSize}rem ${fontVar}`;
     ctx.fillStyle = canvasTextColor;
-    printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth)
+    printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth);
   };
   imageObj.src = imgUrl; 
   if (firstRun) {firefoxCarousel()};
@@ -211,7 +206,7 @@ function toggleGrayscale() {
     photoGrayscale = true;
   };
   reloadPhoto();
-  refreshCanvas();
+  // refreshCanvas();
 }
 
 function toggleBlur(idx) {
@@ -221,7 +216,7 @@ function toggleBlur(idx) {
     photoBlur = true;
   };
   reloadPhoto(idx);
-  refreshCanvas();
+  // refreshCanvas();
 }
 
 function reloadPhoto(idx) {
@@ -261,7 +256,6 @@ function watchForm() {
   $('#home-get-quote').click(event => {
     event.preventDefault();
     getRonQuote();
-    // refreshCanvas();
   });
   
   $('.main-container').on('click', '.change-ron-quote', event => {
@@ -436,49 +430,44 @@ function watchForm() {
   })
 
 /* End Menu-------------------------------------*/
-
 }
 
-// $('body').addEventListener("load", firefoxCarousel);
-  window.addEventListener("load", () => {
-  firefoxCarousel();
-  console.log('loaded body');
+window.addEventListener("load", () => {
+firefoxCarousel();
 });
 
+window.addEventListener("resize", () => {
+  refreshCanvas1();
+  // on resize, the carousel will need reset by reloading page
+  if (firstRun) {location.reload();}
+});
 
-
-  window.addEventListener("resize", () => {
-    refreshCanvas1();
-    // on resize, the carousel will need reset by reloading page
-    if (firstRun) {location.reload();}
-  });
-
-  carouselSlide.addEventListener('transitionend', () => {
-    if (carouselImages[imgCounter].id === 'last-clone') {
-      carouselSlide.style.transition = "none";
-      imgCounter = carouselImages.length - 2;
-      carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
-    }
-    if (carouselImages[imgCounter].id === 'first-clone') {
-      carouselSlide.style.transition = "none";
-      imgCounter = carouselImages.length - imgCounter;
-      carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
-    }
-  })
+carouselSlide.addEventListener('transitionend', () => {
+  if (carouselImages[imgCounter].id === 'last-clone') {
+    carouselSlide.style.transition = "none";
+    imgCounter = carouselImages.length - 2;
+    carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+  }
+  if (carouselImages[imgCounter].id === 'first-clone') {
+    carouselSlide.style.transition = "none";
+    imgCounter = carouselImages.length - imgCounter;
+    carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+  }
+})
   
-  nextButton.addEventListener('click', event => {
-    if (imgCounter >= carouselImages.length -1) return;
-    carouselSlide.style.transition = "transform 0.4s ease-in-out";
-    imgCounter++;
-    carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
-  })
+nextButton.addEventListener('click', event => {
+  if (imgCounter >= carouselImages.length -1) return;
+  carouselSlide.style.transition = "transform 0.4s ease-in-out";
+  imgCounter++;
+  carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+})
 
-  prevButton.addEventListener('click', event => {
-    if (imgCounter <= 0) return;
-    carouselSlide.style.transition = "transform 0.4s ease-in-out";
-    imgCounter--;
-    carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
-  })
+prevButton.addEventListener('click', event => {
+  if (imgCounter <= 0) return;
+  carouselSlide.style.transition = "transform 0.4s ease-in-out";
+  imgCounter--;
+  carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+})
 
 function refreshCanvas1() {
   fontSize= $('#display-module').width()/300;
