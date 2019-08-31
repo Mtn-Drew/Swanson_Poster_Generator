@@ -19,6 +19,9 @@ const errorMessages = [
   "Something didn't work.  I suspect Tammy One.  Or Tammy Two.  Try again.",
   "Your taxes dollars at work, ladies and gentlemen.  It broke.  Try again.",
   "That didn't work.  Try again.  Please and thank you."];
+const landingPageImage = [
+  "images/ron1.jpg", "images/ron2.jpg","images/ron3.png","images/ron4.jpg","images/ron5.jpg","images/ron6.jpg","images/ron7.jpg","images/ron8.jpg","images/ron9.jpg"
+];
 
 // carousel
 const carouselSlide = document.querySelector('.carousel-slide');
@@ -27,8 +30,11 @@ const prevButton = document.querySelector('#prev-button');
 const nextButton = document.querySelector('#next-button');
 let imgCounter =1;
 let size = carouselImages[0].clientWidth;
-
 carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
+
+// Ron pic for top of landing page
+let rando = `'${landingPageImage[Math.floor(Math.random()*9)]}'`;
+$('#ron-image').prepend(`<img id="main-image" src=${rando} alt="Ron Swanson" />`);
 
 function getRonQuote() {
   fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')

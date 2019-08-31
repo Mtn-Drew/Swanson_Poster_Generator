@@ -8,7 +8,7 @@ html {
   }
 
 body {
-  background-image: url('images/wood.jpg');
+  background-image: url('images/light-wood.jpg');
   background-size:cover;
 }
 
@@ -37,6 +37,11 @@ h1, h2 {
 h3 {
    padding-bottom: 3rem;
    font-size:2rem;
+ }
+
+ #main-image {
+   margin: 10px auto;
+   max-width: 100%;
  }
 
 .manly-font {
@@ -161,10 +166,10 @@ p.tag-line {
   margin: 20px auto;
 }
 
-#ron-image img {
+/* #ron-image img {
   max-width: 100%;
   margin: 0px auto;
-}
+} */
 
 #home-get-quote {
   min-width:30%;
