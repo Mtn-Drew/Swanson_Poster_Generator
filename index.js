@@ -32,7 +32,6 @@ let imgCounter =1;
 let size = carouselImages[0].clientWidth;
 carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
 
-// document.getElementById("spinner").classList.add('hidden-scrollbar');
 
 // Ron pic for top of landing page
 let rando = `'${landingPageImage[Math.floor(Math.random()*9)]}'`;
@@ -119,6 +118,7 @@ function refreshCanvas() {
   let canvas = document.getElementById("myCanvas");
   let ctx = canvas.getContext('2d');
   let imageObj = new Image();
+
   ctx.canvas.width = $('#display-module').width();
   // unexpected behavior in firefox and edge make height too small, this corrects that
   ctx.canvas.height = ctx.canvas.width; 
@@ -128,7 +128,9 @@ function refreshCanvas() {
     ctx.fillStyle = canvasTextColor;
     printAt(ctx, quoteVar, leftMargin, offsetDifference, fontSize * 15, maxTextWidth);
   };
+  
   imageObj.src = imgUrl; 
+
   if (firstRun) {firefoxCarousel()};
 }
 
@@ -152,6 +154,7 @@ function printAt(context , text, x, y, lineHeight, fitWidth) {
       }
   }
   context.fillText( text, x, y );
+  document.getElementsByClassName('lds-hourglass')[0].style.visibility = "hidden";
 }
 
 function firefoxCarousel() {
