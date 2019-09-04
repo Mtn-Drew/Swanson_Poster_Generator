@@ -265,7 +265,7 @@ li a, .dropbtn {
 
 li a:hover, .dropdown:hover .dropbtn, .item:hover, button:hover {
   background-color: red;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 li.dropdown {
@@ -303,6 +303,51 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+/* Spinner ----------------------------------- */
+.lds-hourglass {
+  display: inline-block;
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  left:50%;
+  top: 50%;
+  visibility: hidden;
+}
+
+.lds-hourglass:after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  margin: 6px;
+  box-sizing: border-box;
+  border: 26px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-hourglass 1.2s infinite;
+  /* visibility: hidden; */
+}
+
+/* .hidden-scrollbar::-webkit-scrollbar {
+  visibility: hidden;
+} */
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+
+
+
 
 @media (max-width:724px) {
   #large-bar {

@@ -32,6 +32,8 @@ let imgCounter =1;
 let size = carouselImages[0].clientWidth;
 carouselSlide.style.transform = 'translateX(' + (-size * imgCounter) + 'px)';
 
+// document.getElementById("spinner").classList.add('hidden-scrollbar');
+
 // Ron pic for top of landing page
 let rando = `'${landingPageImage[Math.floor(Math.random()*9)]}'`;
 $('#ron-image').prepend(`<img id="main-image" src=${rando} alt="Ron Swanson" />`);
@@ -245,7 +247,12 @@ function reloadPhoto(idx) {
      // to update save photo
     imgUrl=fullUrl;
   };
+  console.log("waiting...")
+  // document.getElementById('spinner').style.visibility = visible;
+  // let testVar = document.getElementsByClassName('lds-hourglass')[0]
+  document.getElementsByClassName('lds-hourglass')[0].style.visibility = "visible";
    refreshCanvas();
+  //  document.getElementsByClassName('lds-hourglass')[0].style.visibility = "hidden";
 }
 
 
