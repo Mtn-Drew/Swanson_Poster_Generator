@@ -361,6 +361,9 @@ li.dropdown {
   .carousel-container {
     max-width:90%;
   }
+
+  .lds-hourglass {
+    top:150px;
 }
 
 @media (min-width:724px) {
